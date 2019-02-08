@@ -30,8 +30,18 @@ public class DriveTrain extends Subsystem {
         direction = 1;
     }
 
-    public void drive(double forwardsSpeed, double sidewaysSpeed, double rotation) {
-        wheels.driveCartesian(forwardsSpeed, sidewaysSpeed, rotation);
+    /**
+     * Drive the robot according to the given inputs.
+     * 
+     * @param forwardsSpeed The robot's speed forwards or backwards [-1.0..1.0]. Back is
+     *                      negative and forwards is positive.
+     * @param sidewaysSpeed The robot's sideways speed [-1.0..1.0]. Left is negative and
+     *                      right is positive.
+     * @param rotationSpeed The robot's rotational speed [1.0..1.0]. Counter-clockwise is
+     *                      negative and clockwise is positive.
+     */
+    public void drive(double forwardsSpeed, double sidewaysSpeed, double rotationSpeed) {
+        wheels.driveCartesian(forwardsSpeed, sidewaysSpeed, rotationSpeed);
     }
 
     @Override

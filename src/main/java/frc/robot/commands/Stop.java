@@ -7,17 +7,12 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class Drive extends Command {
-  XboxController controller;
-
-  public Drive(XboxController controller) {
+public class Stop extends Command {
+  public Stop() {
     requires(Robot.driveTrain);
-    this.controller = controller;
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -30,16 +25,12 @@ public class Drive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double forwardsSpeed = controller.getY(Hand.kLeft);
-    double sidewaysSpeed = controller.getX(Hand.kLeft);
-    double rotationSpeed = controller.getX(Hand.kRight);
-    Robot.driveTrain.drive(forwardsSpeed, sidewaysSpeed, rotationSpeed);
+    Robot.driveTrain.drive(0, 0, 0);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    // TODO: Implement isFinished()
     return true;
   }
 
@@ -52,6 +43,5 @@ public class Drive extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    //Call stop command?
   }
 }

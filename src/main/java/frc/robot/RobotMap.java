@@ -15,10 +15,18 @@ package frc.robot;
  */
 public class RobotMap {
   // TODO: Set port numbers correctly.
+  // Wheels
   public static final int frontRightWheel = -1;
   public static final int frontLeftWheel = -1;
   public static final int rearRightWheel = -1;
   public static final int rearLeftWheel = -1;
 
+  //Pneumatics
+  public static final int leftSolenoidForward = -1;
+  public static final int leftSolenoidBackward = -1;
+  public static final int rightSolenoidForward = -1;
+  public static final int rightSolenoidBackward = -1;
+
+  // Controllers
   public static final int xboxController = -1;
 }
