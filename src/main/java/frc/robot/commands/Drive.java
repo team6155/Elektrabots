@@ -10,16 +10,20 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.Robot;
 
 public class Drive extends Command {
   XboxController controller;
 
+  /**
+   * Constructor for Drive command
+   * 
+   * @param controller Xbox Controller used to control the robot.
+   */
   public Drive(XboxController controller) {
     requires(Robot.driveTrain);
     this.controller = controller;
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
@@ -30,16 +34,16 @@ public class Drive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double forwardsSpeed = controller.getY(Hand.kLeft);
-    double sidewaysSpeed = controller.getX(Hand.kLeft);
-    double rotationSpeed = controller.getX(Hand.kRight);
+    double forwardsSpeed = normalizeInput(controller.getY(Hand.kLeft));
+    double sidewaysSpeed = normalizeInput(controller.getX(Hand.kLeft));
+    double rotationSpeed = normalizeInput(controller.getX(Hand.kRight));
+
     Robot.driveTrain.drive(forwardsSpeed, sidewaysSpeed, rotationSpeed);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    // TODO: Implement isFinished()
     return true;
   }
 
@@ -52,6 +56,23 @@ public class Drive extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    //Call stop command?
+  }
+
+
+  /**
+   * Normalize the input from the controller to give finer control at low speeds and to discard tiny movements of the stick.
+   * <p>Square the input while keeping the positive or negative sign. If the squared input is < 0.02, discard it.
+   * 
+   * @param stickInput Operator input from the xbox controller joystick.
+   * @return Normalized speed.
+   */
+  private double normalizeInput(double stickInput) {
+    int sign = stickInput >= 0 ? 1 : -1;
+
+    stickInput *= stickInput;
+    if (stickInput < 0.02) stickInput = 0;
+    stickInput *= sign;
+
+    return stickInput;
   }
 }

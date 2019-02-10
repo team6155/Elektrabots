@@ -14,7 +14,15 @@ import edu.wpi.first.wpilibj.XboxController;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-  XboxController controller = new XboxController(RobotMap.xboxController);
+  private XboxController controller;
+
+  public OI() {
+    controller = new XboxController(RobotMap.xboxController);
+  }
+
+  public XboxController getController() {
+    return controller;
+  }
   
 
   //// CREATING BUTTONS

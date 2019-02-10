@@ -4,7 +4,9 @@ import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
+import frc.robot.commands.Drive;
 
 /**
  * Subsystem controlling the robot's wheels.
@@ -46,6 +48,6 @@ public class DriveTrain extends Subsystem {
 
     @Override
     protected void initDefaultCommand() {
-
+        setDefaultCommand(new Drive(Robot.m_oi.getController()));
     }
 }
