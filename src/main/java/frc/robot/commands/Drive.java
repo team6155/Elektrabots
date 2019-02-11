@@ -9,55 +9,32 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
-public class Drive extends Command {
+public class Drive extends InstantCommand {
   XboxController controller;
 
   /**
-   * Constructor for Drive command
+   * Constructor for Drive command.
    * 
    * @param controller Xbox Controller used to control the robot.
    */
   public Drive(XboxController controller) {
+    super();
     requires(Robot.driveTrain);
     this.controller = controller;
   }
 
-  // Called just before this Command runs the first time
+  // Called once when the command executes
   @Override
   protected void initialize() {
-  }
-
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
     double forwardsSpeed = normalizeInput(controller.getY(Hand.kLeft));
     double sidewaysSpeed = normalizeInput(controller.getX(Hand.kLeft));
     double rotationSpeed = normalizeInput(controller.getX(Hand.kRight));
 
     Robot.driveTrain.drive(forwardsSpeed, sidewaysSpeed, rotationSpeed);
   }
-
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return true;
-  }
-
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
-  }
-
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-  }
-
 
   /**
    * Normalize the input from the controller to give finer control at low speeds and to discard tiny movements of the stick.
