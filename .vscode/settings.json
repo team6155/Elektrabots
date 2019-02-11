@@ -10,5 +10,5 @@
     ".classpath": true,
     ".project": true
   },
-  "java.format.settings.url": "eclipse-formatter.xml"
+  "java.format.settings.url": "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml"
 }
