@@ -12,6 +12,9 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
+/**
+ * Drive the robot according the the input from the xbox controller.
+ */
 public class Drive extends InstantCommand {
   XboxController controller;
 
