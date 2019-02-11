@@ -1,32 +1,24 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot;
 
 /**
- * The RobotMap is a mapping from the ports sensors and actuators are wired into
- * to a variable name. This provides flexibility changing wiring, makes checking
- * the wiring easier and significantly reduces the number of magic numbers
- * floating around.
+ * The RobotMap is a mapping from the ports sensors and actuators are wired into to a variable name.
+ * This provides flexibility changing wiring, makes checking the wiring easier and significantly
+ * reduces the number of magic numbers floating around.
  */
 public class RobotMap {
   // TODO: Set port numbers correctly.
   // Wheels
-  public static final int frontRightWheel = -1;
-  public static final int frontLeftWheel = -1;
-  public static final int rearRightWheel = -1;
-  public static final int rearLeftWheel = -1;
+  public static final int FRONT_RIGHT_WHEEL = -1;
+  public static final int FRONT_LEFT_WHEEL = -1;
+  public static final int REAR_RIGHT_WHEEL = -1;
+  public static final int REAR_LEFT_WHEEL = -1;
 
-  //Pneumatics
-  public static final int leftSolenoidForward = -1;
-  public static final int leftSolenoidBackward = -1;
-  public static final int rightSolenoidForward = -1;
-  public static final int rightSolenoidBackward = -1;
+  // Pneumatics
+  public static final int LEFT_SOLENOID_FORWARD = -1;
+  public static final int LEFT_SOLENOID_BACKWARD = -1;
+  public static final int RIGHT_SOLENOID_FORWARD = -1;
+  public static final int RIGHT_SOLENOID_BACKWARD = -1;
 
   // Controllers
-  public static final int xboxController = -1;
+  public static final int XBOX_CONTROLLER = -1;
 }

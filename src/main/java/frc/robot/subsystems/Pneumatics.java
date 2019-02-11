@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Compressor;
@@ -16,39 +9,54 @@ import frc.robot.RobotMap;
  * Add your docs here.
  */
 public class Pneumatics extends Subsystem {
-  Compressor compressor;
-  DoubleSolenoid leftSolenoid;
-  DoubleSolenoid rightSolenoid;
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+  private Compressor compressor;
+  private DoubleSolenoid leftSolenoid;
+  private DoubleSolenoid rightSolenoid;
 
+  /**
+   * Constructor for the Pneumatics subsystem.
+   */
   public Pneumatics() {
     compressor = new Compressor();
-    leftSolenoid = new DoubleSolenoid(RobotMap.leftSolenoidForward, RobotMap.leftSolenoidBackward);
-    rightSolenoid = new DoubleSolenoid(RobotMap.rightSolenoidForward, RobotMap.rightSolenoidBackward);
+    leftSolenoid =
+        new DoubleSolenoid(RobotMap.LEFT_SOLENOID_FORWARD, RobotMap.LEFT_SOLENOID_BACKWARD);
+    rightSolenoid =
+        new DoubleSolenoid(RobotMap.RIGHT_SOLENOID_FORWARD, RobotMap.RIGHT_SOLENOID_BACKWARD);
   }
 
+  /**
+   * Start the compressor.
+   */
   public void turnOnCompressor() {
     compressor.start();
   }
 
+  /**
+   * Stop the compressor.
+   */
   public void turnOffCompressor() {
     compressor.stop();
   }
 
+  /**
+   * Extend both arms of the robot.
+   */
   public void extend() {
     leftSolenoid.set(DoubleSolenoid.Value.kForward);
     rightSolenoid.set(DoubleSolenoid.Value.kForward);
   }
 
+  /**
+   * Retract both arms of the robot.
+   */
   public void retract() {
     leftSolenoid.set(DoubleSolenoid.Value.kReverse);
     rightSolenoid.set(DoubleSolenoid.Value.kReverse);
   }
 
+  // Set the default command of the subsystem.
+  // This command will run whenever the subsystem is not being used by another command.
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
   }
 }

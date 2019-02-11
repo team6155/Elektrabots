@@ -12,7 +12,6 @@ import frc.robot.commands.Drive;
  * Subsystem controlling the robot's wheels.
  */
 public class DriveTrain extends Subsystem {
-
     private SpeedController frontRightWheel;
     private SpeedController frontLeftWheel;
     private SpeedController rearRightWheel;
@@ -24,10 +23,10 @@ public class DriveTrain extends Subsystem {
      * Constructor for DriveTrain class
      */
     public DriveTrain() {
-        frontRightWheel = new PWMVictorSPX(RobotMap.frontRightWheel);
-        frontLeftWheel = new PWMVictorSPX(RobotMap.frontLeftWheel);
-        rearRightWheel = new PWMVictorSPX(RobotMap.rearRightWheel);
-        rearLeftWheel = new PWMVictorSPX(RobotMap.rearLeftWheel);
+        frontRightWheel = new PWMVictorSPX(RobotMap.FRONT_RIGHT_WHEEL);
+        frontLeftWheel = new PWMVictorSPX(RobotMap.FRONT_LEFT_WHEEL);
+        rearRightWheel = new PWMVictorSPX(RobotMap.REAR_RIGHT_WHEEL);
+        rearLeftWheel = new PWMVictorSPX(RobotMap.REAR_LEFT_WHEEL);
         wheels = new MecanumDrive(frontLeftWheel, rearLeftWheel, frontRightWheel, rearRightWheel);
         direction = 1;
     }
@@ -35,19 +34,32 @@ public class DriveTrain extends Subsystem {
     /**
      * Drive the robot according to the given inputs.
      * 
-     * @param forwardsSpeed The robot's speed forwards or backwards [-1.0..1.0]. Back is
-     *                      negative and forwards is positive.
-     * @param sidewaysSpeed The robot's sideways speed [-1.0..1.0]. Left is negative and
-     *                      right is positive.
-     * @param rotationSpeed The robot's rotational speed [1.0..1.0]. Counter-clockwise is
-     *                      negative and clockwise is positive.
+     * @param forwardsSpeed The robot's speed forwards or backwards [-1.0..1.0]. Back is negative
+     *                      and forwards is positive.
+     * @param sidewaysSpeed The robot's sideways speed [-1.0..1.0]. Left is negative and right is
+     *                      positive.
+     * @param rotationSpeed The robot's rotational speed [1.0..1.0]. Counter-clockwise is negative
+     *                      and clockwise is positive.
      */
     public void drive(double forwardsSpeed, double sidewaysSpeed, double rotationSpeed) {
-        wheels.driveCartesian(direction * forwardsSpeed, direction * sidewaysSpeed, direction * rotationSpeed);
+        wheels.driveCartesian(direction * forwardsSpeed, direction * sidewaysSpeed,
+                direction * rotationSpeed);
     }
 
+    /**
+     * Change the forwards direction of the robot.
+     * 
+     * @return The new direction of the robot.
+     */
+    public int changeDirection() {
+        direction = direction == 1 ? -1 : 1;
+        return direction;
+    }
+
+    // Set the default command of the subsystem.
+    // This command will run whenever the subsystem is not being used by another command.
     @Override
     protected void initDefaultCommand() {
-        setDefaultCommand(new Drive(Robot.m_oi.getController()));
+        setDefaultCommand(new Drive(Robot.oi.getController()));
     }
 }
