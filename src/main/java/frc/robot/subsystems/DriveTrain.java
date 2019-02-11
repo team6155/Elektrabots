@@ -43,7 +43,7 @@ public class DriveTrain extends Subsystem {
      *                      negative and clockwise is positive.
      */
     public void drive(double forwardsSpeed, double sidewaysSpeed, double rotationSpeed) {
-        wheels.driveCartesian(forwardsSpeed, sidewaysSpeed, rotationSpeed);
+        wheels.driveCartesian(direction * forwardsSpeed, direction * sidewaysSpeed, direction * rotationSpeed);
     }
 
     @Override
