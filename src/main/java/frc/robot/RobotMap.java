@@ -21,5 +21,5 @@ public class RobotMap {
   public static final int RIGHT_SOLENOID_BACKWARD = -1;
 
   // Controllers
-  public static final int XBOX_CONTROLLER = -1;
+  public static final int XBOX_CONTROLLER = 0;
 }

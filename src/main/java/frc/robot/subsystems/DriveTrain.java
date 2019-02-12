@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.Robot;
@@ -54,6 +55,22 @@ public class DriveTrain extends Subsystem {
     public int changeDirection() {
         direction = direction == 1 ? -1 : 1;
         return direction;
+    }
+
+    public void testWheel(int wheel) {
+        SpeedController motor;
+        if (wheel == RobotMap.FRONT_LEFT_WHEEL)
+            motor = frontLeftWheel;
+        else if (wheel == RobotMap.FRONT_RIGHT_WHEEL)
+            motor = frontRightWheel;
+        else if (wheel == RobotMap.REAR_LEFT_WHEEL)
+            motor = rearLeftWheel;
+        else
+            motor = rearRightWheel;
+        motor.set(.5);
+        Timer timer = new Timer();
+        timer.delay(5);
+        motor.stopMotor();
     }
 
     // Set the default command of the subsystem.

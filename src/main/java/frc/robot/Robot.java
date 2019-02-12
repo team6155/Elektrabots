@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import frc.robot.commands.TestWheels;
 import frc.robot.subsystems.DriveTrain;
 
 /**
@@ -76,6 +77,13 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+  }
+
+  @Override
+  public void testInit() {
+    super.testInit();
+    TestWheels test = new TestWheels();
+    test.start();
   }
 
   /**
