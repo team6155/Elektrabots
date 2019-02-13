@@ -3,6 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.commands.TestWheels;
+import frc.robot.subsystems.Belt;
 import frc.robot.subsystems.DriveTrain;
 
 /**
@@ -13,6 +14,7 @@ import frc.robot.subsystems.DriveTrain;
  */
 public class Robot extends TimedRobot {
   public static DriveTrain driveTrain = new DriveTrain();
+  public static Belt belt = new Belt();
   public static OI oi;
 
   /**

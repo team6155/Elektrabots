@@ -7,8 +7,13 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Robot;
+import frc.robot.RobotMap;
+import frc.robot.commands.RunBelt;
 
 /**
  * Add your docs here.
@@ -19,11 +24,22 @@ public class Belt extends Subsystem {
   // here. Call these from Commands.
 
   public Belt() {
+    motor = new PWMVictorSPX(RobotMap.BELT_MOTOR);
+  }
+
+  public void run(double speed) {
+    motor.set(-speed);
+  }
+
+  public void testMotor() {
+    Timer timer = new Timer();
+    motor.set(-1);
+    timer.delay(1);
+    motor.stopMotor();
   }
 
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+    setDefaultCommand(new RunBelt(Robot.oi.getController()));
   }
 }
