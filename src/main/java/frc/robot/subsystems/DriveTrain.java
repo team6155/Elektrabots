@@ -35,16 +35,15 @@ public class DriveTrain extends Subsystem {
     /**
      * Drive the robot according to the given inputs.
      * 
-     * @param forwardsSpeed The robot's speed forwards or backwards [-1.0..1.0]. Back is negative
-     *                      and forwards is positive.
-     * @param sidewaysSpeed The robot's sideways speed [-1.0..1.0]. Left is negative and right is
-     *                      positive.
-     * @param rotationSpeed The robot's rotational speed [1.0..1.0]. Counter-clockwise is negative
-     *                      and clockwise is positive.
+     * @param forwardsSpeed The robot's speed forwards or backwards [-1.0..1.0].
+     *                      Back is negative and forwards is positive.
+     * @param sidewaysSpeed The robot's sideways speed [-1.0..1.0]. Left is negative
+     *                      and right is positive.
+     * @param rotationSpeed The robot's rotational speed [1.0..1.0].
+     *                      Counter-clockwise is negative and clockwise is positive.
      */
     public void drive(double forwardsSpeed, double sidewaysSpeed, double rotationSpeed) {
-        wheels.driveCartesian(direction * sidewaysSpeed, direction * -forwardsSpeed,
-                direction * rotationSpeed);
+        wheels.driveCartesian(direction * sidewaysSpeed, direction * -forwardsSpeed, direction * rotationSpeed);
     }
 
     /**
@@ -68,13 +67,13 @@ public class DriveTrain extends Subsystem {
         else
             motor = rearRightWheel;
         motor.set(.5);
-        Timer timer = new Timer();
-        timer.delay(1);
+        Timer.delay(1);
         motor.stopMotor();
     }
 
     // Set the default command of the subsystem.
-    // This command will run whenever the subsystem is not being used by another command.
+    // This command will run whenever the subsystem is not being used by another
+    // command.
     @Override
     protected void initDefaultCommand() {
         setDefaultCommand(new Drive(Robot.oi.getController()));

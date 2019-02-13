@@ -4,19 +4,20 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
+import frc.robot.controllers.Gamepad;
 
 /**
  * Drive the robot according the the input from the xbox controller.
  */
 public class Drive extends InstantCommand {
-  XboxController controller;
+  Gamepad controller;
 
   /**
    * Constructor for Drive command.
    * 
    * @param controller Xbox Controller used to control the robot.
    */
-  public Drive(XboxController controller) {
+  public Drive(Gamepad controller) {
     super();
     requires(Robot.driveTrain);
     this.controller = controller;
@@ -25,19 +26,19 @@ public class Drive extends InstantCommand {
   // Called once when the command executes
   @Override
   protected void initialize() {
-    double forwardsSpeed = normalizeInput(controller.getY(Hand.kLeft));
-    double sidewaysSpeed = normalizeInput(controller.getX(Hand.kLeft));
+    double forwardsSpeed = normalizeInput(controller.getLeftStickY());
+    double sidewaysSpeed = normalizeInput(controller.getLeftStickX());
     double rotationSpeed = normalizeInput(controller.getX(Hand.kRight));
 
     Robot.driveTrain.drive(forwardsSpeed, sidewaysSpeed, rotationSpeed);
   }
 
   /**
-   * Normalize the input from the controller to give finer control at low speeds and to discard tiny
-   * movements of the stick.
+   * Normalize the input from the controller to give finer control at low speeds
+   * and to discard tiny movements of the stick.
    * <p>
-   * Square the input while keeping the positive or negative sign. If the squared input is < 0.02,
-   * discard it.
+   * Square the input while keeping the positive or negative sign. If the squared
+   * input is < 0.02, discard it.
    * 
    * @param stickInput Operator input from the xbox controller joystick.
    * @return Normalized speed.

@@ -7,20 +7,22 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
+import frc.robot.controllers.Gamepad;
+
+// TODO: Documentation
 
 /**
  * Add your docs here.
  */
 public class RunBelt extends InstantCommand {
-  XboxController controller;
+  Gamepad controller;
+
   /**
    * Add your docs here.
    */
-  public RunBelt(XboxController controller) {
+  public RunBelt(Gamepad controller) {
     super();
     requires(Robot.belt);
     this.controller = controller;
@@ -30,8 +32,8 @@ public class RunBelt extends InstantCommand {
   @Override
   protected void initialize() {
     double speed = 0;
-    double forwardsSpeed = controller.getTriggerAxis(Hand.kRight);
-    double backwardsSpeed = controller.getTriggerAxis(Hand.kLeft);
+    double forwardsSpeed = controller.getLeftTrigger();
+    double backwardsSpeed = controller.getRightTrigger();
     if (forwardsSpeed > 0 && backwardsSpeed == 0)
       speed = forwardsSpeed;
     if (backwardsSpeed > 0 && forwardsSpeed == 0)

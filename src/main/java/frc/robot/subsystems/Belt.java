@@ -32,9 +32,8 @@ public class Belt extends Subsystem {
   }
 
   public void testMotor() {
-    Timer timer = new Timer();
     motor.set(-1);
-    timer.delay(1);
+    Timer.delay(1);
     motor.stopMotor();
   }
 
