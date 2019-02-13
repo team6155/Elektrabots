@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
+// TODO: Documentation
+
 /**
  * Add your docs here.
  */
@@ -18,10 +20,8 @@ public class Pneumatics extends Subsystem {
    */
   public Pneumatics() {
     compressor = new Compressor();
-    leftSolenoid =
-        new DoubleSolenoid(RobotMap.LEFT_SOLENOID_FORWARD, RobotMap.LEFT_SOLENOID_BACKWARD);
-    rightSolenoid =
-        new DoubleSolenoid(RobotMap.RIGHT_SOLENOID_FORWARD, RobotMap.RIGHT_SOLENOID_BACKWARD);
+    leftSolenoid = new DoubleSolenoid(RobotMap.LEFT_SOLENOID_FORWARD, RobotMap.LEFT_SOLENOID_BACKWARD);
+    rightSolenoid = new DoubleSolenoid(RobotMap.RIGHT_SOLENOID_FORWARD, RobotMap.RIGHT_SOLENOID_BACKWARD);
   }
 
   /**
@@ -55,7 +55,8 @@ public class Pneumatics extends Subsystem {
   }
 
   // Set the default command of the subsystem.
-  // This command will run whenever the subsystem is not being used by another command.
+  // This command will run whenever the subsystem is not being used by another
+  // command.
   @Override
   public void initDefaultCommand() {
   }
