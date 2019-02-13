@@ -82,8 +82,11 @@ public class Robot extends TimedRobot {
   @Override
   public void testInit() {
     super.testInit();
-    TestWheels test = new TestWheels();
-    test.start();
+    driveTrain.testWheel(RobotMap.FRONT_LEFT_WHEEL);
+    driveTrain.testWheel(RobotMap.FRONT_RIGHT_WHEEL);
+    driveTrain.testWheel(RobotMap.REAR_LEFT_WHEEL);
+    driveTrain.testWheel(RobotMap.REAR_RIGHT_WHEEL);
+    belt.testMotor();
   }
 
   /**

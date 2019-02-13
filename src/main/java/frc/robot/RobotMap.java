@@ -8,10 +8,10 @@ package frc.robot;
 public class RobotMap {
   // TODO: Set port numbers correctly.
   // Motors
-  public static final int FRONT_RIGHT_WHEEL = 9;
-  public static final int FRONT_LEFT_WHEEL = 8;
-  public static final int REAR_RIGHT_WHEEL = 7;
-  public static final int REAR_LEFT_WHEEL = 6;
+  public static final int FRONT_RIGHT_WHEEL = 1;
+  public static final int FRONT_LEFT_WHEEL = 2;
+  public static final int REAR_RIGHT_WHEEL = 3;
+  public static final int REAR_LEFT_WHEEL = 4;
   public static final int BELT_MOTOR = 5;
 
   // Pneumatics

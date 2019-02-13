@@ -43,7 +43,7 @@ public class DriveTrain extends Subsystem {
      *                      and clockwise is positive.
      */
     public void drive(double forwardsSpeed, double sidewaysSpeed, double rotationSpeed) {
-        wheels.driveCartesian(direction * forwardsSpeed, direction * sidewaysSpeed,
+        wheels.driveCartesian(direction * sidewaysSpeed, direction * -forwardsSpeed,
                 direction * rotationSpeed);
     }
 
@@ -69,7 +69,7 @@ public class DriveTrain extends Subsystem {
             motor = rearRightWheel;
         motor.set(.5);
         Timer timer = new Timer();
-        timer.delay(5);
+        timer.delay(1);
         motor.stopMotor();
     }
 
