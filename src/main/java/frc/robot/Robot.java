@@ -84,16 +84,6 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
   }
 
-  @Override
-  public void testInit() {
-    super.testInit();
-    driveTrain.testWheel(RobotMap.FRONT_LEFT_WHEEL);
-    driveTrain.testWheel(RobotMap.FRONT_RIGHT_WHEEL);
-    driveTrain.testWheel(RobotMap.REAR_LEFT_WHEEL);
-    driveTrain.testWheel(RobotMap.REAR_RIGHT_WHEEL);
-    belt.testMotor();
-  }
-
   /**
    * This function is called periodically during Test mode.
    */

@@ -10,20 +10,23 @@ import frc.robot.controllers.Gamepad;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-  private final Gamepad controller;
-  private final Button rightbumper;
-  private final Button leftbumper; 
+  private final Gamepad CONTROLLER;
+  private final Button RIGHT_BUMPER;
+  private final Button LEFT_BUMPER;
+  private final Button A_BUTTON;
 
   /**
    * Constructor for the OI class.
    */
   public OI() {
-    controller = new Gamepad(RobotMap.GAMEPAD);
-    rightbumper = controller.RIGHT_BUMPER;
-    leftbumper = controller.LEFT_BUMPER;
+    CONTROLLER = new Gamepad(RobotMap.GAMEPAD);
+    RIGHT_BUMPER = CONTROLLER.RIGHT_BUMPER;
+    LEFT_BUMPER = CONTROLLER.LEFT_BUMPER;
+    A_BUTTON = CONTROLLER.A_BUTTON;
 
-    rightbumper.whenPressed(new ExtendPusher());
-    leftbumper.whenPressed(new RetractPusher());
+    RIGHT_BUMPER.whenPressed(new ExtendPusher());
+    LEFT_BUMPER.whenPressed(new RetractPusher());
+    A_BUTTON.whenPressed(new ChangeDirection());
   }
 
   /**
@@ -32,6 +35,6 @@ public class OI {
    * @return The xbox controller.
    */
   public Gamepad getController() {
-    return controller;
+    return CONTROLLER;
   }
 }

@@ -42,16 +42,16 @@ public class Pneumatics extends Subsystem {
    * Extend both arms of the robot.
    */
   public void extend() {
-    leftSolenoid.set(DoubleSolenoid.Value.kForward);
-    rightSolenoid.set(DoubleSolenoid.Value.kForward);
+    leftSolenoid.set(DoubleSolenoid.Value.kReverse);
+    rightSolenoid.set(DoubleSolenoid.Value.kReverse);
   }
 
   /**
    * Retract both arms of the robot.
    */
   public void retract() {
-    leftSolenoid.set(DoubleSolenoid.Value.kReverse);
-    rightSolenoid.set(DoubleSolenoid.Value.kReverse);
+    leftSolenoid.set(DoubleSolenoid.Value.kForward);
+    rightSolenoid.set(DoubleSolenoid.Value.kForward);
   }
 
   // Set the default command of the subsystem.
