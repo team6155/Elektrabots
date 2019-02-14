@@ -7,6 +7,10 @@ package frc.robot;
  * floating around.
  */
 public class RobotMap {
+  // Cameras
+  public static final int FRONT_CAMERA = 0;
+  public static final int BACK_CAMERA = 1;
+
   // Motors
   public static final int FRONT_RIGHT_WHEEL = 1;
   public static final int FRONT_LEFT_WHEEL = 2;

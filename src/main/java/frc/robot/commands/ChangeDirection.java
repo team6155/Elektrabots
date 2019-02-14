@@ -14,12 +14,14 @@ public class ChangeDirection extends InstantCommand {
   public ChangeDirection() {
     super();
     requires(Robot.driveTrain);
+    requires(Robot.camera);
   }
 
   // Called once when the command executes
   @Override
   protected void initialize() {
     Robot.driveTrain.changeDirection();
+    Robot.camera.changeDirection();
   }
 
 }
