@@ -32,8 +32,8 @@ public class RunBelt extends InstantCommand {
   @Override
   protected void initialize() {
     double speed = 0;
-    double forwardsSpeed = controller.getLeftTrigger();
-    double backwardsSpeed = controller.getRightTrigger();
+    double forwardsSpeed = controller.getRightTrigger();
+    double backwardsSpeed = controller.getLeftTrigger();
     if (forwardsSpeed > 0 && backwardsSpeed == 0)
       speed = forwardsSpeed;
     if (backwardsSpeed > 0 && forwardsSpeed == 0)
