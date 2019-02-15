@@ -11,6 +11,8 @@ import frc.robot.commands.Drive;
 
 /**
  * Subsystem controlling the robot's wheels.
+ * <p>
+ * The robot has four wheels on a mecanum drivetrain.
  */
 public class DriveTrain extends Subsystem {
     private SpeedController frontRightWheel;
@@ -43,6 +45,8 @@ public class DriveTrain extends Subsystem {
      *                      Counter-clockwise is negative and clockwise is positive.
      */
     public void drive(double forwardsSpeed, double sidewaysSpeed, double rotationSpeed) {
+        // Each input is multiplied by direction so that the user can switch the
+        // direction of the robot.
         wheels.driveCartesian(direction * sidewaysSpeed, direction * -forwardsSpeed, direction * rotationSpeed);
     }
 
@@ -52,10 +56,17 @@ public class DriveTrain extends Subsystem {
      * @return The new direction of the robot.
      */
     public int changeDirection() {
+        // If the direction is currently positive, set it to negative. Otherwise, set it
+        // to positive.
         direction = direction == 1 ? -1 : 1;
         return direction;
     }
 
+    /**
+     * Spin one of the wheels for a second to make sure it is functioning properly.
+     * 
+     * @param wheel
+     */
     public void testWheel(int wheel) {
         SpeedController motor;
         if (wheel == RobotMap.FRONT_LEFT_WHEEL)
@@ -71,9 +82,15 @@ public class DriveTrain extends Subsystem {
         motor.stopMotor();
     }
 
-    // Set the default command of the subsystem.
-    // This command will run whenever the subsystem is not being used by another
-    // command.
+    /**
+     * Initialize the default command for a subsystem. By default subsystems have no
+     * default command, but if they do, the default command is set with this method.
+     * It is called on all Subsystems by CommandBase in the users program after all
+     * the Subsystems are created.
+     * <p>
+     * When the subsystem is not currently in use, it will call the command set in
+     * this method.
+     */
     @Override
     protected void initDefaultCommand() {
         setDefaultCommand(new Drive(Robot.oi.getController()));

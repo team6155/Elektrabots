@@ -8,7 +8,10 @@ import frc.robot.RobotMap;
 // TODO: Documentation
 
 /**
- * Add your docs here.
+ * Subsystem for controlling the pneumatic pusher on the robot.
+ * <p>
+ * The system is made up of two double solenoids controlling two arms on the
+ * robot that can extend and retract as well as an air compressor.
  */
 public class Pneumatics extends Subsystem {
   private Compressor compressor;
@@ -54,10 +57,17 @@ public class Pneumatics extends Subsystem {
     rightSolenoid.set(DoubleSolenoid.Value.kForward);
   }
 
-  // Set the default command of the subsystem.
-  // This command will run whenever the subsystem is not being used by another
-  // command.
+  /**
+   * Initialize the default command for a subsystem. By default subsystems have no
+   * default command, but if they do, the default command is set with this method.
+   * It is called on all Subsystems by CommandBase in the users program after all
+   * the Subsystems are created.
+   * <p>
+   * When the subsystem is not currently in use, it will call the command set in
+   * this method.
+   */
   @Override
   public void initDefaultCommand() {
+    // The pneumatics system currently needs no default command.
   }
 }

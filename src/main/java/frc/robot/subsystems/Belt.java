@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.PWMVictorSPX;
@@ -16,27 +9,55 @@ import frc.robot.RobotMap;
 import frc.robot.commands.RunBelt;
 
 /**
- * Add your docs here.
+ * Subsystem for controlling the belt.
+ * <p>
+ * The belt is controlled by a motor which runs a belt to pick up the ball from
+ * the ground, raise it up, and then shoot it out.
  */
 public class Belt extends Subsystem {
   SpeedController motor;
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
 
+  /**
+   * Constructor for the Belt subsystem.
+   */
   public Belt() {
     motor = new PWMVictorSPX(RobotMap.BELT_MOTOR);
   }
 
+  /**
+   * Run the belt at a given speed.
+   * <p>
+   * This method will set the speed of the motor which will cause the belt to run
+   * in a loop, causing the ball to go up or down the robot.
+   * 
+   * @param speed The to spin the motor. Positive speed runs the belt such that
+   *              the ball will move up the robot. Negative numbers will move the
+   *              belt in the opposite direction.
+   */
   public void run(double speed) {
+    // Setting the speed of the motor actually runs the belt in the wrong direction,
+    // so the speed is set to its negative. This causes the desired result.
     motor.set(-speed);
   }
 
+  /**
+   * Run the motor for a second to make sure it's working properly.
+   */
   public void testMotor() {
-    motor.set(-1);
+    run(1);
     Timer.delay(1);
-    motor.stopMotor();
+    run(0);
   }
 
+  /**
+   * Initialize the default command for a subsystem. By default subsystems have no
+   * default command, but if they do, the default command is set with this method.
+   * It is called on all Subsystems by CommandBase in the users program after all
+   * the Subsystems are created.
+   * <p>
+   * When the subsystem is not currently in use, it will call the command set in
+   * this method.
+   */
   @Override
   public void initDefaultCommand() {
     setDefaultCommand(new RunBelt(Robot.oi.getController()));

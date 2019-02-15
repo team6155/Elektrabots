@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.subsystems;
 
 import edu.wpi.cscore.UsbCamera;
@@ -12,45 +5,78 @@ import edu.wpi.cscore.VideoSink;
 import edu.wpi.cscore.VideoSource;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 
-// TODO: Documentation
 /**
- * Add your docs here.
+ * Subsystem controlling the cameras of the robot.
+ * <p>
+ * The robot currently has two cameras, one on each side of the robot. Only one
+ * can be shown at a time, so the user must be able to switch between them
+ * easily.
  */
 public class Camera extends Subsystem {
   UsbCamera frontCamera;
   UsbCamera backCamera;
   VideoSink server;
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
 
+  /**
+   * Constructor for the Camera subsystem.
+   */
   public Camera() {
+    // Create both cameras as well as the server the video will be sent to for
+    // display.
     frontCamera = CameraServer.getInstance().startAutomaticCapture(RobotMap.FRONT_CAMERA);
     backCamera = CameraServer.getInstance().startAutomaticCapture(RobotMap.BACK_CAMERA);
     server = CameraServer.getInstance().getServer();
 
+    // Set the resolution of both cameras.
     frontCamera.setResolution(640, 480);
     backCamera.setResolution(640, 480);
+
+    // By default, the camera not in use will be disconnected, leading to a delay
+    // when it is switched to. By telling the system to keep both cameras open, this
+    // can be avoided.
+    // Keep in mind that there is a limit to how much video can be taken at a time,
+    // so with more cameras at higher resolution, this can cause problems.
     frontCamera.setConnectionStrategy(VideoSource.ConnectionStrategy.kKeepOpen);
     backCamera.setConnectionStrategy(VideoSource.ConnectionStrategy.kKeepOpen);
+
     setCamera(frontCamera);
   }
 
+  /**
+   * Switch the active camera.
+   * <p>
+   * By default, only one camera can be active at a time. The intention of this
+   * method is that the user can switch between the two cameras at will.
+   */
   public void changeDirection() {
+    // Get the currently active camera then switch to the inactive camera.
     VideoSource currentCamera = server.getSource();
     currentCamera = currentCamera.equals(frontCamera) ? backCamera : frontCamera;
     setCamera(currentCamera);
   }
 
+  /**
+   * Set the given camera as the active camera.
+   * 
+   * @param camera Camera to switch to.
+   */
   private void setCamera(VideoSource camera) {
     server.setSource(camera);
   }
 
+  /**
+   * Initialize the default command for a subsystem. By default subsystems have no
+   * default command, but if they do, the default command is set with this method.
+   * It is called on all Subsystems by CommandBase in the users program after all
+   * the Subsystems are created.
+   * <p>
+   * When the subsystem is not currently in use, it will call the command set in
+   * this method.
+   */
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+    // The camera subsystem currently needs no default command.
   }
 }
