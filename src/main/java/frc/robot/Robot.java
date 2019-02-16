@@ -19,6 +19,7 @@ public class Robot extends TimedRobot {
   public static Belt belt = new Belt();
   public static Pneumatics pneumatics = new Pneumatics();
   public static Camera camera = new Camera();
+  
   public static OI oi;
 
   /**
