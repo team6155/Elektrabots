@@ -93,6 +93,6 @@ public class DriveTrain extends Subsystem {
      */
     @Override
     protected void initDefaultCommand() {
-        setDefaultCommand(new Drive(Robot.oi.getController()));
+        setDefaultCommand(new Drive(Robot.oi.DRIVER_CONTROLLER));
     }
 }

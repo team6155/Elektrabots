@@ -60,6 +60,6 @@ public class Belt extends Subsystem {
    */
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new RunBelt(Robot.oi.getController()));
+    setDefaultCommand(new RunBelt(Robot.oi.OPERATOR_CONTROLLER));
   }
 }

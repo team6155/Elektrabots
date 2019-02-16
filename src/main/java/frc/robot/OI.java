@@ -11,31 +11,27 @@ import frc.robot.controllers.Gamepad;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-  private final Gamepad CONTROLLER;
-  private final Button RIGHT_BUMPER;
-  private final Button LEFT_BUMPER;
-  private final Button A_BUTTON;
+  public final Gamepad DRIVER_CONTROLLER;
+  public final Gamepad OPERATOR_CONTROLLER;
+
+  private final Button DRIVER_A_BUTTON;
+  private final Button OPERATOR_RIGHT_BUMPER;
+  private final Button OPERATOR_LEFT_BUMPER;
 
   /**
    * Constructor for the OI class.
    */
   public OI() {
-    CONTROLLER = new Gamepad(RobotMap.GAMEPAD);
-    RIGHT_BUMPER = CONTROLLER.RIGHT_BUMPER;
-    LEFT_BUMPER = CONTROLLER.LEFT_BUMPER;
-    A_BUTTON = CONTROLLER.A_BUTTON;
+    DRIVER_CONTROLLER = new Gamepad(RobotMap.DRIVER_GAMEPAD);
+    DRIVER_A_BUTTON = DRIVER_CONTROLLER.A_BUTTON;
 
-    RIGHT_BUMPER.whenPressed(new ExtendPusher());
-    LEFT_BUMPER.whenPressed(new RetractPusher());
-    A_BUTTON.whenPressed(new ChangeDirection());
-  }
+    DRIVER_A_BUTTON.whenPressed(new ChangeDirection());
 
-  /**
-   * Get the xbox controller.
-   * 
-   * @return The xbox controller.
-   */
-  public Gamepad getController() {
-    return CONTROLLER;
+    OPERATOR_CONTROLLER = new Gamepad(RobotMap.OPERATOR_GAMEPAD);
+    OPERATOR_RIGHT_BUMPER = OPERATOR_CONTROLLER.RIGHT_BUMPER;
+    OPERATOR_LEFT_BUMPER = OPERATOR_CONTROLLER.LEFT_BUMPER;
+
+    OPERATOR_RIGHT_BUMPER.whenPressed(new ExtendPusher());
+    OPERATOR_LEFT_BUMPER.whenPressed(new RetractPusher());
   }
 }
