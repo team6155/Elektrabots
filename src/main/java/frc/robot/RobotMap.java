@@ -21,6 +21,8 @@ public class RobotMap {
   // Pneumatics
   public static final int LEFT_SOLENOID_FORWARD = 0;
   public static final int LEFT_SOLENOID_BACKWARD = 1;
+  public static final int MIDDLE_SOLENOID_FORWARD = 4;
+  public static final int MIDDLE_SOLENOID_BACKWARD = 5;
   public static final int RIGHT_SOLENOID_FORWARD = 2;
   public static final int RIGHT_SOLENOID_BACKWARD = 3;
 

@@ -16,6 +16,7 @@ import frc.robot.RobotMap;
 public class Pneumatics extends Subsystem {
   private Compressor compressor;
   private DoubleSolenoid leftSolenoid;
+  private DoubleSolenoid middleSolenoid;
   private DoubleSolenoid rightSolenoid;
 
   /**
@@ -24,6 +25,7 @@ public class Pneumatics extends Subsystem {
   public Pneumatics() {
     compressor = new Compressor();
     leftSolenoid = new DoubleSolenoid(RobotMap.LEFT_SOLENOID_FORWARD, RobotMap.LEFT_SOLENOID_BACKWARD);
+    middleSolenoid = new DoubleSolenoid(RobotMap.MIDDLE_SOLENOID_FORWARD, RobotMap.MIDDLE_SOLENOID_BACKWARD);
     rightSolenoid = new DoubleSolenoid(RobotMap.RIGHT_SOLENOID_FORWARD, RobotMap.RIGHT_SOLENOID_BACKWARD);
   }
 
@@ -46,6 +48,7 @@ public class Pneumatics extends Subsystem {
    */
   public void extend() {
     leftSolenoid.set(DoubleSolenoid.Value.kReverse);
+    middleSolenoid.set(DoubleSolenoid.Value.kReverse);
     rightSolenoid.set(DoubleSolenoid.Value.kReverse);
   }
 
@@ -54,6 +57,7 @@ public class Pneumatics extends Subsystem {
    */
   public void retract() {
     leftSolenoid.set(DoubleSolenoid.Value.kForward);
+    middleSolenoid.set(DoubleSolenoid.Value.kForward);
     rightSolenoid.set(DoubleSolenoid.Value.kForward);
   }
 
