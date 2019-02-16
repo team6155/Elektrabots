@@ -47,7 +47,7 @@ public class DriveTrain extends Subsystem {
     public void drive(double forwardsSpeed, double sidewaysSpeed, double rotationSpeed) {
         // Each input is multiplied by direction so that the user can switch the
         // direction of the robot.
-        wheels.driveCartesian(direction * sidewaysSpeed, direction * -forwardsSpeed, direction * rotationSpeed);
+        wheels.driveCartesian(direction * sidewaysSpeed, direction * -forwardsSpeed, rotationSpeed);
     }
 
     /**
