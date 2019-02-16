@@ -8,8 +8,8 @@ package frc.robot;
  */
 public class RobotMap {
   // Cameras
-  public static final int FRONT_CAMERA = 0;
-  public static final int BACK_CAMERA = 1;
+  public static final int FRONT_CAMERA = 1;
+  public static final int BACK_CAMERA = 0;
 
   // Motors
   public static final int FRONT_RIGHT_WHEEL = 1;

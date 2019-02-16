@@ -2,8 +2,8 @@ package frc.robot.subsystems;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoSink;
-import edu.wpi.cscore.VideoSource;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
@@ -38,10 +38,10 @@ public class Camera extends Subsystem {
     // can be avoided.
     // Keep in mind that there is a limit to how much video can be taken at a time,
     // so with more cameras at higher resolution, this can cause problems.
-    frontCamera.setConnectionStrategy(VideoSource.ConnectionStrategy.kKeepOpen);
-    backCamera.setConnectionStrategy(VideoSource.ConnectionStrategy.kKeepOpen);
+    //frontCamera.setConnectionStrategy(VideoSource.ConnectionStrategy.kKeepOpen);
+    //backCamera.setConnectionStrategy(VideoSource.ConnectionStrategy.kKeepOpen);
 
-    setCamera(frontCamera);
+    setCamera(frontCamera.getName());
   }
 
   /**
@@ -52,8 +52,8 @@ public class Camera extends Subsystem {
    */
   public void changeDirection() {
     // Get the currently active camera then switch to the inactive camera.
-    VideoSource currentCamera = server.getSource();
-    currentCamera = currentCamera.equals(frontCamera) ? backCamera : frontCamera;
+    String currentCamera = getCamera();
+    currentCamera = currentCamera.equals(frontCamera.getName()) ? backCamera.getName() : frontCamera.getName();
     setCamera(currentCamera);
   }
 
@@ -62,8 +62,12 @@ public class Camera extends Subsystem {
    * 
    * @param camera Camera to switch to.
    */
-  private void setCamera(VideoSource camera) {
-    server.setSource(camera);
+  private void setCamera(String camera) {
+    NetworkTableInstance.getDefault().getTable("").getEntry("CameraSelection").setString(camera);
+  }
+
+  private String getCamera() {
+    return NetworkTableInstance.getDefault().getTable("").getEntry("CameraSelection").getString("");
   }
 
   /**
