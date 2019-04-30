@@ -5,8 +5,6 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
-// TODO: Documentation
-
 /**
  * Subsystem for controlling the pneumatic pusher on the robot.
  * <p>
