@@ -21,7 +21,12 @@ public class Drive extends InstantCommand {
     this.controller = controller;
   }
 
-  // Called once when the command executes
+  /**
+   * The initialize method is called the first time this Command is run after
+   * being started.
+   * <p>
+   * Call the drivetrain subsystem's drive method.
+   */
   @Override
   protected void initialize() {
     double forwardsSpeed = normalizeInput(controller.getLeftStickY());

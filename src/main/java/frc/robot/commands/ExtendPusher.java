@@ -20,8 +20,6 @@ public class ExtendPusher extends InstantCommand {
   public ExtendPusher() {
     super();
     requires(Robot.pneumatics);
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
   }
 
   /**

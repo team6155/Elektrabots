@@ -33,14 +33,6 @@ public class Camera extends Subsystem {
     frontCamera.setResolution(640, 480);
     backCamera.setResolution(640, 480);
 
-    // By default, the camera not in use will be disconnected, leading to a delay
-    // when it is switched to. By telling the system to keep both cameras open, this
-    // can be avoided.
-    // Keep in mind that there is a limit to how much video can be taken at a time,
-    // so with more cameras at higher resolution, this can cause problems.
-    //frontCamera.setConnectionStrategy(VideoSource.ConnectionStrategy.kKeepOpen);
-    //backCamera.setConnectionStrategy(VideoSource.ConnectionStrategy.kKeepOpen);
-
     setCamera(frontCamera.getName());
   }
 

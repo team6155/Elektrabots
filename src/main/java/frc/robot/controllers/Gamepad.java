@@ -5,8 +5,6 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.buttons.Button;
 
-// TODO: Documentation
-
 /**
  * Object for controller allowing command-based usage.
  */
@@ -22,6 +20,11 @@ public class Gamepad extends Joystick {
     public final Button LEFT_TRIGGER;
     public final Button RIGHT_TRIGGER;
 
+    /**
+     * Constructor for the Gamepad class.
+     * 
+     * @param port The computer port that the Gamepad is plugged into.
+     */
     public Gamepad(int port) {
         super(port);
         A_BUTTON = new JoystickButton(this, RobotMap.A_BUTTON);
@@ -36,26 +39,56 @@ public class Gamepad extends Joystick {
         RIGHT_TRIGGER = new GamepadTrigger(this, RobotMap.RIGHT_TRIGGER);
     }
 
+    /**
+     * Get the value of the left trigger on the controller.
+     * 
+     * @return The value of the left trigger.
+     */
     public double getLeftTrigger() {
         return getRawAxis(RobotMap.LEFT_TRIGGER);
     }
 
+    /**
+     * Get the value of the right trigger on the controller.
+     * 
+     * @return The value of the right trigger.
+     */
     public double getRightTrigger() {
         return getRawAxis(RobotMap.RIGHT_TRIGGER);
     }
 
+    /**
+     * Get the value of the left stick's horizontal direction on the controller.
+     * 
+     * @return The value of the left stick's horizontal direction.
+     */
     public double getLeftStickX() {
         return getRawAxis(RobotMap.LEFT_STICK_X);
     }
 
+    /**
+     * Get the value of the left stick's vertical direction on the controller.
+     * 
+     * @return The value of the left stick's vertical direction.
+     */
     public double getLeftStickY() {
         return getRawAxis(RobotMap.LEFT_STICK_Y);
     }
 
+    /**
+     * Get the value of the right stick's horizontal direction on the controller.
+     * 
+     * @return The value of the right stick's horizontal direction.
+     */
     public double getRightStickX() {
         return getRawAxis(RobotMap.RIGHT_STICK_X);
     }
 
+    /**
+     * Get the value of the right stick's vertical direction on the controller.
+     * 
+     * @return The value of the right stick's vertical direction.
+     */
     public double getRightStickY() {
         return getRawAxis(RobotMap.RIGHT_STICK_Y);
     }

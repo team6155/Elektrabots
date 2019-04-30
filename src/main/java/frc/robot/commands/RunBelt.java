@@ -11,16 +11,14 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 import frc.robot.controllers.Gamepad;
 
-// TODO: Documentation
-
 /**
- * Add your docs here.
+ * Spin the belt to collect or launch the ball.
  */
 public class RunBelt extends InstantCommand {
   Gamepad controller;
 
   /**
-   * Add your docs here.
+   * Constructor for RetractPusher Command.
    */
   public RunBelt(Gamepad controller) {
     super();
@@ -28,7 +26,12 @@ public class RunBelt extends InstantCommand {
     this.controller = controller;
   }
 
-  // Called once when the command executes
+  /**
+   * The initialize method is called the first time this Command is run after
+   * being started.
+   * <p>
+   * Call the belt subsystem's run method.
+   */
   @Override
   protected void initialize() {
     double speed = 0;

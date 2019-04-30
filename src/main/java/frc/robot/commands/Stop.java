@@ -16,7 +16,12 @@ public class Stop extends InstantCommand {
     requires(Robot.driveTrain);
   }
 
-  // Called once when the command executes
+  /**
+   * The initialize method is called the first time this Command is run after
+   * being started.
+   * <p>
+   * Call the drivetrain subsystem's drive method.
+   */
   @Override
   protected void initialize() {
     Robot.driveTrain.drive(0, 0, 0);

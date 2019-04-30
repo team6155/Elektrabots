@@ -1,29 +1,31 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
-// TODO: Documentation
-
 package frc.robot.controllers;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 
 /**
- * Add your docs here.
+ * Class handling the triggers on the gamepad.
  */
 public class GamepadTrigger extends Button {
     private final Joystick JOYSTICK;
     private final int AXIS;
 
+    /**
+     * Constructor for the GamepadTrigger class.
+     * 
+     * @param joystick The gamepad that this trigger belongs to.
+     * @param axis What port on the gamepad corresponds to this trigger.
+     */
     public GamepadTrigger(Joystick joystick, int axis) {
         this.JOYSTICK = joystick;
         this.AXIS = axis;
     }
 
+    /**
+     * Get the value of this trigger.
+     * 
+     * @return The current value of this trigger.
+     */
     public boolean get() {
         return JOYSTICK.getRawAxis(AXIS) > 0;
     }

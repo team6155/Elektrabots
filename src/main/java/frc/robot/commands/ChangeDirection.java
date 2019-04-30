@@ -17,7 +17,13 @@ public class ChangeDirection extends InstantCommand {
     requires(Robot.camera);
   }
 
-  // Called once when the command executes
+  /**
+   * The initialize method is called the first time this Command is run after
+   * being started.
+   * <p>
+   * Call the drivetrain subsystem's changeDirection method.
+   * Call the camera subsystem's changeDirection method.
+   */
   @Override
   protected void initialize() {
     Robot.driveTrain.changeDirection();
