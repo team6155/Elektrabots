@@ -24,6 +24,6 @@ public class Stop extends InstantCommand {
    */
   @Override
   protected void initialize() {
-    Robot.driveTrain.drive(0, 0, 0);
+    Robot.driveTrain.drive(0, 0);
   }
 }

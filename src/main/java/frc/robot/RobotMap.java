@@ -7,6 +7,7 @@ package frc.robot;
  * floating around.
  */
 public class RobotMap {
+  //TODO: Update port numbers
   // Cameras
   public static final int FRONT_CAMERA = 1;
   public static final int BACK_CAMERA = 0;
@@ -14,6 +15,8 @@ public class RobotMap {
   // Motors
   public static final int FRONT_RIGHT_WHEEL = 1;
   public static final int FRONT_LEFT_WHEEL = 2;
+  public static final int MIDDLE_RIGHT_WHEEL = -1;
+  public static final int MIDDLE_LEFT_WHEEL = -1;
   public static final int REAR_RIGHT_WHEEL = 3;
   public static final int REAR_LEFT_WHEEL = 4;
   public static final int BELT_MOTOR = 5;
