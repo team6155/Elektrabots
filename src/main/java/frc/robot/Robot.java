@@ -4,8 +4,10 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.subsystems.Belt;
 import frc.robot.subsystems.Camera;
+import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Pneumatics;
+import frc.robot.subsystems.Winch;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -19,6 +21,8 @@ public class Robot extends TimedRobot {
   public static Belt belt = new Belt();
   public static Pneumatics pneumatics = new Pneumatics();
   public static Camera camera = new Camera();
+  public static Winch winch = new Winch();
+  public static ControlPanel controlPanel = new ControlPanel();
   
   public static OI oi;
 
