@@ -46,7 +46,7 @@ public class DriveTrain extends Subsystem {
      * 
      * @param forwardsSpeed The robot's speed forwards or backwards [-1.0..1.0].
      *                      Back is negative and forwards is positive.
-     * @param rotationSpeed The robot's rotational speed [1.0..1.0].
+     * @param rotationSpeed The robot's rotational speed [-1.0..1.0].
      *                      Counter-clockwise is negative and clockwise is positive.
      */
     public void drive(double forwardsSpeed, double rotationSpeed) {
