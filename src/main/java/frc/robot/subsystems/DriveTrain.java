@@ -1,18 +1,20 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.RobotDriveBase;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 import frc.robot.commands.Drive;
 
 /**
  * Subsystem controlling the robot's wheels.
- * <p>
- * The robot has six wheels on a differential drivetrain.
  */
 public abstract class DriveTrain extends Subsystem {
     protected RobotDriveBase wheels;
     protected int direction;
+    protected Gyro gyro;
 
     public class Direction {
         public static final int FORWARD = 1;
@@ -24,6 +26,7 @@ public abstract class DriveTrain extends Subsystem {
      */
     public DriveTrain() {
         direction = Direction.FORWARD;
+        gyro = new ADXRS450_Gyro(RobotMap.GYRO);
     }
 
     public int getDirection() {

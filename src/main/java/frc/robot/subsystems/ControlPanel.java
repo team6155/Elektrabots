@@ -7,10 +7,13 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.ColorSensorV3;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.RobotMap;
 
 /**
@@ -19,12 +22,14 @@ import frc.robot.RobotMap;
 public class ControlPanel extends Subsystem {
   private DoubleSolenoid extender;
   private SpeedController motor;
+  private ColorSensorV3 colorSensor;
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
   public ControlPanel() {
     extender = new DoubleSolenoid(RobotMap.CONTROL_PANEL_FORWARD, RobotMap.CONTROL_PANEL_BACKWARD);
     motor = new PWMVictorSPX(RobotMap.CONTROL_PANEL_MOTOR);
+    colorSensor = new ColorSensorV3(RobotMap.COLOR_SENSOR);
   }
 
   public void Extend() {
@@ -37,6 +42,10 @@ public class ControlPanel extends Subsystem {
 
   public void RunMotor(double speed) {
     motor.set(speed);
+  }
+
+  public Color ReadColor() {
+    return colorSensor.getColor();
   }
 
   @Override

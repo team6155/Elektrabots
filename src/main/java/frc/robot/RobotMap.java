@@ -1,5 +1,8 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.SPI;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -8,6 +11,11 @@ package frc.robot;
  */
 public class RobotMap {
   //TODO: Update port numbers
+
+  // Sensors
+  public static final I2C.Port COLOR_SENSOR = I2C.Port.kOnboard;
+  public static final SPI.Port GYRO = SPI.Port.kMXP;
+
   // Cameras
   public static final int FRONT_CAMERA = 1;
   public static final int BACK_CAMERA = 0;

@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.RobotMap;
 
 /**
- * Add your docs here.
+ * Subsystem for controlling the robot's wheels for a mecanum setup with four wheels.
  */
 public class MecanumDriveTrain extends DriveTrain {
   private SpeedController frontRightWheel;

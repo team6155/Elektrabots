@@ -10,12 +10,11 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.RobotMap;
 
 /**
- * Add your docs here.
+ * Subsystem for controlling the robot's wheels for a mecanum setup with four wheels.
  */
 public class TankDriveTrain extends DriveTrain {
   private SpeedController frontRightWheel;
