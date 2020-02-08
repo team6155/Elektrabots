@@ -6,7 +6,9 @@ import frc.robot.subsystems.Belt;
 import frc.robot.subsystems.Camera;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.MecanumDriveTrain;
 import frc.robot.subsystems.Pneumatics;
+import frc.robot.subsystems.TankDriveTrain;
 import frc.robot.subsystems.Winch;
 
 /**
@@ -17,7 +19,7 @@ import frc.robot.subsystems.Winch;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static DriveTrain driveTrain = new DriveTrain();
+  public static DriveTrain driveTrain = new MecanumDriveTrain();
   public static Belt belt = new Belt();
   public static Pneumatics pneumatics = new Pneumatics();
   public static Camera camera = new Camera();
