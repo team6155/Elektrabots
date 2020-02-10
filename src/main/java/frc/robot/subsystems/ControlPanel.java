@@ -32,19 +32,19 @@ public class ControlPanel extends Subsystem {
     colorSensor = new ColorSensorV3(RobotMap.COLOR_SENSOR);
   }
 
-  public void Extend() {
+  public void extend() {
     extender.set(DoubleSolenoid.Value.kForward);
   }
 
-  public void Retract() {
+  public void retract() {
     extender.set(DoubleSolenoid.Value.kReverse);
   }
 
-  public void RunMotor(double speed) {
+  public void runMotor(double speed) {
     motor.set(speed);
   }
 
-  public Color ReadColor() {
+  public Color readColor() {
     return colorSensor.getColor();
   }
 

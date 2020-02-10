@@ -33,6 +33,10 @@ public abstract class DriveTrain extends Subsystem {
         return direction;
     }
 
+    public double readGyro() {
+        return gyro.getAngle();
+    }
+
     /**
      * Drive the robot according to the given inputs.
      * 
