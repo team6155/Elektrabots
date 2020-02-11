@@ -14,7 +14,7 @@ public class RobotMap {
 
   // Sensors
   public static final I2C.Port COLOR_SENSOR = I2C.Port.kOnboard;
-  public static final SPI.Port GYRO = SPI.Port.kMXP;
+  public static final SPI.Port GYRO = SPI.Port.kOnboardCS0;
 
   // Cameras
   public static final int FRONT_CAMERA = 1;
@@ -23,13 +23,13 @@ public class RobotMap {
   // Motors
   public static final int FRONT_RIGHT_WHEEL = 1;
   public static final int FRONT_LEFT_WHEEL = 2;
-  public static final int MIDDLE_RIGHT_WHEEL = -1;
-  public static final int MIDDLE_LEFT_WHEEL = -1;
-  public static final int REAR_RIGHT_WHEEL = 3;
-  public static final int REAR_LEFT_WHEEL = 4;
-  public static final int BELT_MOTOR = 5;
-  public static final int WINCH_MOTOR = -1;
-  public static final int CONTROL_PANEL_MOTOR = -1;
+  public static final int MIDDLE_RIGHT_WHEEL = 3;
+  public static final int MIDDLE_LEFT_WHEEL = 4;
+  public static final int REAR_RIGHT_WHEEL = 5;
+  public static final int REAR_LEFT_WHEEL = 6;
+  public static final int BELT_MOTOR = 7;
+  public static final int WINCH_MOTOR = 8;
+  public static final int CONTROL_PANEL_MOTOR = 9;
 
   // Pneumatics
   public static final int LEFT_SOLENOID_FORWARD = 0;
@@ -38,8 +38,8 @@ public class RobotMap {
   public static final int MIDDLE_SOLENOID_BACKWARD = 5;
   public static final int RIGHT_SOLENOID_FORWARD = 2;
   public static final int RIGHT_SOLENOID_BACKWARD = 3;
-  public static final int CONTROL_PANEL_FORWARD = -1;
-  public static final int CONTROL_PANEL_BACKWARD = -1;
+  public static final int CONTROL_PANEL_FORWARD = 6;
+  public static final int CONTROL_PANEL_BACKWARD = 7;
 
   // Controllers
   public static final int DRIVER_GAMEPAD = 0;
