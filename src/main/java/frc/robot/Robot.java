@@ -18,10 +18,11 @@ import frc.robot.subsystems.Winch;
  * project.
  */
 public class Robot extends TimedRobot {
+  //TODO: Reactivate camera
   public static DriveTrain driveTrain = new MecanumDriveTrain();
   public static Belt belt = new Belt();
   public static Pneumatics pneumatics = new Pneumatics();
-  public static Camera camera = new Camera();
+  //public static Camera camera = new Camera();
   public static Winch winch = new Winch();
   public static ControlPanel controlPanel = new ControlPanel();
   

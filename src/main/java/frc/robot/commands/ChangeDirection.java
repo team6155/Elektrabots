@@ -8,13 +8,14 @@ import frc.robot.Robot;
  */
 public class ChangeDirection extends InstantCommand {
 
+  //TODO: Reactivate camera
   /**
    * Constructor for the ChangeDirection command.
    */
   public ChangeDirection() {
     super();
     requires(Robot.driveTrain);
-    requires(Robot.camera);
+    //requires(Robot.camera);
   }
 
   /**
@@ -27,7 +28,7 @@ public class ChangeDirection extends InstantCommand {
   @Override
   protected void initialize() {
     Robot.driveTrain.changeDirection();
-    Robot.camera.changeDirection();
+    //Robot.camera.changeDirection();
   }
 
 }
