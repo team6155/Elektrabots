@@ -47,6 +47,15 @@ public class ControlPanel extends Subsystem {
   public Color readColor() {
     return colorSensor.getColor();
   }
+  
+  public int getIR() {
+    return colorSensor.getIR();
+  }
+
+  public int getProximity() {
+    return colorSensor.getProximity();
+  }
+
 
   @Override
   public void initDefaultCommand() {

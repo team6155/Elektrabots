@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Robot;
 
 /**
@@ -30,6 +31,11 @@ public class UpdateSensors extends InstantCommand {
   @Override
   protected void initialize() {
     SmartDashboard.putNumber("Gyro Angle", Robot.driveTrain.readGyro());
-    SmartDashboard.putString("Color", Robot.controlPanel.readColor().toString());
+    Color color = Robot.controlPanel.readColor();
+    SmartDashboard.putNumber("Red", color.red);
+    SmartDashboard.putNumber("Green", color.green);
+    SmartDashboard.putNumber("Blue", color.blue);
+    SmartDashboard.putNumber("IR", Robot.controlPanel.getIR());
+    SmartDashboard.putNumber("Proximity", Robot.controlPanel.getProximity());
   }
 }
