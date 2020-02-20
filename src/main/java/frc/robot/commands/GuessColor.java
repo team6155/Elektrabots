@@ -37,8 +37,8 @@ public class GuessColor extends InstantCommand {
   @Override
   protected void initialize() {
     Color color = Robot.controlPanel.readColor();
-    SmartDashboard.putString("RGB", (int)(color.red * 256) + ", " + (int)(color.green * 256) + ", " + (int)(color.blue * 256));
-
+    SmartDashboard.putString("RGB", (int)(color.red * 100) + ", " + (int)(color.green * 100) + ", " + (int)(color.blue * 100));
+    
     Color closest = findClosestColor(color);
     String output = "";
     if(closest.equals(BLUE)) {
