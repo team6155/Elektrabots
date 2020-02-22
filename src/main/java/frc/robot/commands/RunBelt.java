@@ -36,11 +36,11 @@ public class RunBelt extends InstantCommand {
   protected void initialize() {
     double speed = 0;
     double forwardsSpeed = controller.getRightTrigger();
-    double backwardsSpeed = controller.getLeftTrigger();
+    double backwardsSpeed = -controller.getLeftTrigger();
     if (forwardsSpeed > 0 && backwardsSpeed == 0)
       speed = forwardsSpeed;
-    if (backwardsSpeed > 0 && forwardsSpeed == 0)
-      speed = -backwardsSpeed;
+    if (backwardsSpeed < 0 && forwardsSpeed == 0)
+      speed = backwardsSpeed;
     Robot.belt.run(speed);
   }
 
