@@ -28,8 +28,10 @@ public class RobotMap {
   public static final int REAR_RIGHT_WHEEL = 5;
   public static final int REAR_LEFT_WHEEL = 6;
   public static final int BELT_MOTOR = 7;
-  public static final int WINCH_MOTOR = 8;
-  public static final int CONTROL_PANEL_MOTOR = 9;
+  public static final int HOOK_MOTOR = 8;
+  public static final int LIFT_MOTOR = 9;
+  public static final int CONTROL_PANEL_MOTOR = 10;
+  public static final int SCOOP_MOTOR = 11;
 
   // Pneumatics
   public static final int LEFT_SOLENOID_FORWARD = 0;
@@ -40,6 +42,11 @@ public class RobotMap {
   public static final int RIGHT_SOLENOID_BACKWARD = 3;
   public static final int CONTROL_PANEL_FORWARD = 6;
   public static final int CONTROL_PANEL_BACKWARD = 7;
+  public static final int SCOOP_LEFT_SOLENOID_FORWARD = 8;
+  public static final int SCOOP_LEFT_SOLENOID_REVERSE = 9;
+  public static final int SCOOP_RIGHT_SOLENOID_FORWARD = 10;
+  public static final int SCOOP_RIGHT_SOLENOID_REVERSE = 11;
+
 
   // Controllers
   public static final int DRIVER_GAMEPAD = 0;

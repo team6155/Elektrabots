@@ -7,24 +7,24 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
 /**
  * Add your docs here.
  */
-public class Winch extends Subsystem {
-  private SpeedController motor;
+public class ScoopMotor extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
+  private SpeedController motor;
 
-  public Winch() {
-    motor = new PWMVictorSPX(RobotMap.WINCH_MOTOR);
+  public ScoopMotor() {
+    motor = new PWMVictorSPX(RobotMap.SCOOP_MOTOR);
   }
 
-  public void Run(double speed) {
+  public void run(double speed) {
     motor.set(speed);
   }
 

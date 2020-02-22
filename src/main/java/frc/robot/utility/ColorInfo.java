@@ -7,9 +7,6 @@
 
 package frc.robot.utility;
 
-import java.util.Dictionary;
-import java.util.LinkedList;
-
 import edu.wpi.first.wpilibj.util.Color;
 
 /**

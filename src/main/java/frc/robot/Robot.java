@@ -8,7 +8,10 @@ import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.MecanumDriveTrain;
 import frc.robot.subsystems.Pneumatics;
-import frc.robot.subsystems.Winch;
+import frc.robot.subsystems.ScoopMotor;
+import frc.robot.subsystems.ScoopPneumatics;
+import frc.robot.subsystems.Hook;
+import frc.robot.subsystems.Lift;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,8 +26,11 @@ public class Robot extends TimedRobot {
   public static Belt belt = new Belt();
   public static Pneumatics pneumatics = new Pneumatics();
   //public static Camera camera = new Camera();
-  public static Winch winch = new Winch();
+  public static Hook hook = new Hook();
+  public static Lift lift = new Lift();
   public static ControlPanel controlPanel = new ControlPanel();
+  public static ScoopPneumatics scoopPneumatics = new ScoopPneumatics();
+  public static ScoopMotor scoopMotor = new ScoopMotor();
   
   public static OI oi;
 

@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Robot;
-import frc.robot.controllers.Gamepad;
 import frc.robot.utility.ColorInfo;
 
 /**
