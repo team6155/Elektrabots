@@ -24,6 +24,7 @@ public class RetractLift extends Command {
   public RetractLift() {
     super();
     requires(Robot.lift);
+    timer = new Timer();
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -32,7 +33,6 @@ public class RetractLift extends Command {
   @Override
   protected void initialize() {
     Robot.lift.runLiftMotor(speed);
-    timer = new Timer();
     timer.start();
   }
 

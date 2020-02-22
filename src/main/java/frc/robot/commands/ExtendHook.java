@@ -24,6 +24,7 @@ public class ExtendHook extends Command {
   public ExtendHook() {
     super();
     requires(Robot.hook);
+    timer = new Timer();
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -32,7 +33,6 @@ public class ExtendHook extends Command {
   @Override
   protected void initialize() {
     Robot.hook.runHookMotor(speed);
-    timer = new Timer();
     timer.start();
   }
 
