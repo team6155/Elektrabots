@@ -65,5 +65,4 @@ public class RetractHook extends Command {
   protected void interrupted() {
     Robot.hook.runHookMotor(0);
   }
-
 }
