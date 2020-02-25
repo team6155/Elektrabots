@@ -1,10 +1,14 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.buttons.Button;
 import frc.robot.commands.ChangeDirection;
-import frc.robot.commands.ExtendPusher;
-import frc.robot.commands.RetractPusher;
-import frc.robot.commands.UpdateSensors;
+import frc.robot.commands.ExtendHook;
+import frc.robot.commands.ExtendLift;
+import frc.robot.commands.ExtendScoop;
+import frc.robot.commands.PositionControl;
+import frc.robot.commands.RetractHook;
+import frc.robot.commands.RetractLift;
+import frc.robot.commands.RetractScoop;
+import frc.robot.commands.RotationControl;
 import frc.robot.controllers.Gamepad;
 
 /**
@@ -15,27 +19,22 @@ public class OI {
   public final Gamepad DRIVER_CONTROLLER;
   public final Gamepad OPERATOR_CONTROLLER;
 
-  private final Button DRIVER_A_BUTTON;
-  private final Button DRIVER_B_BUTTON;
-  private final Button OPERATOR_RIGHT_BUMPER;
-  private final Button OPERATOR_LEFT_BUMPER;
-
   /**
    * Constructor for the OI class.
    */
   public OI() {
     DRIVER_CONTROLLER = new Gamepad(RobotMap.DRIVER_GAMEPAD);
-    DRIVER_A_BUTTON = DRIVER_CONTROLLER.A_BUTTON;
-    DRIVER_B_BUTTON = DRIVER_CONTROLLER.B_BUTTON;
-
-    DRIVER_A_BUTTON.whenPressed(new ChangeDirection());
-    DRIVER_B_BUTTON.whenPressed(new UpdateSensors());
-
     OPERATOR_CONTROLLER = new Gamepad(RobotMap.OPERATOR_GAMEPAD);
-    OPERATOR_RIGHT_BUMPER = OPERATOR_CONTROLLER.RIGHT_BUMPER;
-    OPERATOR_LEFT_BUMPER = OPERATOR_CONTROLLER.LEFT_BUMPER;
 
-    OPERATOR_RIGHT_BUMPER.whenPressed(new ExtendPusher());
-    OPERATOR_LEFT_BUMPER.whenPressed(new RetractPusher());
+    DRIVER_CONTROLLER.A_BUTTON.whenPressed(new ChangeDirection());
+    DRIVER_CONTROLLER.RIGHT_BUMPER.whenPressed(new PositionControl());
+    DRIVER_CONTROLLER.LEFT_BUMPER.whenPressed(new RotationControl());
+
+    OPERATOR_CONTROLLER.A_BUTTON.whenPressed(new ExtendScoop());
+    OPERATOR_CONTROLLER.B_BUTTON.whenPressed(new RetractScoop());
+    OPERATOR_CONTROLLER.Y_BUTTON.whenPressed(new ExtendHook());
+    OPERATOR_CONTROLLER.X_BUTTON.whenPressed(new RetractHook());
+    OPERATOR_CONTROLLER.RIGHT_BUMPER.whenPressed(new ExtendLift());
+    OPERATOR_CONTROLLER.LEFT_BUMPER.whenPressed(new RetractLift());
   }
 }
