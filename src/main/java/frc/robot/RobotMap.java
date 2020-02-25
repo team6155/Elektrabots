@@ -23,15 +23,13 @@ public class RobotMap {
   // Motors
   public static final int FRONT_RIGHT_WHEEL = 1;
   public static final int FRONT_LEFT_WHEEL = 2;
-  public static final int MIDDLE_RIGHT_WHEEL = 3;
-  public static final int MIDDLE_LEFT_WHEEL = 4;
-  public static final int REAR_RIGHT_WHEEL = 5;
-  public static final int REAR_LEFT_WHEEL = 6;
-  public static final int BELT_MOTOR = 7;
-  public static final int HOOK_MOTOR = 8;
-  public static final int LIFT_MOTOR = 9;
-  public static final int CONTROL_PANEL_MOTOR = 10;
-  public static final int SCOOP_MOTOR = 11;
+  public static final int REAR_RIGHT_WHEEL = 3;
+  public static final int REAR_LEFT_WHEEL = 4;
+  public static final int BELT_MOTOR = 5;
+  public static final int HOOK_MOTOR = 6;
+  public static final int LIFT_MOTOR = 7;
+  public static final int CONTROL_PANEL_MOTOR = 8;
+  public static final int SCOOP_MOTOR = 9;
 
   // Pneumatics
   public static final int LEFT_SOLENOID_FORWARD = 0;

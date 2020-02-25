@@ -19,8 +19,6 @@ import frc.robot.RobotMap;
 public class TankDriveTrain extends DriveTrain {
   private SpeedController frontRightWheel;
   private SpeedController frontLeftWheel;
-  private SpeedController middleRightWheel;
-  private SpeedController middleLeftWheel;
   private SpeedController rearRightWheel;
   private SpeedController rearLeftWheel;
   private SpeedControllerGroup rightWheels;
@@ -30,12 +28,10 @@ public class TankDriveTrain extends DriveTrain {
     super();
     frontRightWheel = new PWMVictorSPX(RobotMap.FRONT_RIGHT_WHEEL);
     frontLeftWheel = new PWMVictorSPX(RobotMap.FRONT_LEFT_WHEEL);
-    middleRightWheel = new PWMVictorSPX(RobotMap.MIDDLE_RIGHT_WHEEL);
-    middleLeftWheel = new PWMVictorSPX(RobotMap.MIDDLE_LEFT_WHEEL);
     rearRightWheel = new PWMVictorSPX(RobotMap.REAR_RIGHT_WHEEL);
     rearLeftWheel = new PWMVictorSPX(RobotMap.REAR_LEFT_WHEEL);
-    rightWheels = new SpeedControllerGroup(frontRightWheel, middleRightWheel, rearRightWheel);
-    leftWheels = new SpeedControllerGroup(frontLeftWheel, middleLeftWheel, rearLeftWheel);
+    rightWheels = new SpeedControllerGroup(frontRightWheel, rearRightWheel);
+    leftWheels = new SpeedControllerGroup(frontLeftWheel, rearLeftWheel);
     wheels = new DifferentialDrive(rightWheels, leftWheels);
   }
 
