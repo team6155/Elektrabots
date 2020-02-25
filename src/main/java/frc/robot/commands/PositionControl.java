@@ -53,7 +53,9 @@ public class PositionControl extends Command {
     if (gameData.equalsIgnoreCase("y")) {
       expectedColor = ColorInfo.YELLOW;
     }
-    currentColor = ColorInfo.findClosestColor(Robot.controlPanel.readColor());
+    if(expectedColor != null) {
+      currentColor = ColorInfo.findClosestColor(Robot.controlPanel.readColor());
+    }
   }
 
   /**
@@ -74,7 +76,7 @@ public class PositionControl extends Command {
    */
   @Override
   protected boolean isFinished() {
-    if (currentColor.equals(expectedColor)) {
+    if (expectedColor == null || expectedColor.equals(currentColor)) {
       return true;
     }
     return false;
