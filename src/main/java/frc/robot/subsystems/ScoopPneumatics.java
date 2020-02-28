@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
@@ -19,20 +20,23 @@ public class ScoopPneumatics extends Subsystem {
   // here. Call these from Commands.
   private DoubleSolenoid leftSolenoid;
   private DoubleSolenoid rightSolenoid;
+  private Value direction;
 
   public ScoopPneumatics() {
     leftSolenoid = new DoubleSolenoid(RobotMap.SCOOP_LEFT_SOLENOID_REVERSE, RobotMap.SCOOP_LEFT_SOLENOID_FORWARD);
     rightSolenoid = new DoubleSolenoid(RobotMap.SCOOP_RIGHT_SOLENOID_REVERSE, RobotMap.SCOOP_RIGHT_SOLENOID_FORWARD);
+    direction = Value.kForward;
   }
-
+  
   public void extend() {
-    leftSolenoid.set(DoubleSolenoid.Value.kForward);
-    rightSolenoid.set(DoubleSolenoid.Value.kForward);
-  }
-
-  public void retract() {
-    leftSolenoid.set(DoubleSolenoid.Value.kReverse);
-    rightSolenoid.set(DoubleSolenoid.Value.kReverse);
+    if(direction == Value.kForward) {
+      direction = Value.kReverse;
+    }
+    else {
+      direction = Value.kForward;
+    }
+    leftSolenoid.set(direction);
+    rightSolenoid.set(direction);
   }
   
   @Override

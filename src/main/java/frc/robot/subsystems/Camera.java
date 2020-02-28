@@ -15,8 +15,7 @@ import frc.robot.RobotMap;
  * easily.
  */
 public class Camera extends Subsystem {
-  UsbCamera frontCamera;
-  UsbCamera backCamera;
+  UsbCamera controlPanelCamera;
   VideoSink server;
 
   /**
@@ -25,29 +24,27 @@ public class Camera extends Subsystem {
   public Camera() {
     // Create both cameras as well as the server the video will be sent to for
     // display.
-    frontCamera = CameraServer.getInstance().startAutomaticCapture(RobotMap.FRONT_CAMERA);
-    backCamera = CameraServer.getInstance().startAutomaticCapture(RobotMap.BACK_CAMERA);
+    controlPanelCamera = CameraServer.getInstance().startAutomaticCapture(RobotMap.FRONT_CAMERA);
     server = CameraServer.getInstance().getServer();
 
     // Set the resolution of both cameras.
-    frontCamera.setResolution(640, 480);
-    backCamera.setResolution(640, 480);
+    controlPanelCamera.setResolution(640, 480);
 
-    setCamera(frontCamera.getName());
+    setCamera(controlPanelCamera.getName());
   }
 
-  /**
-   * Switch the active camera.
-   * <p>
-   * By default, only one camera can be active at a time. The intention of this
-   * method is that the user can switch between the two cameras at will.
-   */
-  public void changeDirection() {
-    // Get the currently active camera then switch to the inactive camera.
-    String currentCamera = getCamera();
-    currentCamera = currentCamera.equals(frontCamera.getName()) ? backCamera.getName() : frontCamera.getName();
-    setCamera(currentCamera);
-  }
+  // /**
+  //  * Switch the active camera.
+  //  * <p>
+  //  * By default, only one camera can be active at a time. The intention of this
+  //  * method is that the user can switch between the two cameras at will.
+  //  */
+  // public void changeDirection() {
+  //   // Get the currently active camera then switch to the inactive camera.
+  //   String currentCamera = getCamera();
+  //   currentCamera = currentCamera.equals(frontCamera.getName()) ? backCamera.getName() : frontCamera.getName();
+  //   setCamera(currentCamera);
+  // }
 
   /**
    * Set the given camera as the active camera.

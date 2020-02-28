@@ -9,28 +9,21 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
+import frc.robot.controllers.Gamepad;
 
-/**
- * Command that extends the pneumatic pusher on the robot.
- */
-public class ExtendPusher extends InstantCommand {
-  /**
-   * Constructor for ExtendPusher Command.
-   */
-  public ExtendPusher() {
-    super();
-    requires(Robot.pneumatics);
+public class ControlPanelManual extends InstantCommand {
+  double speed;
+  
+  public ControlPanelManual(double speed) {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    this.speed = speed;
+    requires(Robot.controlPanel);
   }
 
-  /**
-   * The initialize method is called the first time this Command is run after
-   * being started.
-   * <p>
-   * Call the pneumatics subsystem's extend method.
-   */
+  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.pneumatics.extend();
+    Robot.controlPanel.runMotor(speed);
   }
-
 }

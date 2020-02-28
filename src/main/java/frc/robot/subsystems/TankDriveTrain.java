@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.RobotMap;
 
@@ -17,22 +18,24 @@ import frc.robot.RobotMap;
  * Subsystem for controlling the robot's wheels for a mecanum setup with four wheels.
  */
 public class TankDriveTrain extends DriveTrain {
-  private SpeedController frontRightWheel;
-  private SpeedController frontLeftWheel;
-  private SpeedController rearRightWheel;
-  private SpeedController rearLeftWheel;
+  public SpeedController frontRightWheel;
+  public SpeedController rearRightWheel;
+  public SpeedController frontLeftWheel;
+  public SpeedController rearLeftWheel;
   private SpeedControllerGroup rightWheels;
   private SpeedControllerGroup leftWheels;
 
   public TankDriveTrain() {
     super();
     frontRightWheel = new PWMVictorSPX(RobotMap.FRONT_RIGHT_WHEEL);
-    frontLeftWheel = new PWMVictorSPX(RobotMap.FRONT_LEFT_WHEEL);
     rearRightWheel = new PWMVictorSPX(RobotMap.REAR_RIGHT_WHEEL);
+    frontLeftWheel = new PWMVictorSPX(RobotMap.FRONT_LEFT_WHEEL);
     rearLeftWheel = new PWMVictorSPX(RobotMap.REAR_LEFT_WHEEL);
     rightWheels = new SpeedControllerGroup(frontRightWheel, rearRightWheel);
     leftWheels = new SpeedControllerGroup(frontLeftWheel, rearLeftWheel);
-    wheels = new DifferentialDrive(rightWheels, leftWheels);
+    rightWheels.setInverted(true);
+    leftWheels.setInverted(true);
+    wheels = new DifferentialDrive(leftWheels, rightWheels);
   }
 
   /**
@@ -45,7 +48,7 @@ public class TankDriveTrain extends DriveTrain {
    */
   @Override
   public void drive(double forwardsSpeed, double rotationSpeed) {
-    ((DifferentialDrive) wheels).arcadeDrive(forwardsSpeed, rotationSpeed);
+    ((DifferentialDrive) wheels).arcadeDrive(direction * forwardsSpeed, rotationSpeed);
   }
 
   /**

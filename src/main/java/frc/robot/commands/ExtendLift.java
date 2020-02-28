@@ -7,59 +7,30 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
-public class ExtendLift extends Command {
-  Timer timer;
-  double speed = .5;
-  double duration = 2;
+/**
+ * Add your docs here.
+ */
+public class ExtendLift extends InstantCommand {
+  private double speed;
   /**
    * Add your docs here.
    */
-  public ExtendLift() {
+  public ExtendLift(double speed) {
     super();
-    requires(Robot.lift);
-    timer = new Timer();
+    this.speed = speed;
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    requires(Robot.lift);
   }
 
   // Called once when the command executes
   @Override
   protected void initialize() {
+    Robot.lift.runHookMotor(speed);
     Robot.lift.runLiftMotor(speed);
-    timer.start();
   }
 
-  @Override
-  protected boolean isFinished() {
-    // TODO Auto-generated method stub
-    double time = timer.get();
-    if(time > duration){
-      return true;
-    }
-    return false;
-  }
-
-  /**
-   * Called once when the command is finished.
-   * 
-   * Stop the motor.
-   */
-  @Override
-  protected void end() {
-    Robot.lift.runLiftMotor(0);
-  }
-
-  /**
-   * Called when the command is forced to stop.
-   * 
-   * Stop the motor.
-   */
-  @Override
-  protected void interrupted() {
-    Robot.lift.runLiftMotor(0);
-  }
 }

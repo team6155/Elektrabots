@@ -7,19 +7,15 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.Drive;
+import frc.robot.utility.Direction;
 
 /**
  * Subsystem controlling the robot's wheels.
  */
 public abstract class DriveTrain extends Subsystem {
     protected RobotDriveBase wheels;
-    protected int direction;
+    protected double direction;
     protected Gyro gyro;
-
-    public class Direction {
-        public static final int FORWARD = 1;
-        public static final int BACKWARD = -1;
-    }
 
     /**
      * Constructor for DriveTrain class
@@ -29,7 +25,7 @@ public abstract class DriveTrain extends Subsystem {
         gyro = new ADXRS450_Gyro(RobotMap.GYRO);
     }
 
-    public int getDirection() {
+    public double getDirection() {
         return direction;
     }
 
@@ -64,9 +60,9 @@ public abstract class DriveTrain extends Subsystem {
      * 
      * @return The new direction of the robot.
      */
-    public int changeDirection() {
+    public double changeDirection() {
         if (direction == Direction.FORWARD) {
-            direction = Direction.BACKWARD;
+            direction = Direction.REVERSE;
         }
         else {
             direction = Direction.FORWARD;

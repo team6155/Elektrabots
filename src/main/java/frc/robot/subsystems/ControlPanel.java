@@ -12,6 +12,7 @@ import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.RobotMap;
@@ -21,9 +22,10 @@ import frc.robot.commands.GuessColor;
  * Add your docs here.
  */
 public class ControlPanel extends Subsystem {
-  private DoubleSolenoid extender;
-  private SpeedController motor;
-  private ColorSensorV3 colorSensor;
+  public DoubleSolenoid extender;
+  public SpeedController motor;
+  public ColorSensorV3 colorSensor;
+  public Value direction = Value.kForward;
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
@@ -34,11 +36,13 @@ public class ControlPanel extends Subsystem {
   }
 
   public void extend() {
-    extender.set(DoubleSolenoid.Value.kForward);
-  }
-
-  public void retract() {
-    extender.set(DoubleSolenoid.Value.kReverse);
+    if(direction == Value.kForward) {
+      direction = Value.kReverse;
+    }
+    else {
+      direction = Value.kForward;
+    }
+    extender.set(direction);
   }
 
   public void runMotor(double speed) {
@@ -62,6 +66,6 @@ public class ControlPanel extends Subsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
-    setDefaultCommand(new GuessColor());
+    //setDefaultCommand(new GuessColor());
   }
 }

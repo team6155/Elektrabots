@@ -2,15 +2,13 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import frc.robot.subsystems.Belt;
 import frc.robot.subsystems.Camera;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.MecanumDriveTrain;
-import frc.robot.subsystems.Pneumatics;
 import frc.robot.subsystems.ScoopMotor;
 import frc.robot.subsystems.ScoopPneumatics;
-import frc.robot.subsystems.Hook;
+import frc.robot.subsystems.TankDriveTrain;
 import frc.robot.subsystems.Lift;
 
 /**
@@ -22,11 +20,8 @@ import frc.robot.subsystems.Lift;
  */
 public class Robot extends TimedRobot {
   //TODO: Reactivate camera
-  public static DriveTrain driveTrain = new MecanumDriveTrain();
-  public static Belt belt = new Belt();
-  public static Pneumatics pneumatics = new Pneumatics();
-  //public static Camera camera = new Camera();
-  public static Hook hook = new Hook();
+  public static DriveTrain driveTrain = new TankDriveTrain();
+  public static Camera camera = new Camera();
   public static Lift lift = new Lift();
   public static ControlPanel controlPanel = new ControlPanel();
   public static ScoopPneumatics scoopPneumatics = new ScoopPneumatics();

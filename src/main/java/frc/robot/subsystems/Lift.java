@@ -19,14 +19,21 @@ public class Lift extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   private SpeedController liftMotor;
+  private SpeedController hookMotor;
 
   public Lift() {
     liftMotor = new PWMVictorSPX(RobotMap.LIFT_MOTOR);
+    hookMotor = new PWMVictorSPX(RobotMap.HOOK_MOTOR);
   }
   
   public void runLiftMotor(double speed){
     liftMotor.set(speed);
   }
+
+  public void runHookMotor(double speed) {
+    hookMotor.set(speed);
+  }
+
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.

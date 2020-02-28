@@ -20,14 +20,17 @@ import frc.robot.commands.RunScoopMotor;
 public class ScoopMotor extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private SpeedController motor;
+  public SpeedController motor;
+  private double maximumSpeed;
 
   public ScoopMotor() {
     motor = new PWMVictorSPX(RobotMap.SCOOP_MOTOR);
+    maximumSpeed = .5;
+    motor.setInverted(true);
   }
 
   public void run(double speed) {
-    motor.set(speed);
+    motor.set(speed * maximumSpeed);
   }
 
   @Override

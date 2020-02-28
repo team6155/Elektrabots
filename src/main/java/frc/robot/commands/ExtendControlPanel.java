@@ -11,26 +11,23 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
 /**
- * Command that retracts the pneumatic pusher on the robot.
+ * Add your docs here.
  */
-public class RetractPusher extends InstantCommand {
+public class ExtendControlPanel extends InstantCommand {
   /**
-   * Constructor for RetractPusher Command.
+   * Add your docs here.
    */
-  public RetractPusher() {
+  public ExtendControlPanel() {
     super();
-    requires(Robot.pneumatics);
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(Robot.controlPanel);
   }
 
-  /**
-   * The initialize method is called the first time this Command is run after
-   * being started.
-   * <p>
-   * Call the pneumatics subsystem's retract method.
-   */
+  // Called once when the command executes
   @Override
   protected void initialize() {
-    Robot.pneumatics.retract();
+    Robot.controlPanel.extend();
   }
 
 }

@@ -9,6 +9,16 @@ import edu.wpi.first.wpilibj.buttons.Button;
  * Object for controller allowing command-based usage.
  */
 public class Gamepad extends Joystick {
+    private class Direction {
+        private static final int UP = 0;
+        private static final int UP_RIGHT = 45;
+        private static final int RIGHT = 90;
+        private static final int DOWN_RIGHT = 135;
+        private static final int DOWN = 180;
+        private static final int DOWN_LEFT = 225;
+        private static final int LEFT = 270;
+        private static final int UP_LEFT = 315;
+    }
     public final Button A_BUTTON;
     public final Button B_BUTTON;
     public final Button X_BUTTON;
@@ -19,6 +29,14 @@ public class Gamepad extends Joystick {
     public final Button START_BUTTON;
     public final Button LEFT_TRIGGER;
     public final Button RIGHT_TRIGGER;
+    public final Button D_PAD_UP;
+    public final Button D_PAD_UP_RIGHT;
+    public final Button D_PAD_RIGHT;
+    public final Button D_PAD_DOWN_RIGHT;
+    public final Button D_PAD_DOWN;
+    public final Button D_PAD_DOWN_LEFT;
+    public final Button D_PAD_LEFT;
+    public final Button D_PAD_UP_LEFT;
 
     /**
      * Constructor for the Gamepad class.
@@ -37,6 +55,14 @@ public class Gamepad extends Joystick {
         START_BUTTON = new JoystickButton(this, RobotMap.START_BUTTON);
         LEFT_TRIGGER = new GamepadTrigger(this, RobotMap.LEFT_TRIGGER);
         RIGHT_TRIGGER = new GamepadTrigger(this, RobotMap.RIGHT_TRIGGER);
+        D_PAD_UP = new DirectionalPad(this, Direction.UP);
+        D_PAD_UP_RIGHT = new DirectionalPad(this, Direction.UP_RIGHT);
+        D_PAD_RIGHT = new DirectionalPad(this, Direction.RIGHT);
+        D_PAD_DOWN_RIGHT = new DirectionalPad(this, Direction.DOWN_RIGHT);
+        D_PAD_DOWN = new DirectionalPad(this, Direction.DOWN);
+        D_PAD_DOWN_LEFT = new DirectionalPad(this, Direction.DOWN_LEFT);
+        D_PAD_LEFT = new DirectionalPad(this, Direction.LEFT);
+        D_PAD_UP_LEFT = new DirectionalPad(this, Direction.UP_LEFT);
     }
 
     /**

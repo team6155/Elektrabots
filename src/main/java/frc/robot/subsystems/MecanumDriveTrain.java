@@ -55,6 +55,6 @@ public class MecanumDriveTrain extends DriveTrain {
    */
   @Override
   public void drive(double forwardsSpeed, double sidewaysSpeed, double rotationSpeed) {
-    ((MecanumDrive) wheels).driveCartesian(forwardsSpeed, sidewaysSpeed, rotationSpeed);
+    ((MecanumDrive) wheels).driveCartesian(direction * forwardsSpeed, direction * sidewaysSpeed, rotationSpeed);
   }
 }
