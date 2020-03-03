@@ -38,6 +38,7 @@ public class RotationControl extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    Robot.controlPanel.runMotor(1);
     currentColor = ColorInfo.findClosestColor(Robot.controlPanel.readColor());
     if(!currentColor.equals(previousColor)){
       int currentCount = count.get(currentColor) +1;
@@ -61,11 +62,13 @@ public class RotationControl extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.controlPanel.runMotor(0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    Robot.controlPanel.runMotor(0);
   }
 }
