@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import frc.robot.commands.Autonomous;
 import frc.robot.subsystems.Camera;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
@@ -68,6 +69,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    Scheduler.getInstance().add(new Autonomous());
   }
 
   /**
