@@ -46,7 +46,7 @@ public class ControlPanel extends Subsystem {
   }
 
   public void runMotor(double speed) {
-    motor.set(speed);
+    motor.set(speed*.75);
   }
 
   public Color readColor() {
