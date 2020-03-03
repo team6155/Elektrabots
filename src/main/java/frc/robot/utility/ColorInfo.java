@@ -13,10 +13,10 @@ import edu.wpi.first.wpilibj.util.Color;
  * Add your docs here.
  */
 public class ColorInfo {
-    public static final Color BLUE = new Color(0, 0, 1);
-    public static final Color GREEN = new Color(0, 1, 0);
-    public static final Color RED = new Color(1, 0, 0);
-    public static final Color YELLOW = new Color(1, 1, 0);
+    public static final Color BLUE = new Color(.01, .39, .65);
+    public static final Color GREEN = new Color(0, .39, .21);
+    public static final Color RED = new Color(.60, .11, .11);
+    public static final Color YELLOW = new Color(.68, .60, .10);
     public static final Color[] COLORS = {BLUE, GREEN, RED, YELLOW};
 
     public static Color findClosestColor(Color color) {
