@@ -33,8 +33,8 @@ public class TankDriveTrain extends DriveTrain {
     rearLeftWheel = new PWMVictorSPX(RobotMap.REAR_LEFT_WHEEL);
     rightWheels = new SpeedControllerGroup(frontRightWheel, rearRightWheel);
     leftWheels = new SpeedControllerGroup(frontLeftWheel, rearLeftWheel);
-    rightWheels.setInverted(true);
-    leftWheels.setInverted(true);
+    rightWheels.setInverted(false);
+    leftWheels.setInverted(false);
     wheels = new DifferentialDrive(leftWheels, rightWheels);
   }
 
@@ -48,7 +48,7 @@ public class TankDriveTrain extends DriveTrain {
    */
   @Override
   public void drive(double forwardsSpeed, double rotationSpeed) {
-    ((DifferentialDrive) wheels).arcadeDrive(direction * forwardsSpeed, rotationSpeed);
+    ((DifferentialDrive) wheels).tankDrive(-forwardsSpeed, -rotationSpeed);
   }
 
   /**

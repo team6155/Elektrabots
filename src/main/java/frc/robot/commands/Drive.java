@@ -30,7 +30,7 @@ public class Drive extends InstantCommand {
   @Override
   protected void initialize() {
     double forwardsSpeed = normalizeInput(controller.getLeftStickY());
-    double rotationSpeed = normalizeInput(controller.getRightStickX());
+    double rotationSpeed = normalizeInput(controller.getRightStickY());
 
     Robot.driveTrain.drive(forwardsSpeed, rotationSpeed);
   }
