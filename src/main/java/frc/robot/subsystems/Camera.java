@@ -1,8 +1,8 @@
 package frc.robot.subsystems;
 
 import edu.wpi.cscore.UsbCamera;
-import edu.wpi.cscore.VideoSink;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
@@ -15,8 +15,9 @@ import frc.robot.RobotMap;
  * easily.
  */
 public class Camera extends Subsystem {
-  UsbCamera controlPanelCamera;
-  VideoSink server;
+  UsbCamera rearCamera;
+  UsbCamera frontCamera;
+  NetworkTableEntry cameraSelection;
 
   /**
    * Constructor for the Camera subsystem.
@@ -24,39 +25,43 @@ public class Camera extends Subsystem {
   public Camera() {
     // Create both cameras as well as the server the video will be sent to for
     // display.
-    controlPanelCamera = CameraServer.getInstance().startAutomaticCapture(RobotMap.FRONT_CAMERA);
-    server = CameraServer.getInstance().getServer();
+    frontCamera = CameraServer.getInstance().startAutomaticCapture(RobotMap.FRONT_CAMERA);
+    rearCamera = CameraServer.getInstance().startAutomaticCapture(RobotMap.REAR_CAMERA);
+    cameraSelection = NetworkTableInstance.getDefault().getTable("").getEntry("CameraSelection");
 
     // Set the resolution of both cameras.
-    controlPanelCamera.setResolution(640, 480);
+    frontCamera.setResolution(320, 240);
+    frontCamera.setFPS(10);
+    rearCamera.setResolution(320, 240);
+    rearCamera.setFPS(10);
 
-    setCamera(controlPanelCamera.getName());
+    setCamera(frontCamera.getName());
   }
 
-  // /**
-  //  * Switch the active camera.
-  //  * <p>
-  //  * By default, only one camera can be active at a time. The intention of this
-  //  * method is that the user can switch between the two cameras at will.
-  //  */
-  // public void changeDirection() {
-  //   // Get the currently active camera then switch to the inactive camera.
-  //   String currentCamera = getCamera();
-  //   currentCamera = currentCamera.equals(frontCamera.getName()) ? backCamera.getName() : frontCamera.getName();
-  //   setCamera(currentCamera);
-  // }
+  /**
+   * Switch the active camera.
+   * <p>
+   * By default, only one camera can be active at a time. The intention of this
+   * method is that the user can switch between the two cameras at will.
+   */
+  public void changeDirection() {
+    // Get the currently active camera then switch to the inactive camera.
+    String currentCamera = getCamera();
+    currentCamera = currentCamera.equals(frontCamera.getName()) ? rearCamera.getName() : frontCamera.getName();
+    setCamera(currentCamera);
+  }
 
   /**
    * Set the given camera as the active camera.
    * 
-   * @param camera Camera to switch to.
+   * @param cameraName Camera to switch to.
    */
-  private void setCamera(String camera) {
-    NetworkTableInstance.getDefault().getTable("").getEntry("CameraSelection").setString(camera);
+  private void setCamera(String cameraName) {
+    cameraSelection.setString(cameraName);
   }
 
   private String getCamera() {
-    return NetworkTableInstance.getDefault().getTable("").getEntry("CameraSelection").getString("");
+    return cameraSelection.getString("");
   }
 
   /**

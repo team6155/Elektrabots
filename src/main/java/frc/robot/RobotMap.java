@@ -10,15 +10,13 @@ import edu.wpi.first.wpilibj.SPI;
  * floating around.
  */
 public class RobotMap {
-  //TODO: Update port numbers
-
   // Sensors
   public static final I2C.Port COLOR_SENSOR = I2C.Port.kOnboard;
   public static final SPI.Port GYRO = SPI.Port.kOnboardCS0;
 
   // Cameras
-  public static final int FRONT_CAMERA = 1;
-  public static final int BACK_CAMERA = 0;
+  public static final int FRONT_CAMERA = 0;
+  public static final int REAR_CAMERA = 1;
 
   // Motors
   public static final int FRONT_RIGHT_WHEEL = 4;

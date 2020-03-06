@@ -51,13 +51,13 @@ public class Autonomous extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.driveTrain.drive(0, 0);
+    Robot.driveTrain.drive(Direction.STOP, Direction.STOP);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.driveTrain.drive(0, 0);
+    Robot.driveTrain.drive(Direction.STOP, Direction.STOP);
   }
 }

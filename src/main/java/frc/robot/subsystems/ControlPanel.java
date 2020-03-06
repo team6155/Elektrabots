@@ -10,13 +10,12 @@ package frc.robot.subsystems;
 import com.revrobotics.ColorSensorV3;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.RobotMap;
-import frc.robot.commands.GuessColor;
 
 /**
  * Add your docs here.
@@ -26,6 +25,7 @@ public class ControlPanel extends Subsystem {
   public SpeedController motor;
   public ColorSensorV3 colorSensor;
   public Value direction = Value.kForward;
+  private double MAX_SPEED = .3;
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
@@ -46,7 +46,7 @@ public class ControlPanel extends Subsystem {
   }
 
   public void runMotor(double speed) {
-    motor.set(speed*.75);
+    motor.set(speed * MAX_SPEED);
   }
 
   public Color readColor() {

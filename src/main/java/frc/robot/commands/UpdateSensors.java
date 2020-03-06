@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Robot;
+import frc.robot.utility.ColorInfo;
 
 /**
  * Add your docs here.
@@ -37,5 +38,6 @@ public class UpdateSensors extends InstantCommand {
     SmartDashboard.putNumber("Blue", color.blue);
     SmartDashboard.putNumber("IR", Robot.controlPanel.getIR());
     SmartDashboard.putNumber("Proximity", Robot.controlPanel.getProximity());
+    SmartDashboard.putString("Color", ColorInfo.colorName(ColorInfo.findClosestColor(color)));
   }
 }

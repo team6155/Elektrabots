@@ -10,14 +10,14 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.RobotMap;
+import frc.robot.utility.Direction;
 
 /**
  * Subsystem for controlling the robot's wheels for a mecanum setup with four wheels.
  */
-public class TankDriveTrain extends DriveTrain {
+public class TankDriveTrain extends PIDDrive {
   public SpeedController frontRightWheel;
   public SpeedController rearRightWheel;
   public SpeedController frontLeftWheel;
@@ -33,35 +33,54 @@ public class TankDriveTrain extends DriveTrain {
     rearLeftWheel = new PWMVictorSPX(RobotMap.REAR_LEFT_WHEEL);
     rightWheels = new SpeedControllerGroup(frontRightWheel, rearRightWheel);
     leftWheels = new SpeedControllerGroup(frontLeftWheel, rearLeftWheel);
-    rightWheels.setInverted(false);
-    leftWheels.setInverted(false);
+    rightWheels.setInverted(true);
+    leftWheels.setInverted(true);
     wheels = new DifferentialDrive(leftWheels, rightWheels);
+    //enable();
   }
 
   /**
    * Drive the robot according to the given inputs.
    * 
-   * @param forwardsSpeed The robot's speed forwards or backwards [-1.0..1.0].
+   * @param leftSpeed The speed of the robot's left wheels. [-1.0..1.0].
    *                      Back is negative and forwards is positive.
-   * @param rotationSpeed The robot's rotational speed [-1.0..1.0].
-   *                      Counter-clockwise is negative and clockwise is positive.
+   * @param rightSpeed The speed of the robot's right wheels. [-1.0..1.0].
+   *                      Back is negative and forwards is positive.
    */
   @Override
-  public void drive(double forwardsSpeed, double rotationSpeed) {
-    ((DifferentialDrive) wheels).tankDrive(-forwardsSpeed, -rotationSpeed);
+  public void drive(double leftSpeed, double rightSpeed) {
+    if(direction == Direction.FORWARD) {
+      ((DifferentialDrive) wheels).tankDrive(direction * leftSpeed, direction * rightSpeed, false);
+    }
+    else {
+      ((DifferentialDrive) wheels).tankDrive(direction * rightSpeed, direction * leftSpeed, false);
+    }
   }
 
-  /**
-   * Drive the robot according to the given inputs.
-   * 
-   * @param forwardsSpeed The robot's speed forwards or backwards [-1.0..1.0].
-   *                      Back is negative and forwards is positive.
-   * @param sidewaysSpeed UNUSED. A robot with a Tank Drive setup cannot drive sideways.
-   * @param rotationSpeed The robot's rotational speed [-1.0..1.0].
-   *                      Counter-clockwise is negative and clockwise is positive.
-   */
   @Override
-  public void drive(double forwardsSpeed, double sidewaysSpeed, double rotationSpeed) {
-    drive(forwardsSpeed, rotationSpeed);
+  protected void usePIDOutput(double output) {
+    // TODO Auto-generated method stub
+    double leftSpeed = leftWheels.get() + output;
+    double rightSpeed = rightWheels.get() - output;
+
+    double normalizeValue = normalizeSpeed(leftSpeed);
+    leftSpeed -= normalizeValue;
+    rightSpeed += normalizeValue;
+
+    normalizeValue = normalizeSpeed(rightSpeed);
+    leftSpeed += normalizeValue;
+    rightSpeed -= normalizeValue;
+
+    drive(leftSpeed, rightSpeed);
+  }
+
+  private double normalizeSpeed(double speed) {
+    if(speed > 1){
+      return speed - 1;
+    }
+    if(speed < -1){
+      return speed + 1;
+    }
+    return 0;
   }
 }

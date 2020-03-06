@@ -7,6 +7,7 @@ import frc.robot.subsystems.Camera;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.MecanumDriveTrain;
+import frc.robot.subsystems.PIDDrive;
 import frc.robot.subsystems.ScoopMotor;
 import frc.robot.subsystems.ScoopPneumatics;
 import frc.robot.subsystems.TankDriveTrain;
@@ -21,7 +22,7 @@ import frc.robot.subsystems.Lift;
  */
 public class Robot extends TimedRobot {
   //TODO: Reactivate camera
-  public static DriveTrain driveTrain = new TankDriveTrain();
+  public static PIDDrive driveTrain = new TankDriveTrain();
   public static Camera camera = new Camera();
   public static Lift lift = new Lift();
   public static ControlPanel controlPanel = new ControlPanel();

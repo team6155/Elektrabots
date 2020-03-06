@@ -7,6 +7,7 @@ import frc.robot.commands.ExtendLift;
 import frc.robot.commands.ExtendScoop;
 import frc.robot.commands.PositionControl;
 import frc.robot.commands.RotationControl;
+import frc.robot.commands.UpdateSensors;
 import frc.robot.controllers.Gamepad;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.utility.Direction;
@@ -29,6 +30,7 @@ public class OI {
     DRIVER_CONTROLLER.A_BUTTON.whenPressed(new ChangeDirection());
 
     OPERATOR_CONTROLLER.A_BUTTON.whenPressed(new ExtendScoop());
+    OPERATOR_CONTROLLER.B_BUTTON.whileHeld(new UpdateSensors());
     OPERATOR_CONTROLLER.Y_BUTTON.whenPressed(new ExtendControlPanel());
     OPERATOR_CONTROLLER.D_PAD_RIGHT.whileHeld(new ControlPanelManual(Direction.FORWARD));
     OPERATOR_CONTROLLER.D_PAD_RIGHT.whenReleased(new ControlPanelManual(Direction.STOP));

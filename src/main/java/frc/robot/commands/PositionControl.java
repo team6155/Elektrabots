@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Robot;
 import frc.robot.utility.ColorInfo;
+import frc.robot.utility.Direction;
 
 /**
  * Command for the Position Control part of the competition.
@@ -66,7 +67,7 @@ public class PositionControl extends Command {
   @Override
   protected void execute() {
     currentColor = ColorInfo.findClosestColor(Robot.controlPanel.readColor());
-    Robot.controlPanel.runMotor(.5);
+    Robot.controlPanel.runMotor(Direction.FORWARD);
   }
 
   /**
@@ -89,7 +90,7 @@ public class PositionControl extends Command {
    */
   @Override
   protected void end() {
-    Robot.controlPanel.runMotor(0);
+    Robot.controlPanel.runMotor(Direction.STOP);
   }
 
   /**
@@ -99,6 +100,6 @@ public class PositionControl extends Command {
    */
   @Override
   protected void interrupted() {
-    Robot.controlPanel.runMotor(0);
+    Robot.controlPanel.runMotor(Direction.STOP);
   }
 }

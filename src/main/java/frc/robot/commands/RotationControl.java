@@ -7,18 +7,19 @@
 
 package frc.robot.commands;
 
-import java.util.Dictionary;
+import java.util.HashMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Robot;
 import frc.robot.utility.ColorInfo;
+import frc.robot.utility.Direction;
 
 public class RotationControl extends Command {
   Color currentColor;
   Color previousColor;
-  Dictionary<Color, Integer> count;
-  int highestCount = 0;
+  HashMap<Color, Integer> count;
+  int highestCount;
   public RotationControl() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
@@ -28,20 +29,22 @@ public class RotationControl extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    count = new HashMap<Color, Integer>();
     count.put(ColorInfo.BLUE, 0);
     count.put(ColorInfo.RED, 0);
     count.put(ColorInfo.YELLOW, 0);
     count.put(ColorInfo.GREEN, 0);
     previousColor = null;
+    highestCount = 0;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.controlPanel.runMotor(1);
+    Robot.controlPanel.runMotor(Direction.FORWARD);
     currentColor = ColorInfo.findClosestColor(Robot.controlPanel.readColor());
     if(!currentColor.equals(previousColor)){
-      int currentCount = count.get(currentColor) +1;
+      int currentCount = count.get(currentColor) + 1;
       count.put(currentColor, currentCount);
       if(currentCount > highestCount){
         highestCount = currentCount;
@@ -69,6 +72,6 @@ public class RotationControl extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.controlPanel.runMotor(0);
+    Robot.controlPanel.runMotor(Direction.STOP);
   }
 }
