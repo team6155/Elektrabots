@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import frc.robot.Constants;
 import frc.robot.commands.Drive;
 
+/** Subsystem of the robot for controlling driving. */
 public class Drivetrain extends PIDSubsystem {
   MecanumDrive mecanum;
   MotorController frontLeftWheel;
@@ -20,7 +21,7 @@ public class Drivetrain extends PIDSubsystem {
   MotorController backRightWheel;
   int direction;
 
-  /** Creates a new Drivetrain. */
+  /** Creates a new Drivetrain subsystem. */
   public Drivetrain() {
     super(
         // The PIDController used by the subsystem
@@ -33,13 +34,22 @@ public class Drivetrain extends PIDSubsystem {
     direction = 1;
   }
 
-  public void drive(double ySpeed, double xSpeed, double zRotation) {
-    mecanum.driveCartesian(ySpeed * direction, xSpeed * direction, zRotation);
+  /**
+   * Drive the robot according to the given inputs.
+   * @param forwardsSpeed The desired speed forwards. [-1.0..1.0]. Positive is forwards, negative is backwards.
+   * @param sidewaysSpeed The desired speed sideways. [-1.0..1.0]. Positive is right, negative is left.
+   * @param rotationalSpeed The desired rotational speed. [-1.0..1.0]. Positive is clockwise, negative is counter-clockwise.
+   */
+  public void drive(double forwardsSpeed, double sidewaysSpeed, double rotationalSpeed) {
+    mecanum.driveCartesian(forwardsSpeed * direction, sidewaysSpeed * direction, rotationalSpeed);
   }
 
-  public int changeDirection() {
+  /**
+   * Switch the facing of the robot. This will change what side of the robot is considered to be the front.
+   * @return
+   */
+  public void changeDirection() {
     direction = -direction;
-    return direction;
   }
 
   @Override

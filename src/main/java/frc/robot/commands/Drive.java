@@ -8,23 +8,32 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Drivetrain;
 
 // TODO: Command is not called anywhere.
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
+/**
+ * Drive the robot according to input from the controller.
+ */
 public class Drive extends InstantCommand {
   Drivetrain drivetrain;
   double ySpeed;
   double xSpeed;
   double zRotation;
   
-
+  /**
+   * Constructor for the Drive command
+   * @param drivetrain The drivetrain subsystem.
+   * @param ySpeed The desired speed forwards or backwards.
+   * @param xSpeed The desired speed left or right.
+   * @param zRotation The desired rotation clockwise or counter-clockwise.
+   */
   public Drive(Drivetrain drivetrain, double ySpeed, double xSpeed, double zRotation) {
     this.drivetrain = drivetrain;
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.drivetrain);
   }
 
-  // Called when the command is initially scheduled.
+  /**
+   * The initial subroutine of a command. Called once when the command is initially scheduled.
+   * <p>
+   * Call the drivetrain subsystem's drive method.
+   */
   @Override
   public void initialize() {
     drivetrain.drive(ySpeed, xSpeed, zRotation);
