@@ -6,11 +6,13 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.ChangeRobotDirection;
 import frc.robot.commands.RunConveyor;
 import frc.robot.commands.TeleOpDrive;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -27,6 +29,8 @@ public class RobotContainer {
   // The robot's commands
   private final TeleOpDrive drive_command = new TeleOpDrive(drivetrain, driverController);
   private final RunConveyor conveyor_command = new RunConveyor(conveyor, operatorController);
+  private final ChangeRobotDirection change_direction = new ChangeRobotDirection(drivetrain);
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -42,7 +46,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    JoystickButton aButton = new JoystickButton(driverController, Constants.CONTROLLER_A_BUTTON);
+    aButton.whenPressed(change_direction);
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
