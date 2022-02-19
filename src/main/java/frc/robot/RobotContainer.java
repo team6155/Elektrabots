@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.Autonomous;
 import frc.robot.commands.ChangeRobotDirection;
 import frc.robot.commands.RunConveyor;
 import frc.robot.commands.TeleOpDrive;
@@ -30,6 +31,7 @@ public class RobotContainer {
   private final TeleOpDrive drive_command = new TeleOpDrive(drivetrain, driverController);
   private final RunConveyor conveyor_command = new RunConveyor(conveyor, operatorController);
   private final ChangeRobotDirection change_direction = new ChangeRobotDirection(drivetrain);
+  private final Autonomous autonomous = new Autonomous(drivetrain);
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -58,6 +60,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+    return autonomous;
   }
 }
