@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Drivetrain;
 
@@ -11,21 +12,18 @@ import frc.robot.subsystems.Drivetrain;
 /**
  * Drive the robot according to input from the controller.
  */
-public class Drive extends InstantCommand {
+public class TeleOpDrive extends InstantCommand {
   Drivetrain drivetrain;
-  double ySpeed;
-  double xSpeed;
-  double zRotation;
+  XboxController controller;
   
   /**
    * Constructor for the Drive command
    * @param drivetrain The drivetrain subsystem.
-   * @param ySpeed The desired speed forwards or backwards.
-   * @param xSpeed The desired speed left or right.
-   * @param zRotation The desired rotation clockwise or counter-clockwise.
+   * @param controller The xbox controller used to drive the robot.
    */
-  public Drive(Drivetrain drivetrain, double ySpeed, double xSpeed, double zRotation) {
+  public TeleOpDrive(Drivetrain drivetrain, XboxController controller) {
     this.drivetrain = drivetrain;
+    this.controller = controller;
     addRequirements(this.drivetrain);
   }
 
@@ -36,6 +34,6 @@ public class Drive extends InstantCommand {
    */
   @Override
   public void initialize() {
-    drivetrain.drive(ySpeed, xSpeed, zRotation);
+    drivetrain.drive(controller.getLeftY(), controller.getLeftX(), controller.getRightX());
   }
 }

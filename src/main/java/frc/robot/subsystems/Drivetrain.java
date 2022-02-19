@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import frc.robot.Constants;
-import frc.robot.commands.Drive;
 
 /** Subsystem of the robot for controlling driving. */
 public class Drivetrain extends PIDSubsystem {
@@ -26,6 +25,7 @@ public class Drivetrain extends PIDSubsystem {
     super(
         // The PIDController used by the subsystem
         new PIDController(0, 0, 0));
+    // TODO: Robot's wheels are not set up as the MecanumDrive class expects. May need to switch left and right sides.
     frontLeftWheel = new PWMVictorSPX(Constants.FRONT_LEFT_WHEEL_CHANNEL);
     backLeftWheel = new PWMVictorSPX(Constants.BACK_LEFT_WHEEL_CHANNEL);
     frontRightWheel = new PWMVictorSPX(Constants.FRONT_RIGHT_WHEEL_CHANNEL);

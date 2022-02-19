@@ -21,5 +21,5 @@ public final class Constants {
     public static final int FRONT_RIGHT_WHEEL_CHANNEL = -1;
     public static final int BACK_RIGHT_WHEEL_CHANNEL = -1;
 
-    public static final XboxController controller = new XboxController(-1);
+    public static final XboxController CONTROLLER = new XboxController(-1);
 }
