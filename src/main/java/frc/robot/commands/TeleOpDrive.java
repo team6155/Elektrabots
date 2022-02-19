@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Drivetrain;
 
-// TODO: Command is not called anywhere.
 /**
  * Drive the robot according to input from the controller.
  */
