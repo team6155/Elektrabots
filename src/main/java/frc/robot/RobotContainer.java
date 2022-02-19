@@ -6,10 +6,10 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.RunConveyor;
 import frc.robot.commands.TeleOpDrive;
+import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -19,14 +19,19 @@ import edu.wpi.first.wpilibj2.command.Command;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
+  XboxController driverController = new XboxController(Constants.DRIVER_CONTROLLER_PORT);
+  XboxController operatorController = new XboxController(Constants.OPERATOR_CONTROLLER_PORT);
+  // The robot's subsystems
   private final Drivetrain drivetrain = new Drivetrain();
-  
-  private final TeleOpDrive drive_command = new TeleOpDrive(drivetrain, Constants.CONTROLLER);
+  private final Conveyor conveyor = new Conveyor();
+  // The robot's commands
+  private final TeleOpDrive drive_command = new TeleOpDrive(drivetrain, driverController);
+  private final RunConveyor conveyor_command = new RunConveyor(conveyor, operatorController);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     drivetrain.setDefaultCommand(drive_command);
+    conveyor.setDefaultCommand(conveyor_command);
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -46,6 +51,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return null;
   }
 }
