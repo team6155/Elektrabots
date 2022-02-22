@@ -13,16 +13,16 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    //TODO: Figure out the actual channels.
-    public static final int FRONT_LEFT_WHEEL_CHANNEL = -1;
-    public static final int BACK_LEFT_WHEEL_CHANNEL = -1;
-    public static final int FRONT_RIGHT_WHEEL_CHANNEL = -1;
-    public static final int BACK_RIGHT_WHEEL_CHANNEL = -1;
-    public static final int INTAKE_CHANNEL = -1;
-    public static final int SHOOTING_CHANNEL = -1;
+    
+    public static final int FRONT_LEFT_WHEEL_CHANNEL = 2;
+    public static final int BACK_LEFT_WHEEL_CHANNEL = 4;
+    public static final int FRONT_RIGHT_WHEEL_CHANNEL = 1;
+    public static final int BACK_RIGHT_WHEEL_CHANNEL = 3;
+    public static final int INTAKE_CHANNEL = 7;
+    public static final int SHOOTING_CHANNEL = 0;
 
-    public static final int DRIVER_CONTROLLER_PORT = -1;
-    public static final int OPERATOR_CONTROLLER_PORT = -1;
+    public static final int DRIVER_CONTROLLER_PORT = 0;
+    public static final int OPERATOR_CONTROLLER_PORT = 1;
 
     public static final int CONTROLLER_A_BUTTON = 1;
 }
