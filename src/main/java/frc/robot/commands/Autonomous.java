@@ -4,48 +4,16 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Drivetrain;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
-/** The command responsible for driving the robot autonomously. */
-public class Autonomous extends CommandBase {
-  Drivetrain drivetrain;
-  Timer timer;
-
-  /**
-   * Creates a new Autonomous command.
-   * @param drivetrain The robot's drivetrain subsystem.
-   */
-  public Autonomous(Drivetrain drivetrain) {
-    timer = new Timer();
-    // Use addRequirements() here to declare subsystem dependencies.
-    this.drivetrain = drivetrain;
-    addRequirements(drivetrain);
-  }
-
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-    timer.start();
-  }
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    drivetrain.drive(1, 0, 0);
-  }
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    timer.stop();
-    timer.reset();
-  }
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return timer.get() < 5;
+// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
+// information, see:
+// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
+public class Autonomous extends SequentialCommandGroup {
+  /** Creates a new Autonomous. */
+  public Autonomous(AutonomousDrive drive) {
+    // Add your commands in the addCommands() call, e.g.
+    // addCommands(new FooCommand(), new BarCommand());
+    addCommands(drive);
   }
 }
