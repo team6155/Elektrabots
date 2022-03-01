@@ -12,7 +12,7 @@ import frc.robot.subsystems.Drivetrain;
 public class AutonomousDrive extends CommandBase {
   Drivetrain drivetrain;
   Timer timer;
-  int driveTime = 5;
+  int driveTime = 0;
 
   /**
    * Creates a new Autonomous command.
