@@ -5,13 +5,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 
 /**
  * Drive the robot according to input from the controller.
  */
-public class TeleOpDrive extends InstantCommand {
+public class TeleOpDrive extends CommandBase {
   Drivetrain drivetrain;
   XboxController controller;
   
@@ -25,14 +25,23 @@ public class TeleOpDrive extends InstantCommand {
     this.controller = controller;
     addRequirements(this.drivetrain);
   }
-
-  /**
-   * The initial subroutine of a command. Called once when the command is initially scheduled.
-   * <p>
-   * Call the drivetrain subsystem's drive method.
-   */
+  
   @Override
   public void initialize() {
-    drivetrain.drive(controller.getLeftY(), controller.getLeftX(), controller.getRightX());
+  }
+
+  @Override
+  public void execute() {
+    drivetrain.drive(-controller.getLeftY(), controller.getLeftX(), -controller.getRightX());
+  }
+
+  @Override
+  public void end(boolean interrupted) {
+
+  }
+
+  @Override
+  public boolean isFinished() {
+    return false;
   }
 }

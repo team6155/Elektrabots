@@ -30,7 +30,10 @@ public class Drivetrain extends PIDSubsystem {
     backLeftWheel = new PWMVictorSPX(Constants.BACK_LEFT_WHEEL_CHANNEL);
     frontRightWheel = new PWMVictorSPX(Constants.FRONT_RIGHT_WHEEL_CHANNEL);
     backRightWheel = new PWMVictorSPX(Constants.BACK_RIGHT_WHEEL_CHANNEL);
-    mecanum = new MecanumDrive(frontLeftWheel, backLeftWheel, frontRightWheel, backRightWheel);
+    frontRightWheel.setInverted(true);
+    backRightWheel.setInverted(true);
+    // The right and left sides are reversed because of the wheel installation.
+    mecanum = new MecanumDrive(frontRightWheel, backRightWheel, frontLeftWheel, backLeftWheel);
     direction = 1;
   }
 
