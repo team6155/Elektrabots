@@ -18,8 +18,8 @@ public final class Constants {
     public static final int BACK_LEFT_WHEEL_CHANNEL = 3;
     public static final int FRONT_RIGHT_WHEEL_CHANNEL = 2;
     public static final int BACK_RIGHT_WHEEL_CHANNEL = 4;
-    public static final int INTAKE_CHANNEL = 7;
-    public static final int SHOOTING_CHANNEL = 0;
+    public static final int INTAKE_CHANNEL = 9;   //changed from 7
+    public static final int SHOOTING_CHANNEL = 8;  //changed from 0
 
     public static final int DRIVER_CONTROLLER_PORT = 0;
     public static final int OPERATOR_CONTROLLER_PORT = 1;
