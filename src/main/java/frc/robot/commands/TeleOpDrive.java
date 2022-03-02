@@ -32,7 +32,8 @@ public class TeleOpDrive extends CommandBase {
 
   @Override
   public void execute() {
-    drivetrain.drive(-controller.getLeftY(), controller.getLeftX(), -controller.getRightX());
+    double speedMultiple = controller.getRightTriggerAxis() / 2 + .5;
+    drivetrain.drive(speedMultiple * -controller.getLeftY(), speedMultiple * controller.getLeftX(), speedMultiple * -controller.getRightX());
   }
 
   @Override
