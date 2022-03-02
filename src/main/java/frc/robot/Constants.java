@@ -25,4 +25,6 @@ public final class Constants {
     public static final int OPERATOR_CONTROLLER_PORT = 1;
 
     public static final int CONTROLLER_A_BUTTON = 1;
+    public static final int OPERATOR_LEFT_Y_AXIS = 1;
+    public static final int OPERATOR_RIGHT_Y_AXIS = 3;
 }
