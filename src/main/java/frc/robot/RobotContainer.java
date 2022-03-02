@@ -28,7 +28,6 @@ public class RobotContainer {
   // The robot's subsystems
   private final Drivetrain drivetrain = new Drivetrain();
   private final Conveyor conveyor = new Conveyor();
-  private final Camera camera = new Camera();
   // The robot's commands
   private final TeleOpDrive drive_command = new TeleOpDrive(drivetrain, driverController);
   private final RunConveyor conveyor_command = new RunConveyor(conveyor, operatorController);
