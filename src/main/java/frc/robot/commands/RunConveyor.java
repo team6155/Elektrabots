@@ -33,8 +33,8 @@ public class RunConveyor extends CommandBase {
   }
 
   public void execute() {
-    conveyor.runIntakeMotor(controller.getRawAxis(Constants.OPERATOR_LEFT_Y_AXIS));
-    conveyor.runShootingMotor(controller.getRawAxis(Constants.OPERATOR_RIGHT_Y_AXIS));
+    conveyor.runIntakeMotor(-controller.getRawAxis(Constants.OPERATOR_LEFT_Y_AXIS));
+    conveyor.runShootingMotor(-controller.getRawAxis(Constants.OPERATOR_RIGHT_Y_AXIS));
   }
 
   public void end(boolean interrupted) {
