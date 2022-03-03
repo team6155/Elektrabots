@@ -12,6 +12,8 @@ import frc.robot.subsystems.Drivetrain;
  * Drive the robot according to input from the controller.
  */
 public class TeleOpDrive extends CommandBase {
+  double baseSpeedMultiple = .5;
+  
   Drivetrain drivetrain;
   XboxController controller;
   
@@ -32,8 +34,10 @@ public class TeleOpDrive extends CommandBase {
 
   @Override
   public void execute() {
-    double speedMultiple = controller.getRightTriggerAxis() / 2 + .5;
-    drivetrain.drive(speedMultiple * -controller.getLeftY(), speedMultiple * controller.getLeftX(), speedMultiple * -controller.getRightX());
+    double forwardsSpeed = adjustInput(-controller.getLeftY());
+    double sidewaysSpeed = adjustInput(controller.getLeftX());
+    double rotationalSpeed = adjustInput(-controller.getRightX());
+    drivetrain.drive(forwardsSpeed, sidewaysSpeed, rotationalSpeed);
   }
 
   @Override
@@ -44,5 +48,19 @@ public class TeleOpDrive extends CommandBase {
   @Override
   public boolean isFinished() {
     return false;
+  }
+
+  /**
+   * Adjust the input from the joystick for finer control.
+   * <p>
+   * Multiply the input by a multiple dependent on the controller's right trigger and square the input.
+   * @param input The input given by the joystick. [-1.0 .. 1.0].
+   * @return The normalized input 
+   */
+  private double adjustInput(double input) {
+    double sign = input >= 1 ? 1 : -1;
+    double speedMultiple = controller.getRightTriggerAxis() * (1 - baseSpeedMultiple) + baseSpeedMultiple;
+    double squaredInput = input * input;
+    return sign * squaredInput * speedMultiple;
   }
 }
