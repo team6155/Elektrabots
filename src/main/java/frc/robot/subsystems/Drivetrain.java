@@ -37,11 +37,13 @@ public class Drivetrain extends PIDSubsystem {
     backRightWheel = new PWMVictorSPX(Constants.BACK_RIGHT_WHEEL_CHANNEL);
     frontRightWheel.setInverted(true);
     backRightWheel.setInverted(true);
-    // The right and left sides are reversed because of the wheel installation.
+    // The right and left sides are reversed from what the constructor expects because of the wheel installation.
     mecanum = new MecanumDrive(frontRightWheel, backRightWheel, frontLeftWheel, backLeftWheel);
     gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
     direction = 1;
     rotationMultiple = 1;
+
+    gyro.calibrate();
     enable();
   }
 
