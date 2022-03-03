@@ -10,44 +10,45 @@ import frc.robot.subsystems.Drivetrain;
 
 /** The command responsible for driving the robot autonomously. */
 public class AutonomousDrive extends CommandBase {
-  Drivetrain drivetrain;
-  Timer timer;
-  int driveTime = 1;
-  double speed = 1;
+  private final int DRIVE_TIME = 1;
+  private final double SPEED = 1;
+
+  private final Drivetrain DRIVETRAIN;
+  private final Timer TIMER;
 
   /**
    * Creates a new Autonomous command.
    * @param drivetrain The robot's drivetrain subsystem.
    */
   public AutonomousDrive(Drivetrain drivetrain) {
-    timer = new Timer();
-    this.drivetrain = drivetrain;
+    TIMER = new Timer();
+    DRIVETRAIN = drivetrain;
     addRequirements(drivetrain);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    timer.start();
+    TIMER.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.drive(speed, 0, 0);
+    DRIVETRAIN.drive(SPEED, 0, 0);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drivetrain.drive(0, 0, 0);
-    timer.stop();
-    timer.reset();
+    DRIVETRAIN.drive(0, 0, 0);
+    TIMER.stop();
+    TIMER.reset();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return timer.get() < driveTime;
+    return TIMER.get() < DRIVE_TIME;
   }
 }

@@ -9,7 +9,7 @@ import frc.robot.subsystems.Drivetrain;
 
 /** Command for switching the direction the robot considers forwards. */
 public class ChangeRobotDirection extends InstantCommand {
-  Drivetrain drivetrain;
+  private final Drivetrain DRIVETRAIN;
 
   /**
    * Creates a new ChangeRobotDirection command.
@@ -17,7 +17,7 @@ public class ChangeRobotDirection extends InstantCommand {
    */
   public ChangeRobotDirection(Drivetrain drivetrain) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.drivetrain = drivetrain;
+    DRIVETRAIN = drivetrain;
     addRequirements(drivetrain);
   }
 
@@ -28,6 +28,6 @@ public class ChangeRobotDirection extends InstantCommand {
    */
   @Override
   public void initialize() {
-    drivetrain.changeDirection();
+    DRIVETRAIN.changeDirection();
   }
 }

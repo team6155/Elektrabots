@@ -15,17 +15,16 @@ import frc.robot.Constants;
  * There is are two cameras: one on the front and one on the back.
  */
 public class Camera extends SubsystemBase {
-  UsbCamera frontCamera;
-  UsbCamera backCamera;
+  private final UsbCamera FRONT_CAMERA;
+  private final UsbCamera BACK_CAMERA;
 
   /** Creates a new Camera subsystem. */
   public Camera() {
-    frontCamera = CameraServer.startAutomaticCapture("Front Camera", Constants.FRONT_CAMERA_CHANNEL);
-    backCamera = CameraServer.startAutomaticCapture("Back Camera", Constants.BACK_CAMERA_CHANNEL);
-  }
-
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
+    FRONT_CAMERA = CameraServer.startAutomaticCapture("Front Camera", Constants.FRONT_CAMERA_CHANNEL);
+    BACK_CAMERA = CameraServer.startAutomaticCapture("Back Camera", Constants.BACK_CAMERA_CHANNEL);
+    FRONT_CAMERA.setResolution(640, 480);
+    BACK_CAMERA.setResolution(640, 480);
+    FRONT_CAMERA.setFPS(30);
+    BACK_CAMERA.setFPS(30);
   }
 }

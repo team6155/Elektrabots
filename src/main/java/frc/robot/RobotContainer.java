@@ -26,22 +26,22 @@ public class RobotContainer {
   XboxController operatorController = new XboxController(Constants.OPERATOR_CONTROLLER_PORT);
 
   // The robot's subsystems
-  private final Drivetrain drivetrain = new Drivetrain();
-  private final Conveyor conveyor = new Conveyor();
+  private final Drivetrain DRIVETRAIN_SUBSYSTEM = new Drivetrain();
+  private final Conveyor CONVEYOR_SUBSYSTEM = new Conveyor();
   // TODO: Activate camera subsytem once the cameras have been attached to the robot.
   // private final Camera camera = new Camera();
 
   // The robot's commands
-  private final TeleOpDrive drive_command = new TeleOpDrive(drivetrain, driverController);
-  private final RunConveyor conveyor_command = new RunConveyor(conveyor, operatorController);
-  private final ChangeRobotDirection change_direction = new ChangeRobotDirection(drivetrain);
-  private final AutonomousGroup autonomous_commands = new AutonomousGroup(drivetrain, conveyor);
+  private final TeleOpDrive DRIVE_COMMAND = new TeleOpDrive(DRIVETRAIN_SUBSYSTEM, driverController);
+  private final RunConveyor CONVEYOR_COMMAND = new RunConveyor(CONVEYOR_SUBSYSTEM, operatorController);
+  private final ChangeRobotDirection CHANGE_DIRECTION_COMMAND = new ChangeRobotDirection(DRIVETRAIN_SUBSYSTEM);
+  private final AutonomousGroup AUTONOMOUS_COMMANDS = new AutonomousGroup(DRIVETRAIN_SUBSYSTEM, CONVEYOR_SUBSYSTEM);
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    drivetrain.setDefaultCommand(drive_command);
-    conveyor.setDefaultCommand(conveyor_command);
+    DRIVETRAIN_SUBSYSTEM.setDefaultCommand(DRIVE_COMMAND);
+    CONVEYOR_SUBSYSTEM.setDefaultCommand(CONVEYOR_COMMAND);
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -54,7 +54,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     JoystickButton aButton = new JoystickButton(driverController, Constants.CONTROLLER_A_BUTTON);
-    aButton.whenPressed(change_direction);
+    aButton.whenPressed(CHANGE_DIRECTION_COMMAND);
   }
 
   /**
@@ -64,6 +64,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return autonomous_commands;
+    return AUTONOMOUS_COMMANDS;
   }
 }

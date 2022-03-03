@@ -12,10 +12,10 @@ import frc.robot.subsystems.Drivetrain;
  * Drive the robot according to input from the controller.
  */
 public class TeleOpDrive extends CommandBase {
-  double baseSpeedMultiple = .5;
-  
-  Drivetrain drivetrain;
-  XboxController controller;
+  private final double BASE_SPEED_MULTIPLE = .5;
+
+  private final Drivetrain DRIVETRAIN;
+  private final XboxController CONTROLLER;
   
   /**
    * Constructor for the Drive command
@@ -23,26 +23,17 @@ public class TeleOpDrive extends CommandBase {
    * @param controller The xbox controller used to drive the robot.
    */
   public TeleOpDrive(Drivetrain drivetrain, XboxController controller) {
-    this.drivetrain = drivetrain;
-    this.controller = controller;
-    addRequirements(this.drivetrain);
-  }
-  
-  @Override
-  public void initialize() {
+    this.DRIVETRAIN = drivetrain;
+    this.CONTROLLER = controller;
+    addRequirements(this.DRIVETRAIN);
   }
 
   @Override
   public void execute() {
-    double forwardsSpeed = adjustInput(-controller.getLeftY());
-    double sidewaysSpeed = adjustInput(controller.getLeftX());
-    double rotationalSpeed = adjustInput(-controller.getRightX());
-    drivetrain.drive(forwardsSpeed, sidewaysSpeed, rotationalSpeed);
-  }
-
-  @Override
-  public void end(boolean interrupted) {
-
+    double forwardsSpeed = adjustInput(-CONTROLLER.getLeftY());
+    double sidewaysSpeed = adjustInput(CONTROLLER.getLeftX());
+    double rotationalSpeed = adjustInput(-CONTROLLER.getRightX());
+    DRIVETRAIN.drive(forwardsSpeed, sidewaysSpeed, rotationalSpeed);
   }
 
   @Override
@@ -59,7 +50,7 @@ public class TeleOpDrive extends CommandBase {
    */
   private double adjustInput(double input) {
     double sign = input >= 1 ? 1 : -1;
-    double speedMultiple = controller.getRightTriggerAxis() * (1 - baseSpeedMultiple) + baseSpeedMultiple;
+    double speedMultiple = CONTROLLER.getRightTriggerAxis() * (1 - BASE_SPEED_MULTIPLE) + BASE_SPEED_MULTIPLE;
     double squaredInput = input * input;
     return sign * squaredInput * speedMultiple;
   }

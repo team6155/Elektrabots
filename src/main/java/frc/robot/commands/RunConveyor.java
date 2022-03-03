@@ -11,8 +11,8 @@ import frc.robot.subsystems.Conveyor;
 
 /** Run the two conveyor motors according to controller inputs. */
 public class RunConveyor extends CommandBase {
-  Conveyor conveyor;
-  XboxController controller;
+  private final Conveyor CONVEYOR;
+  private final XboxController CONTROLLER;
 
   /**
    * Create a new RunConveyor command.
@@ -21,26 +21,18 @@ public class RunConveyor extends CommandBase {
    */
   public RunConveyor(Conveyor conveyor, XboxController controller) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.conveyor = conveyor;
-    this.controller = controller;
+    CONVEYOR = conveyor;
+    CONTROLLER = controller;
     addRequirements(conveyor);
   }
-  
-  
+
   @Override
-  public void initialize() {
-    
-  }
-
   public void execute() {
-    conveyor.runIntakeMotor(-controller.getRawAxis(Constants.OPERATOR_LEFT_Y_AXIS));
-    conveyor.runShootingMotor(-controller.getRawAxis(Constants.OPERATOR_RIGHT_Y_AXIS));
+    CONVEYOR.runIntakeMotor(-CONTROLLER.getRawAxis(Constants.OPERATOR_LEFT_Y_AXIS));
+    CONVEYOR.runShootingMotor(-CONTROLLER.getRawAxis(Constants.OPERATOR_RIGHT_Y_AXIS));
   }
 
-  public void end(boolean interrupted) {
-
-  } 
-
+  @Override
   public boolean isFinished() {
     return false;
   }

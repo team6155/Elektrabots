@@ -16,34 +16,31 @@ import frc.robot.Constants;
 
 /** Subsystem of the robot for controlling driving. */
 public class Drivetrain extends PIDSubsystem {
-  MecanumDrive mecanum;
-  MotorController frontLeftWheel;
-  MotorController backLeftWheel;
-  MotorController frontRightWheel;
-  MotorController backRightWheel;
-  Gyro gyro;
-  int direction;
-  double rotationMultiple;
+  private final double ROTATION_MULTIPLE = 1;
 
-  double forwardsSpeed;
-  double sidewaysSpeed;
+  private final MecanumDrive MECANUM;
+  private final Gyro GYRO;
+
+  private int direction;
+  private double forwardsSpeed;
+  private double sidewaysSpeed;
 
   /** Creates a new Drivetrain subsystem. */
   public Drivetrain() {
     super(new PIDController(1, 0, 0));
-    frontLeftWheel = new PWMVictorSPX(Constants.FRONT_LEFT_WHEEL_CHANNEL);
-    backLeftWheel = new PWMVictorSPX(Constants.BACK_LEFT_WHEEL_CHANNEL);
-    frontRightWheel = new PWMVictorSPX(Constants.FRONT_RIGHT_WHEEL_CHANNEL);
-    backRightWheel = new PWMVictorSPX(Constants.BACK_RIGHT_WHEEL_CHANNEL);
+
+    MotorController frontLeftWheel = new PWMVictorSPX(Constants.FRONT_LEFT_WHEEL_CHANNEL);
+    MotorController backLeftWheel = new PWMVictorSPX(Constants.BACK_LEFT_WHEEL_CHANNEL);
+    MotorController frontRightWheel = new PWMVictorSPX(Constants.FRONT_RIGHT_WHEEL_CHANNEL);
+    MotorController backRightWheel = new PWMVictorSPX(Constants.BACK_RIGHT_WHEEL_CHANNEL);
+    // The right and left sides are reversed from what the constructor expects because of the wheel installation.
+    MECANUM = new MecanumDrive(frontRightWheel, backRightWheel, frontLeftWheel, backLeftWheel);
+    GYRO = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
+    direction = 1;
+
     frontRightWheel.setInverted(true);
     backRightWheel.setInverted(true);
-    // The right and left sides are reversed from what the constructor expects because of the wheel installation.
-    mecanum = new MecanumDrive(frontRightWheel, backRightWheel, frontLeftWheel, backLeftWheel);
-    gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
-    direction = 1;
-    rotationMultiple = 1;
-
-    gyro.calibrate();
+    GYRO.calibrate();
     enable();
   }
 
@@ -56,7 +53,7 @@ public class Drivetrain extends PIDSubsystem {
   public void drive(double forwardsSpeed, double sidewaysSpeed, double rotationalSpeed) {
     this.forwardsSpeed = forwardsSpeed;
     this.sidewaysSpeed = sidewaysSpeed;
-    setSetpoint(rotationalSpeed * rotationMultiple);
+    setSetpoint(rotationalSpeed * ROTATION_MULTIPLE);
   }
 
   /**
@@ -69,11 +66,11 @@ public class Drivetrain extends PIDSubsystem {
 
   @Override
   public void useOutput(double output, double setpoint) {
-    mecanum.driveCartesian(forwardsSpeed * direction, sidewaysSpeed * direction, output);
+    MECANUM.driveCartesian(forwardsSpeed * direction, sidewaysSpeed * direction, output);
   }
 
   @Override
   public double getMeasurement() {
-    return gyro.getRate();
+    return GYRO.getRate();
   }
 }
