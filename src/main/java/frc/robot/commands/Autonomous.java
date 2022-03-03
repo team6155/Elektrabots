@@ -16,7 +16,11 @@ import frc.robot.subsystems.Drivetrain;
  */
 public class Autonomous extends SequentialCommandGroup {
 
-  /** Creates a new Autonomous command group. */
+  /**
+   * Creates a new Autonomous command group.
+   * @param drivetrain The robot's drivetrain subsystem.
+   * @param conveyor The robot's conveyor subsystem.
+   */
   public Autonomous(Drivetrain drivetrain, Conveyor conveyor) {
     addCommands(new AutonomousPositionBall(conveyor), new AutonomousShoot(conveyor), new AutonomousDrive(drivetrain));
   }
