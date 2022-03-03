@@ -44,8 +44,6 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    GYRO.calibrate();
-    GYRO.reset();
     DRIVETRAIN_SUBSYSTEM.setDefaultCommand(DRIVE_COMMAND);
     CONVEYOR_SUBSYSTEM.setDefaultCommand(CONVEYOR_COMMAND);
     // Configure the button bindings
@@ -71,5 +69,13 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return AUTONOMOUS_COMMANDS;
+  }
+
+  public void resetGyro() {
+    GYRO.reset();
+  }
+
+  public void calibrateGyro() {
+    GYRO.calibrate();
   }
 }
