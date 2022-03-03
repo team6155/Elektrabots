@@ -15,6 +15,9 @@ import frc.robot.Constants;
  * This is responsible for picking up and shooting the balls.
  */
 public class Conveyor extends SubsystemBase {
+  private final double INTAKE_MAX_SPEED = .5;
+  private final double SHOOTING_MAX_SPEED = .5;
+
   private final MotorController INTAKE_MOTOR;
   private final MotorController SHOOTING_MOTOR;
   
@@ -29,7 +32,7 @@ public class Conveyor extends SubsystemBase {
    * @param speed The desired speed of the motor.
    */
   public void runIntakeMotor(double speed) {
-    INTAKE_MOTOR.set(speed);
+    INTAKE_MOTOR.set(speed * INTAKE_MAX_SPEED);
   }
 
   /**
@@ -37,6 +40,6 @@ public class Conveyor extends SubsystemBase {
    * @param speed The desired speed of the motor.
    */
   public void runShootingMotor(double speed) {
-    SHOOTING_MOTOR.set(speed);
+    SHOOTING_MOTOR.set(speed * SHOOTING_MAX_SPEED);
   }
 }
