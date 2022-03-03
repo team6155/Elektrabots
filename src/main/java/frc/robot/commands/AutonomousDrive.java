@@ -13,6 +13,7 @@ public class AutonomousDrive extends CommandBase {
   Drivetrain drivetrain;
   Timer timer;
   int driveTime = 1;
+  double speed = 1;
 
   /**
    * Creates a new Autonomous command.
@@ -33,7 +34,7 @@ public class AutonomousDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.drive(1, 0, 0);
+    drivetrain.drive(speed, 0, 0);
   }
 
   // Called once the command ends or is interrupted.

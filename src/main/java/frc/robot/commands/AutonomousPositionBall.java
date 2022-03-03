@@ -13,6 +13,7 @@ public class AutonomousPositionBall extends CommandBase {
   Conveyor conveyor;
   Timer timer;
   int positionTime = 1;
+  double speed = 1;
 
   /**
    * Creates a new AutonomousPositionBall command.
@@ -33,7 +34,7 @@ public class AutonomousPositionBall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    conveyor.runIntakeMotor(1);
+    conveyor.runIntakeMotor(speed);
   }
 
   // Called once the command ends or is interrupted.

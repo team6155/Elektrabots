@@ -13,6 +13,7 @@ public class AutonomousShoot extends CommandBase {
   Conveyor conveyor;
   Timer timer;
   int shootingTime = 1;
+  double speed = 1;
 
   /**
    * Creates a new AutonomousShoot command.
@@ -33,7 +34,7 @@ public class AutonomousShoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    conveyor.runShootingMotor(1);
+    conveyor.runShootingMotor(speed);
   }
 
   // Called once the command ends or is interrupted.
