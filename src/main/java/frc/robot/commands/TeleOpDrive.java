@@ -49,7 +49,7 @@ public class TeleOpDrive extends CommandBase {
    * @return The normalized input 
    */
   private double adjustInput(double input) {
-    double sign = input >= 1 ? 1 : -1;
+    double sign = input >= 0 ? 1 : -1;
     double speedMultiple = CONTROLLER.getRightTriggerAxis() * (1 - BASE_SPEED_MULTIPLE) + BASE_SPEED_MULTIPLE;
     double squaredInput = input * input;
     return sign * squaredInput * speedMultiple;

@@ -5,8 +5,6 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
@@ -26,8 +24,8 @@ public class Drivetrain extends PIDSubsystem {
   private double sidewaysSpeed;
 
   /** Creates a new Drivetrain subsystem. */
-  public Drivetrain() {
-    super(new PIDController(1, 0, 0));
+  public Drivetrain(Gyro gyro) {
+    super(new PIDController(.04, 0, 0));
 
     MotorController frontLeftWheel = new PWMVictorSPX(Constants.FRONT_LEFT_WHEEL_CHANNEL);
     MotorController backLeftWheel = new PWMVictorSPX(Constants.BACK_LEFT_WHEEL_CHANNEL);
@@ -35,12 +33,11 @@ public class Drivetrain extends PIDSubsystem {
     MotorController backRightWheel = new PWMVictorSPX(Constants.BACK_RIGHT_WHEEL_CHANNEL);
     // The right and left sides are reversed from what the constructor expects because of the wheel installation.
     MECANUM = new MecanumDrive(frontRightWheel, backRightWheel, frontLeftWheel, backLeftWheel);
-    GYRO = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
+    GYRO = gyro;
     direction = 1;
 
     frontRightWheel.setInverted(true);
     backRightWheel.setInverted(true);
-    GYRO.calibrate();
     enable();
   }
 
