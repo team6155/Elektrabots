@@ -14,7 +14,7 @@ import frc.robot.Constants;
 
 /** Subsystem of the robot for controlling driving. */
 public class Drivetrain extends PIDSubsystem {
-  private final double ROTATION_MULTIPLE = 1;
+  private final double ROTATION_MULTIPLE = 30;
 
   private final MecanumDrive MECANUM;
   private final Gyro GYRO;
