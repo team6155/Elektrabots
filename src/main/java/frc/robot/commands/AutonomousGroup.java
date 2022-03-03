@@ -14,14 +14,14 @@ import frc.robot.subsystems.Drivetrain;
  * <p>
  * The robot will first shoot the preloaded ball and then drive forwards.
  */
-public class Autonomous extends SequentialCommandGroup {
+public class AutonomousGroup extends SequentialCommandGroup {
 
   /**
-   * Creates a new Autonomous command group.
+   * Creates a new AutonomousGroup command group.
    * @param drivetrain The robot's drivetrain subsystem.
    * @param conveyor The robot's conveyor subsystem.
    */
-  public Autonomous(Drivetrain drivetrain, Conveyor conveyor) {
+  public AutonomousGroup(Drivetrain drivetrain, Conveyor conveyor) {
     addCommands(new AutonomousPositionBall(conveyor), new AutonomousShoot(conveyor), new AutonomousDrive(drivetrain));
   }
 }
