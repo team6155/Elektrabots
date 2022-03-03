@@ -13,7 +13,6 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    
     // PWM ports
     public static final int FRONT_LEFT_WHEEL_CHANNEL = 1;
     public static final int BACK_LEFT_WHEEL_CHANNEL = 3;
