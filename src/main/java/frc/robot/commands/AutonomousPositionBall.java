@@ -6,22 +6,22 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Conveyor;
 
-/** The command responsible for driving the robot autonomously. */
-public class AutonomousDrive extends CommandBase {
-  Drivetrain drivetrain;
+/** The command responsible for preparing the ball to be shot in autonomous mode. */
+public class AutonomousPositionBall extends CommandBase {
+  Conveyor conveyor;
   Timer timer;
-  int driveTime = 1;
+  int positionTime = 1;
 
   /**
-   * Creates a new Autonomous command.
-   * @param drivetrain The robot's drivetrain subsystem.
+   * Creates a new AutonomousPositionBall command.
+   * @param conveyor The robot's conveyor subsystem.
    */
-  public AutonomousDrive(Drivetrain drivetrain) {
+  public AutonomousPositionBall(Conveyor conveyor) {
     timer = new Timer();
-    this.drivetrain = drivetrain;
-    addRequirements(drivetrain);
+    this.conveyor = conveyor;
+    addRequirements(conveyor);
   }
 
   // Called when the command is initially scheduled.
@@ -33,13 +33,13 @@ public class AutonomousDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.drive(1, 0, 0);
+    conveyor.runIntakeMotor(1);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drivetrain.drive(0, 0, 0);
+    conveyor.runIntakeMotor(0);
     timer.stop();
     timer.reset();
   }
@@ -47,6 +47,6 @@ public class AutonomousDrive extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return timer.get() < driveTime;
+    return timer.get() < positionTime;
   }
 }
