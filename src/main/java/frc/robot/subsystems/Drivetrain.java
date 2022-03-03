@@ -5,7 +5,10 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
@@ -18,13 +21,16 @@ public class Drivetrain extends PIDSubsystem {
   MotorController backLeftWheel;
   MotorController frontRightWheel;
   MotorController backRightWheel;
+  Gyro gyro;
   int direction;
+  double rotationMultiple;
+
+  double forwardsSpeed;
+  double sidewaysSpeed;
 
   /** Creates a new Drivetrain subsystem. */
   public Drivetrain() {
-    super(
-        // The PIDController used by the subsystem
-        new PIDController(0, 0, 0));
+    super(new PIDController(1, 0, 0));
     frontLeftWheel = new PWMVictorSPX(Constants.FRONT_LEFT_WHEEL_CHANNEL);
     backLeftWheel = new PWMVictorSPX(Constants.BACK_LEFT_WHEEL_CHANNEL);
     frontRightWheel = new PWMVictorSPX(Constants.FRONT_RIGHT_WHEEL_CHANNEL);
@@ -33,7 +39,10 @@ public class Drivetrain extends PIDSubsystem {
     backRightWheel.setInverted(true);
     // The right and left sides are reversed because of the wheel installation.
     mecanum = new MecanumDrive(frontRightWheel, backRightWheel, frontLeftWheel, backLeftWheel);
+    gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
     direction = 1;
+    rotationMultiple = 1;
+    enable();
   }
 
   /**
@@ -43,7 +52,9 @@ public class Drivetrain extends PIDSubsystem {
    * @param rotationalSpeed The desired rotational speed. [-1.0..1.0]. Positive is clockwise, negative is counter-clockwise.
    */
   public void drive(double forwardsSpeed, double sidewaysSpeed, double rotationalSpeed) {
-    mecanum.driveCartesian(forwardsSpeed * direction, sidewaysSpeed * direction, rotationalSpeed);
+    this.forwardsSpeed = forwardsSpeed;
+    this.sidewaysSpeed = sidewaysSpeed;
+    setSetpoint(rotationalSpeed * rotationMultiple);
   }
 
   /**
@@ -56,12 +67,11 @@ public class Drivetrain extends PIDSubsystem {
 
   @Override
   public void useOutput(double output, double setpoint) {
-    // Use the output here
+    mecanum.driveCartesian(forwardsSpeed * direction, sidewaysSpeed * direction, output);
   }
 
   @Override
   public double getMeasurement() {
-    // Return the process variable measurement here
-    return 0;
+    return gyro.getRate();
   }
 }
