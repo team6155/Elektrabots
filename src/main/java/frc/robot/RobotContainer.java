@@ -10,7 +10,6 @@ import frc.robot.commands.Autonomous;
 import frc.robot.commands.ChangeRobotDirection;
 import frc.robot.commands.RunConveyor;
 import frc.robot.commands.TeleOpDrive;
-import frc.robot.subsystems.Camera;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -29,6 +28,7 @@ public class RobotContainer {
   // The robot's subsystems
   private final Drivetrain drivetrain = new Drivetrain();
   private final Conveyor conveyor = new Conveyor();
+  // TODO: Activate camera subsytem once the cameras have been attached to the robot.
   // private final Camera camera = new Camera();
 
   // The robot's commands
