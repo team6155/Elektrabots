@@ -22,9 +22,5 @@ public class Camera extends SubsystemBase {
   public Camera() {
     FRONT_CAMERA = CameraServer.startAutomaticCapture("Front Camera", Constants.FRONT_CAMERA_CHANNEL);
     BACK_CAMERA = CameraServer.startAutomaticCapture("Back Camera", Constants.BACK_CAMERA_CHANNEL);
-    FRONT_CAMERA.setResolution(640, 480);
-    BACK_CAMERA.setResolution(640, 480);
-    FRONT_CAMERA.setFPS(30);
-    BACK_CAMERA.setFPS(30);
   }
 }
