@@ -50,7 +50,7 @@ public class Drivetrain extends PIDSubsystem {
   public void drive(double forwardsSpeed, double sidewaysSpeed, double rotationalSpeed) {
     this.forwardsSpeed = forwardsSpeed;
     this.sidewaysSpeed = sidewaysSpeed;
-    setSetpoint(rotationalSpeed * ROTATION_MULTIPLE);
+    setSetpoint(getSetpoint() + rotationalSpeed * ROTATION_MULTIPLE);
   }
 
   /**
@@ -68,6 +68,6 @@ public class Drivetrain extends PIDSubsystem {
 
   @Override
   public double getMeasurement() {
-    return GYRO.getRate();
+    return -GYRO.getAngle();
   }
 }

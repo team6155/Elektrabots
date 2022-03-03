@@ -45,6 +45,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     GYRO.calibrate();
+    GYRO.reset();
     DRIVETRAIN_SUBSYSTEM.setDefaultCommand(DRIVE_COMMAND);
     CONVEYOR_SUBSYSTEM.setDefaultCommand(CONVEYOR_COMMAND);
     // Configure the button bindings
