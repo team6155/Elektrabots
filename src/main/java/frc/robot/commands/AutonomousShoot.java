@@ -10,7 +10,7 @@ import frc.robot.subsystems.Conveyor;
 
 /** The command responsible for shooting the ball in autonomous mode. */
 public class AutonomousShoot extends CommandBase {
-  private final int SHOOTING_TIME = 1;
+  private final int SHOOTING_TIME = 3;
   private final double SPEED = 1;
 
   private final Conveyor CONVEYOR;
@@ -35,12 +35,14 @@ public class AutonomousShoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    CONVEYOR.runIntakeMotor(SPEED);
     CONVEYOR.runShootingMotor(SPEED);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    CONVEYOR.runIntakeMotor(0);
     CONVEYOR.runShootingMotor(0);
     TIMER.stop();
     TIMER.reset();

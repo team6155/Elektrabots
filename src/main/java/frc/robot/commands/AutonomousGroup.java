@@ -22,6 +22,6 @@ public class AutonomousGroup extends SequentialCommandGroup {
    * @param conveyor The robot's conveyor subsystem.
    */
   public AutonomousGroup(Drivetrain drivetrain, Conveyor conveyor) {
-    addCommands(new AutonomousPositionBall(conveyor), new AutonomousShoot(conveyor), new AutonomousDrive(drivetrain));
+    addCommands(new AutonomousShoot(conveyor), new AutonomousDrive(drivetrain));
   }
 }
