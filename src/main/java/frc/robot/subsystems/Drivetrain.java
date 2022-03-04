@@ -14,7 +14,7 @@ import frc.robot.Constants;
 
 /** Subsystem of the robot for controlling driving. */
 public class Drivetrain extends PIDSubsystem {
-  private final double ROTATION_MULTIPLE = 30;
+  private final double ROTATION_MULTIPLE = 1;
 
   private final MecanumDrive MECANUM;
   private final Gyro GYRO;
@@ -25,7 +25,7 @@ public class Drivetrain extends PIDSubsystem {
 
   /** Creates a new Drivetrain subsystem. */
   public Drivetrain(Gyro gyro) {
-    super(new PIDController(.04, 0, 0));
+    super(new PIDController(0, 0, 0));
 
     MotorController frontLeftWheel = new PWMVictorSPX(Constants.FRONT_LEFT_WHEEL_CHANNEL);
     MotorController backLeftWheel = new PWMVictorSPX(Constants.BACK_LEFT_WHEEL_CHANNEL);
@@ -38,7 +38,7 @@ public class Drivetrain extends PIDSubsystem {
 
     frontRightWheel.setInverted(true);
     backRightWheel.setInverted(true);
-    enable();
+    // enable();
   }
 
   /**
@@ -48,9 +48,10 @@ public class Drivetrain extends PIDSubsystem {
    * @param rotationalSpeed The desired rotational speed. [-1.0..1.0]. Positive is clockwise, negative is counter-clockwise.
    */
   public void drive(double forwardsSpeed, double sidewaysSpeed, double rotationalSpeed) {
-    this.forwardsSpeed = forwardsSpeed;
-    this.sidewaysSpeed = sidewaysSpeed;
-    setSetpoint(getSetpoint() + rotationalSpeed * ROTATION_MULTIPLE);
+    // this.forwardsSpeed = forwardsSpeed;
+    // this.sidewaysSpeed = sidewaysSpeed;
+    // setSetpoint(getSetpoint() + rotationalSpeed * ROTATION_MULTIPLE);
+    MECANUM.driveCartesian(forwardsSpeed * direction, sidewaysSpeed, rotationalSpeed);
   }
 
   /**
@@ -63,7 +64,7 @@ public class Drivetrain extends PIDSubsystem {
 
   @Override
   public void useOutput(double output, double setpoint) {
-    MECANUM.driveCartesian(forwardsSpeed * direction, sidewaysSpeed * direction, output);
+    //MECANUM.driveCartesian(forwardsSpeed * direction, sidewaysSpeed * direction, output);
   }
 
   @Override
