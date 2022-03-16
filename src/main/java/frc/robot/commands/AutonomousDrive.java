@@ -20,8 +20,8 @@ public class AutonomousDrive extends CommandBase {
    * Creates a new Autonomous command.
    * @param drivetrain The robot's drivetrain subsystem.
    */
-  public AutonomousDrive(Drivetrain drivetrain) {
-    TIMER = new Timer();
+  public AutonomousDrive(Drivetrain drivetrain, Timer timer) {
+    TIMER = timer;
     DRIVETRAIN = drivetrain;
     addRequirements(drivetrain);
   }
@@ -29,6 +29,7 @@ public class AutonomousDrive extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    TIMER.reset();
     TIMER.start();
   }
 

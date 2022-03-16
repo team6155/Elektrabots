@@ -20,8 +20,8 @@ public class AutonomousShoot extends CommandBase {
    * Creates a new AutonomousShoot command.
    * @param drivetrain The robot's drivetrain subsystem.
    */
-  public AutonomousShoot(Conveyor conveyor) {
-    TIMER = new Timer();
+  public AutonomousShoot(Conveyor conveyor, Timer timer) {
+    TIMER = timer;
     CONVEYOR = conveyor;
     addRequirements(conveyor);
   }
@@ -29,20 +29,21 @@ public class AutonomousShoot extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    TIMER.reset();
     TIMER.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    CONVEYOR.runIntakeMotor(SPEED);
+    CONVEYOR.runBeltMotor(SPEED);
     CONVEYOR.runShootingMotor(SPEED);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    CONVEYOR.runIntakeMotor(0);
+    CONVEYOR.runBeltMotor(0);
     CONVEYOR.runShootingMotor(0);
     TIMER.stop();
     TIMER.reset();

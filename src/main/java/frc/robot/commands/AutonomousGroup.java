@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Drivetrain;
@@ -22,6 +23,7 @@ public class AutonomousGroup extends SequentialCommandGroup {
    * @param conveyor The robot's conveyor subsystem.
    */
   public AutonomousGroup(Drivetrain drivetrain, Conveyor conveyor) {
-    addCommands(new AutonomousShoot(conveyor), new AutonomousDrive(drivetrain));
+    Timer timer = new Timer();
+    addCommands(new AutonomousShoot(conveyor, timer), new AutonomousDrive(drivetrain, timer));
   }
 }
