@@ -16,14 +16,17 @@ import frc.robot.Constants;
  */
 public class Conveyor extends SubsystemBase {
   private final double INTAKE_MAX_SPEED = .5;
+  private final double BELT_MAX_SPEED = .5;
   private final double SHOOTING_MAX_SPEED = .5;
 
   private final MotorController INTAKE_MOTOR;
+  private final MotorController BELT_MOTOR;
   private final MotorController SHOOTING_MOTOR;
   
   /** Creates a new Conveyor subsystem. */
   public Conveyor() {
     INTAKE_MOTOR = new PWMVictorSPX(Constants.INTAKE_CHANNEL);
+    BELT_MOTOR = new PWMVictorSPX(Constants.BELT_CHANNEL);
     SHOOTING_MOTOR = new PWMVictorSPX(Constants.SHOOTING_CHANNEL);
   }
 
@@ -33,6 +36,14 @@ public class Conveyor extends SubsystemBase {
    */
   public void runIntakeMotor(double speed) {
     INTAKE_MOTOR.set(speed * INTAKE_MAX_SPEED);
+  }
+
+  /**
+   * Run the belt motor at a given speed.
+   * @param speed The desired speed of the motor.
+   */
+  public void runBeltMotor(double speed) {
+    BELT_MOTOR.set(speed * BELT_MAX_SPEED);
   }
 
   /**

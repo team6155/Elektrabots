@@ -28,8 +28,11 @@ public class RunConveyor extends CommandBase {
 
   @Override
   public void execute() {
-    CONVEYOR.runIntakeMotor(-CONTROLLER.getRawAxis(Constants.OPERATOR_LEFT_Y_AXIS));
-    CONVEYOR.runShootingMotor(-CONTROLLER.getRawAxis(Constants.OPERATOR_RIGHT_Y_AXIS));
+    double conveyorSpeed = -CONTROLLER.getRawAxis(Constants.OPERATOR_LEFT_Y_AXIS);
+    double shootingSpeed = -CONTROLLER.getRawAxis(Constants.OPERATOR_RIGHT_Y_AXIS);
+    CONVEYOR.runIntakeMotor(conveyorSpeed);
+    CONVEYOR.runBeltMotor(conveyorSpeed);
+    CONVEYOR.runShootingMotor(shootingSpeed);
   }
 
   @Override
