@@ -10,7 +10,7 @@ import frc.robot.subsystems.Conveyor;
 
 /** The command responsible for shooting the ball in autonomous mode. */
 public class AutonomousShoot extends CommandBase {
-  private final int SHOOTING_TIME = 3;
+  private final int SHOOTING_TIME = 2;
   private final double SPEED = 1;
 
   private final Conveyor CONVEYOR;
