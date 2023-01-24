@@ -13,25 +13,14 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    // PWM ports
-    public static final int FRONT_LEFT_WHEEL_CHANNEL = 1;
-    public static final int BACK_LEFT_WHEEL_CHANNEL = 3;
-    public static final int FRONT_RIGHT_WHEEL_CHANNEL = 2;
-    public static final int BACK_RIGHT_WHEEL_CHANNEL = 4;
-    public static final int SHOOTING_CHANNEL = 8;
-    public static final int BELT_CHANNEL = 9;
-    public static final int INTAKE_CHANNEL = 0; 
-
-    // RoboRio USB ports
-    public static final int FRONT_CAMERA_CHANNEL = 0;
-    public static final int BACK_CAMERA_CHANNEL = 1;
-
     // Computer USB ports
     public static final int DRIVER_CONTROLLER_PORT = 0;
     public static final int OPERATOR_CONTROLLER_PORT = 1;
-
-    // Controller buttons/axes
-    public static final int CONTROLLER_A_BUTTON = 1;
-    public static final int OPERATOR_LEFT_Y_AXIS = 1;
-    public static final int OPERATOR_RIGHT_Y_AXIS = 3;
+    
+    // Motor ports
+    // TODO: Correct motor channel numbers.
+    public static final int FRONT_LEFT_WHEEL_CHANNEL = -1;
+    public static final int BACK_LEFT_WHEEL_CHANNEL = -1;
+    public static final int FRONT_RIGHT_WHEEL_CHANNEL = -1;
+    public static final int BACK_RIGHT_WHEEL_CHANNEL = -1;
 }

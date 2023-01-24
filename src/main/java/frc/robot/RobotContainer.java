@@ -9,15 +9,9 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
-import frc.robot.commands.AutonomousGroup;
-import frc.robot.commands.ChangeRobotDirection;
-import frc.robot.commands.RunConveyor;
 import frc.robot.commands.TeleOpDrive;
-import frc.robot.subsystems.Camera;
-import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -31,21 +25,15 @@ public class RobotContainer {
   private final Gyro GYRO = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
 
   // The robot's subsystems
-  private final Drivetrain DRIVETRAIN_SUBSYSTEM = new Drivetrain(GYRO);
-  private final Conveyor CONVEYOR_SUBSYSTEM = new Conveyor();
-  private final Camera camera = new Camera();
+  private final Drivetrain DRIVETRAIN_SUBSYSTEM = new Drivetrain();
 
   // The robot's commands
   private final TeleOpDrive DRIVE_COMMAND = new TeleOpDrive(DRIVETRAIN_SUBSYSTEM, driverController);
-  private final RunConveyor CONVEYOR_COMMAND = new RunConveyor(CONVEYOR_SUBSYSTEM, operatorController);
-  private final ChangeRobotDirection CHANGE_DIRECTION_COMMAND = new ChangeRobotDirection(DRIVETRAIN_SUBSYSTEM);
-  private final AutonomousGroup AUTONOMOUS_COMMANDS = new AutonomousGroup(DRIVETRAIN_SUBSYSTEM, CONVEYOR_SUBSYSTEM);
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     DRIVETRAIN_SUBSYSTEM.setDefaultCommand(DRIVE_COMMAND);
-    CONVEYOR_SUBSYSTEM.setDefaultCommand(CONVEYOR_COMMAND);
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -57,8 +45,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    JoystickButton aButton = new JoystickButton(driverController, Constants.CONTROLLER_A_BUTTON);
-    aButton.whenPressed(CHANGE_DIRECTION_COMMAND);
+    
   }
 
   /**
@@ -67,8 +54,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return AUTONOMOUS_COMMANDS;
+    return null;
   }
 
   public void resetGyro() {
