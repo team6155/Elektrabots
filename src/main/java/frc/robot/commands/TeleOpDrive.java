@@ -4,8 +4,14 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.XboxController;
+import java.util.function.Supplier;
+
+import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.InputConstants;
 import frc.robot.subsystems.Drivetrain;
 
 /**
@@ -13,17 +19,24 @@ import frc.robot.subsystems.Drivetrain;
  */
 public class TeleOpDrive extends CommandBase {
   private final Drivetrain DRIVETRAIN;
-  private final XboxController CONTROLLER;
+  private final Supplier<Double> X_SPEED_INPUT, Y_SPEED_INPUT, TURNING_SPEED_INPUT;
+  private final SlewRateLimiter X_LIMITER, Y_LIMITER, TURNING_LIMITER;
   
   /**
    * Constructor for the Drive command
    * @param drivetrain The drivetrain subsystem.
    * @param controller The xbox controller used to drive the robot.
    */
-  public TeleOpDrive(Drivetrain drivetrain, XboxController controller) {
-    this.DRIVETRAIN = drivetrain;
-    this.CONTROLLER = controller;
-    addRequirements(this.DRIVETRAIN);
+  public TeleOpDrive(Drivetrain drivetrain,
+      Supplier<Double> xSpeedInput, Supplier<Double> ySpeedInput, Supplier<Double> turningSpeedInput) {
+    DRIVETRAIN = drivetrain;
+    X_SPEED_INPUT = xSpeedInput;
+    Y_SPEED_INPUT = ySpeedInput;
+    TURNING_SPEED_INPUT = turningSpeedInput;
+    X_LIMITER = new SlewRateLimiter(InputConstants.ACCELERATION_RATE_LIMIT);
+    Y_LIMITER = new SlewRateLimiter(InputConstants.ACCELERATION_RATE_LIMIT);
+    TURNING_LIMITER = new SlewRateLimiter(InputConstants.ACCELERATION_RATE_LIMIT);
+    addRequirements(DRIVETRAIN);
   }
 
   // Called when the command is initially scheduled.
@@ -32,11 +45,31 @@ public class TeleOpDrive extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    double xSpeed = X_SPEED_INPUT.get();
+    double ySpeed = Y_SPEED_INPUT.get();
+    double turningSpeed = TURNING_SPEED_INPUT.get();
+
+    xSpeed = Math.abs(xSpeed) > InputConstants.DEADBAND ? xSpeed : 0;
+    ySpeed = Math.abs(ySpeed) > InputConstants.DEADBAND ? ySpeed : 0;
+    turningSpeed = Math.abs(turningSpeed) > InputConstants.DEADBAND ? turningSpeed : 0;
+
+    xSpeed = X_LIMITER.calculate(xSpeed) * DriveConstants.MAX_SPEED_METERS_PER_SECOND / 4;
+    ySpeed = Y_LIMITER.calculate(ySpeed) * DriveConstants.MAX_SPEED_METERS_PER_SECOND / 4;
+    turningSpeed = TURNING_LIMITER.calculate(ySpeed) * DriveConstants.MAX_SPEED_METERS_PER_SECOND / 4;
+
+    ChassisSpeeds chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed, turningSpeed);
+
+    SwerveModuleState[] moduleStates = DriveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds);
+
+    DRIVETRAIN.setModuleStates(moduleStates);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    DRIVETRAIN.stopModules();
+  }
 
   // Returns true when the command should end.
   @Override

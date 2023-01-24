@@ -28,7 +28,12 @@ public class RobotContainer {
   private final Drivetrain DRIVETRAIN_SUBSYSTEM = new Drivetrain();
 
   // The robot's commands
-  private final TeleOpDrive DRIVE_COMMAND = new TeleOpDrive(DRIVETRAIN_SUBSYSTEM, driverController);
+  private final TeleOpDrive DRIVE_COMMAND = new TeleOpDrive(
+    DRIVETRAIN_SUBSYSTEM,
+    () -> driverController.getLeftX(),
+    () -> driverController.getLeftY(),
+    () -> driverController.getRightX()
+  );
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
