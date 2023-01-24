@@ -50,6 +50,6 @@ public class AutonomousDrive extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return TIMER.get() < DRIVE_TIME;
+    return TIMER.get() > DRIVE_TIME;
   }
 }

@@ -35,7 +35,7 @@ public class Conveyor extends SubsystemBase {
    * @param speed The desired speed of the motor.
    */
   public void runIntakeMotor(double speed) {
-    INTAKE_MOTOR.set(speed * INTAKE_MAX_SPEED);
+    INTAKE_MOTOR.set(-speed * INTAKE_MAX_SPEED);
   }
 
   /**

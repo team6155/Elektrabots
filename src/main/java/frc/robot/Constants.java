@@ -20,7 +20,7 @@ public final class Constants {
     public static final int BACK_RIGHT_WHEEL_CHANNEL = 4;
     public static final int SHOOTING_CHANNEL = 8;
     public static final int BELT_CHANNEL = 9;
-    public static final int INTAKE_CHANNEL = -1; //TODO: Add correct channel #.
+    public static final int INTAKE_CHANNEL = 0; 
 
     // RoboRio USB ports
     public static final int FRONT_CAMERA_CHANNEL = 0;

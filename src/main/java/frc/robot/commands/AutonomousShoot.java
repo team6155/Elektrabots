@@ -52,6 +52,6 @@ public class AutonomousShoot extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return TIMER.get() < SHOOTING_TIME;
+    return TIMER.get() > SHOOTING_TIME;
   }
 }
