@@ -54,11 +54,7 @@ public class TeleOpDrive extends CommandBase {
     ySpeed = Math.abs(ySpeed) > InputConstants.DEADBAND ? ySpeed : 0;
     turningSpeed = Math.abs(turningSpeed) > InputConstants.DEADBAND ? turningSpeed : 0;
 
-    xSpeed = X_LIMITER.calculate(xSpeed) * DriveConstants.MAX_SPEED_METERS_PER_SECOND / 4;
-    ySpeed = Y_LIMITER.calculate(ySpeed) * DriveConstants.MAX_SPEED_METERS_PER_SECOND / 4;
-    turningSpeed = TURNING_LIMITER.calculate(ySpeed) * DriveConstants.MAX_SPEED_METERS_PER_SECOND / 4;
-
-    ChassisSpeeds chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed, turningSpeed);
+    ChassisSpeeds chassisSpeeds = new ChassisSpeeds(ySpeed, xSpeed, turningSpeed);
 
     SwerveModuleState[] moduleStates = DriveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds);
 

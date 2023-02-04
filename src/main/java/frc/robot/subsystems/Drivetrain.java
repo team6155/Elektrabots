@@ -9,7 +9,6 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 
 /**
@@ -23,8 +22,8 @@ public class Drivetrain extends SubsystemBase {
     DriveConstants.FRONT_LEFT_TURNING_MOTOR_PORT,
     DriveConstants.FRONT_LEFT_DRIVING_MOTOR_REVERSED,
     DriveConstants.FRONT_LEFT_TURNING_MOTOR_REVERSED,
-    DriveConstants.FRONT_LEFT_DRIVING_ENCODER_PORTS,
-    DriveConstants.FRONT_LEFT_TURNING_ENCODER_PORTS
+    DriveConstants.FRONT_LEFT_TURNING_ENCODER_PORTS,
+    "Front Left"
   );
 
   private final SwerveModule FRONT_RIGHT = new SwerveModule(
@@ -32,8 +31,8 @@ public class Drivetrain extends SubsystemBase {
     DriveConstants.FRONT_RIGHT_TURNING_MOTOR_PORT,
     DriveConstants.FRONT_RIGHT_DRIVING_MOTOR_REVERSED,
     DriveConstants.FRONT_RIGHT_TURNING_MOTOR_REVERSED,
-    DriveConstants.FRONT_RIGHT_DRIVING_ENCODER_PORTS,
-    DriveConstants.FRONT_RIGHT_TURNING_ENCODER_PORTS
+    DriveConstants.FRONT_RIGHT_TURNING_ENCODER_PORTS,
+    "Front Right"
   );
 
   private final SwerveModule REAR_LEFT = new SwerveModule(
@@ -41,8 +40,8 @@ public class Drivetrain extends SubsystemBase {
     DriveConstants.REAR_LEFT_TURNING_MOTOR_PORT,
     DriveConstants.REAR_LEFT_DRIVING_MOTOR_REVERSED,
     DriveConstants.REAR_LEFT_TURNING_MOTOR_REVERSED,
-    DriveConstants.REAR_LEFT_DRIVING_ENCODER_PORTS,
-    DriveConstants.REAR_LEFT_TURNING_ENCODER_PORTS
+    DriveConstants.REAR_LEFT_TURNING_ENCODER_PORTS,
+    "Rear Left"
   );
 
   private final SwerveModule REAR_RIGHT = new SwerveModule(
@@ -50,8 +49,8 @@ public class Drivetrain extends SubsystemBase {
     DriveConstants.REAR_RIGHT_TURNING_MOTOR_PORT,
     DriveConstants.REAR_RIGHT_DRIVING_MOTOR_REVERSED,
     DriveConstants.REAR_RIGHT_TURNING_MOTOR_REVERSED,
-    DriveConstants.REAR_RIGHT_DRIVING_ENCODER_PORTS,
-    DriveConstants.REAR_RIGHT_TURNING_ENCODER_PORTS
+    DriveConstants.REAR_RIGHT_TURNING_ENCODER_PORTS,
+    "Rear Right"
   );
 
   private final Gyro GYRO = new ADXRS450_Gyro();
@@ -67,7 +66,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void setModuleStates(SwerveModuleState[] desiredStates) {
-    SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, DriveConstants.MAX_SPEED_METERS_PER_SECOND);
+    SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, DriveConstants.SPEED_RATIO);
     FRONT_LEFT.setDesiredState(desiredStates[0]);
     FRONT_RIGHT.setDesiredState(desiredStates[1]);
     REAR_LEFT.setDesiredState(desiredStates[2]);
@@ -84,5 +83,12 @@ public class Drivetrain extends SubsystemBase {
 
   public double getTurnRate() {
     return GYRO.getRate() * (DriveConstants.GYRO_REVERSED ? -1 : 1);
+  }
+
+  public void test() {
+    FRONT_LEFT.test();
+    FRONT_RIGHT.test();
+    REAR_LEFT.test();
+    REAR_RIGHT.test();
   }
 }

@@ -21,11 +21,10 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   XboxController driverController = new XboxController(Constants.DRIVER_CONTROLLER_PORT);
-  XboxController operatorController = new XboxController(Constants.OPERATOR_CONTROLLER_PORT);
   private final Gyro GYRO = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
 
   // The robot's subsystems
-  private final Drivetrain DRIVETRAIN_SUBSYSTEM = new Drivetrain();
+  public final Drivetrain DRIVETRAIN_SUBSYSTEM = new Drivetrain();
 
   // The robot's commands
   private final TeleOpDrive DRIVE_COMMAND = new TeleOpDrive(

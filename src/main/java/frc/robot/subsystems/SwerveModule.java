@@ -4,14 +4,14 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.SwerveModuleConstants;
 
 public class SwerveModule {
@@ -19,38 +19,29 @@ public class SwerveModule {
   private final MotorController DRIVING_MOTOR;
   private final MotorController TURNING_MOTOR;
 
-  private final Encoder DRIVING_ENCODER;
   private final Encoder TURNING_ENCODER;
 
-  private final PIDController DRIVING_PID_CONTROLLER;
   private final ProfiledPIDController TURNING_PID_CONTROLLER;
+
+  private String name;
 
   /** Creates a new SwerveModule. */
   public SwerveModule(int drivingMotorChannel, int turningMotorChannel, boolean drivingMotorReversed, 
-      boolean turningMotorReversed, int[] drivingEncoderChannels, int[] turningEncoderChannels) {
-        
+      boolean turningMotorReversed, int[] turningEncoderChannels, String name) {
+
     DRIVING_MOTOR = new Spark(drivingMotorChannel);
     TURNING_MOTOR = new Spark(turningMotorChannel);
     DRIVING_MOTOR.setInverted(drivingMotorReversed);
     TURNING_MOTOR.setInverted(turningMotorReversed);
 
-    DRIVING_ENCODER = new Encoder(drivingEncoderChannels[0], drivingEncoderChannels[1]);
     TURNING_ENCODER = new Encoder(turningEncoderChannels[0], turningEncoderChannels[1]);
-    DRIVING_ENCODER.setDistancePerPulse(SwerveModuleConstants.DRIVING_ENCODER_DISTANCE_PER_PULSE);
     TURNING_ENCODER.setDistancePerPulse(SwerveModuleConstants.TURNING_ENCODER_DISTANCE_PER_PULSE);
 
-    DRIVING_PID_CONTROLLER = new PIDController(SwerveModuleConstants.DRIVING_CONTROLLER_P_VALUE, 0, 0);
     TURNING_PID_CONTROLLER = new ProfiledPIDController(SwerveModuleConstants.TURNING_CONTROLLER_P_VALUE, 0, 0,
         SwerveModuleConstants.ROTATION_CONSTRAINTS);
     TURNING_PID_CONTROLLER.enableContinuousInput(-Math.PI, Math.PI);
-  }
 
-  public SwerveModuleState getState() {
-    return new SwerveModuleState(DRIVING_ENCODER.getRate(), new Rotation2d(TURNING_ENCODER.getDistance()));
-  }
-
-  public SwerveModulePosition getPosition() {
-    return new SwerveModulePosition(DRIVING_ENCODER.getDistance(), new Rotation2d(TURNING_ENCODER.getDistance()));
+    this.name = name;
   }
 
   public void setDesiredState(SwerveModuleState state) {
@@ -60,8 +51,10 @@ public class SwerveModule {
     }
 
     state = SwerveModuleState.optimize(state, new Rotation2d(TURNING_ENCODER.getDistance()));
-    double driveOutput = DRIVING_PID_CONTROLLER.calculate(DRIVING_ENCODER.getRate(), state.speedMetersPerSecond);
+    double driveOutput = state.speedMetersPerSecond / DriveConstants.MAX_SPEED_METERS_PER_SECOND;
     double turnOutput = TURNING_PID_CONTROLLER.calculate(TURNING_ENCODER.getDistance(), state.angle.getRadians());
+    SmartDashboard.putString(name + " swerve state", state.toString());
+    SmartDashboard.putString(name + " encoder pulses", "" + TURNING_ENCODER.getDistance());
 
     DRIVING_MOTOR.set(driveOutput);
     TURNING_MOTOR.set(turnOutput);
@@ -73,7 +66,11 @@ public class SwerveModule {
   }
 
   public void resetEncoders() {
-    DRIVING_ENCODER.reset();
     TURNING_ENCODER.reset();
+  }
+
+  public void test() {
+    DRIVING_MOTOR.set(0);
+    TURNING_MOTOR.set(.3);
   }
 }
