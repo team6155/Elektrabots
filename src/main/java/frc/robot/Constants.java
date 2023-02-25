@@ -19,10 +19,19 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 public final class Constants {
     // Computer USB ports
     public static final int DRIVER_CONTROLLER_PORT = 0;
+    public static final int OPERATOR_CONTROLLER_PORT = 1;
+
 
     public static final class InputConstants {
         public static final double DEADBAND = 0.05;
         public static final double ACCELERATION_RATE_LIMIT = 1;
+    }
+
+    public static final class GrabberConstants {
+        public static final int SOLENOID_PORT = -1;
+        public static final int ARM_LEFT_MOTOR_PORT = -1;
+        public static final int ARM_RIGHT_MOTOR_PORT = -1;
+        public static final int WRIST_MOTOR_PORT = -1;
     }
 
     public static final class DriveConstants {

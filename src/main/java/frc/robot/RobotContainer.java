@@ -9,9 +9,16 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
+import frc.robot.commands.ControlArm;
+import frc.robot.commands.ControlWrist;
 import frc.robot.commands.TeleOpDrive;
+import frc.robot.commands.ToggleGrabber;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Grabber;
+import frc.robot.subsystems.GrabberArm;
+import frc.robot.subsystems.GrabberWrist;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -20,11 +27,15 @@ import edu.wpi.first.wpilibj2.command.Command;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  XboxController driverController = new XboxController(Constants.DRIVER_CONTROLLER_PORT);
+  CommandXboxController driverController = new CommandXboxController(Constants.DRIVER_CONTROLLER_PORT);
+  CommandXboxController operatorController = new CommandXboxController(Constants.OPERATOR_CONTROLLER_PORT);
   private final Gyro GYRO = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
 
   // The robot's subsystems
-  public final Drivetrain DRIVETRAIN_SUBSYSTEM = new Drivetrain();
+  private final Drivetrain DRIVETRAIN_SUBSYSTEM = new Drivetrain();
+  private final Grabber GRABBER = new Grabber();
+  private final GrabberArm GRABBER_ARM = new GrabberArm();
+  private final GrabberWrist GRABBER_WRIST = new GrabberWrist();
 
   // The robot's commands
   private final TeleOpDrive DRIVE_COMMAND = new TeleOpDrive(
@@ -34,10 +45,24 @@ public class RobotContainer {
     () -> driverController.getRightX()
   );
 
+  private final ToggleGrabber TOGGLE_GRABBER = new ToggleGrabber(GRABBER);
+
+  private final ControlArm CONTROL_ARM = new ControlArm(
+    GRABBER_ARM,
+    () -> operatorController.getLeftY()
+  );
+
+  private final ControlWrist CONTROL_WRIST = new ControlWrist(
+    GRABBER_WRIST,
+    () -> operatorController.getRightY()
+  );
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     DRIVETRAIN_SUBSYSTEM.setDefaultCommand(DRIVE_COMMAND);
+    GRABBER_ARM.setDefaultCommand(CONTROL_ARM);
+    GRABBER_WRIST.setDefaultCommand(CONTROL_WRIST);
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -49,7 +74,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    
+    operatorController.a().onTrue(TOGGLE_GRABBER);
   }
 
   /**
