@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -24,6 +25,13 @@ public final class Constants {
     public static final class InputConstants {
         public static final double DEADBAND = 0.05;
         public static final double ACCELERATION_RATE_LIMIT = 3;
+    }
+
+    public static final class GrabberConstants {
+        public static final int SOLENOID_PORT = -1;
+        public static final int ARM_LEFT_MOTOR_PORT = -1;
+        public static final int ARM_RIGHT_MOTOR_PORT = -1;
+        public static final int WRIST_MOTOR_PORT = -1;
     }
 
     // TODO: Correct motor channel numbers.
