@@ -28,7 +28,8 @@ public final class Constants {
     }
 
     public static final class GrabberConstants {
-        public static final int SOLENOID_PORT = -1;
+        public static final int FORWARD_SOLENOID_PORT = -1;
+        public static final int REVERSE_SOLENOID_PORT = -1;
         public static final int ARM_LEFT_MOTOR_PORT = -1;
         public static final int ARM_RIGHT_MOTOR_PORT = -1;
         public static final int WRIST_MOTOR_PORT = -1;

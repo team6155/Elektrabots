@@ -4,12 +4,13 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.SwerveModuleConstants;
@@ -29,8 +30,8 @@ public class SwerveModule {
   public SwerveModule(int drivingMotorChannel, int turningMotorChannel, boolean drivingMotorReversed, 
       boolean turningMotorReversed, int[] turningEncoderChannels, String name) {
 
-    DRIVING_MOTOR = new Spark(drivingMotorChannel);
-    TURNING_MOTOR = new Spark(turningMotorChannel);
+    DRIVING_MOTOR = new WPI_VictorSPX(drivingMotorChannel);
+    TURNING_MOTOR = new WPI_VictorSPX(turningMotorChannel);
     DRIVING_MOTOR.setInverted(drivingMotorReversed);
     TURNING_MOTOR.setInverted(turningMotorReversed);
 

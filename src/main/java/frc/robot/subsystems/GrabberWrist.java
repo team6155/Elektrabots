@@ -4,8 +4,9 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
-import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.GrabberConstants;
 
@@ -15,7 +16,7 @@ public class GrabberWrist extends SubsystemBase {
 
   /** Creates a new GrabberWrist. */
   public GrabberWrist() {
-    motor = new VictorSP(GrabberConstants.WRIST_MOTOR_PORT);
+    motor = new WPI_VictorSPX(GrabberConstants.WRIST_MOTOR_PORT);
   }
 
   public void run(double speed) {
