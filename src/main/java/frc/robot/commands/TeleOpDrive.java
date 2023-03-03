@@ -58,13 +58,17 @@ public class TeleOpDrive extends CommandBase {
 
     SwerveModuleState[] moduleStates = DriveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds);
 
-    DRIVETRAIN.setModuleStates(moduleStates);
+    DRIVETRAIN.setModuleStates(moduleStates, true);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    DRIVETRAIN.stopModules();
+    ChassisSpeeds chassisSpeeds = new ChassisSpeeds(0, 0, 0);
+
+    SwerveModuleState[] moduleStates = DriveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds);
+
+    DRIVETRAIN.setModuleStates(moduleStates, false);
   }
 
   // Returns true when the command should end.

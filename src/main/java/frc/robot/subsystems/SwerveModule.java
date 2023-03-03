@@ -45,13 +45,14 @@ public class SwerveModule {
     this.name = name;
   }
 
-  public void setDesiredState(SwerveModuleState state) {
-    if (Math.abs(state.speedMetersPerSecond) < 0.001) {
-      stop();
-      return;
+  public void setDesiredState(SwerveModuleState state, boolean optimize) {
+    if (optimize) {
+      if (Math.abs(state.speedMetersPerSecond) < 0.001) {
+        stop();
+        return;
+      }
+      state = SwerveModuleState.optimize(state, new Rotation2d(TURNING_ENCODER.getDistance()));
     }
-
-    state = SwerveModuleState.optimize(state, new Rotation2d(TURNING_ENCODER.getDistance()));
     double driveOutput = state.speedMetersPerSecond / DriveConstants.MAX_SPEED_METERS_PER_SECOND;
     double turnOutput = TURNING_PID_CONTROLLER.calculate(TURNING_ENCODER.getDistance(), state.angle.getRadians());
     SmartDashboard.putString(name + " swerve state", state.toString());
