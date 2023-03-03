@@ -28,23 +28,25 @@ public final class Constants {
     }
 
     public static final class GrabberConstants {
-        public static final int FORWARD_SOLENOID_PORT = -1;
-        public static final int REVERSE_SOLENOID_PORT = -1;
-        public static final int ARM_LEFT_MOTOR_PORT = -1;
-        public static final int ARM_RIGHT_MOTOR_PORT = -1;
-        public static final int WRIST_MOTOR_PORT = -1;
+        public static final int FORWARD_SOLENOID_PORT = 0;
+        public static final int REVERSE_SOLENOID_PORT = 1;
+        public static final int ARM_LEFT_MOTOR_PORT = 9;
+        public static final int ARM_RIGHT_MOTOR_PORT = 10;
+        public static final int WRIST_MOTOR_PORT = 11;
+
+        public static final int[] ARM_ENCODER_PORTS = {8, 9};
     }
 
     public static final class DriveConstants {
-        public static final int FRONT_LEFT_DRIVING_MOTOR_PORT = 2;
+        public static final int FRONT_LEFT_DRIVING_MOTOR_PORT = 6;
         public static final int FRONT_RIGHT_DRIVING_MOTOR_PORT = 3;
-        public static final int REAR_LEFT_DRIVING_MOTOR_PORT = 6;
-        public static final int REAR_RIGHT_DRIVING_MOTOR_PORT = 8;
+        public static final int REAR_LEFT_DRIVING_MOTOR_PORT = 2;
+        public static final int REAR_RIGHT_DRIVING_MOTOR_PORT = 7;
 
-        public static final int FRONT_LEFT_TURNING_MOTOR_PORT = 1;
+        public static final int FRONT_LEFT_TURNING_MOTOR_PORT = 5;
         public static final int FRONT_RIGHT_TURNING_MOTOR_PORT = 4;
-        public static final int REAR_LEFT_TURNING_MOTOR_PORT = 5;
-        public static final int REAR_RIGHT_TURNING_MOTOR_PORT = 7;
+        public static final int REAR_LEFT_TURNING_MOTOR_PORT = 1;
+        public static final int REAR_RIGHT_TURNING_MOTOR_PORT = 8;
         
         public static final boolean FRONT_LEFT_DRIVING_MOTOR_REVERSED = false;
         public static final boolean FRONT_RIGHT_DRIVING_MOTOR_REVERSED = false;
@@ -56,10 +58,10 @@ public final class Constants {
         public static final boolean REAR_LEFT_TURNING_MOTOR_REVERSED = false;
         public static final boolean REAR_RIGHT_TURNING_MOTOR_REVERSED = false;
 
-        public static final int[] FRONT_LEFT_TURNING_ENCODER_PORTS = new int[] {1, 2};
-        public static final int[] FRONT_RIGHT_TURNING_ENCODER_PORTS = new int[] {8, 9};
-        public static final int[] REAR_LEFT_TURNING_ENCODER_PORTS = new int[] {3, 4};
-        public static final int[] REAR_RIGHT_TURNING_ENCODER_PORTS = new int[] {6, 7};
+        public static final int[] FRONT_LEFT_TURNING_ENCODER_PORTS = new int[] {6, 7};
+        public static final int[] FRONT_RIGHT_TURNING_ENCODER_PORTS = new int[] {4, 5};
+        public static final int[] REAR_LEFT_TURNING_ENCODER_PORTS = new int[] {0, 1};
+        public static final int[] REAR_RIGHT_TURNING_ENCODER_PORTS = new int[] {2, 3};
 
         /** Distance between left and right wheels. */
         public static final double TRACK_WIDTH_METERS = .387;
@@ -85,11 +87,11 @@ public final class Constants {
 
         public static final Constraints ROTATION_CONSTRAINTS = new Constraints(2 * Math.PI, 2 * Math.PI);
 
-        public static final int ENCODER_CYCLES_PER_REVOLUTION = 497;
+        public static final double ENCODER_CYCLES_PER_REVOLUTION = 420;
         public static final double WHEEL_DIAMETER_METERS = .102;
 
         public static final double TURNING_ENCODER_DISTANCE_PER_PULSE =
-            (2 * Math.PI) / (double) ENCODER_CYCLES_PER_REVOLUTION;
+            (2 * Math.PI) / ENCODER_CYCLES_PER_REVOLUTION;
         
     }
 }
