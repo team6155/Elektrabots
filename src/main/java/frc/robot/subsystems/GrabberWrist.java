@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.GrabberConstants;
 
 public class GrabberWrist extends SubsystemBase {
-  private static final double SPEED_LIMIT = .5;
+  private static final double SPEED_LIMIT = 1;
   private MotorController motor;
 
   /** Creates a new GrabberWrist. */

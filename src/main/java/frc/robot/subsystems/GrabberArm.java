@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.GrabberConstants;
 
 public class GrabberArm extends SubsystemBase {
-  private static final double SPEED_LIMIT = .5;
+  private static final double SPEED_LIMIT = 1;
 
   private MotorController leftMotor;
   private MotorController rightMotor;
@@ -20,6 +20,7 @@ public class GrabberArm extends SubsystemBase {
   public GrabberArm() {
     leftMotor = new WPI_VictorSPX(GrabberConstants.ARM_LEFT_MOTOR_PORT);
     rightMotor = new WPI_VictorSPX(GrabberConstants.ARM_RIGHT_MOTOR_PORT);
+    rightMotor.setInverted(true);
   }
 
   public void run(double speed) {
