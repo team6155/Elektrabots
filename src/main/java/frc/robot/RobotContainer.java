@@ -49,7 +49,7 @@ public class RobotContainer {
 
   private final ControlArm CONTROL_ARM = new ControlArm(
     GRABBER_ARM,
-    () -> operatorController.getLeftY()
+    () -> -operatorController.getLeftY()
   );
 
   private final ControlWrist CONTROL_WRIST = new ControlWrist(

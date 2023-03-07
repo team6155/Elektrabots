@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.GrabberConstants;
 
@@ -20,9 +22,15 @@ public class Grabber extends SubsystemBase {
       GrabberConstants.FORWARD_SOLENOID_PORT,
       GrabberConstants.REVERSE_SOLENOID_PORT
     );
+    solenoid.set(Value.kReverse);
   }
   
   public void toggle() {
     solenoid.toggle();
+  }
+  
+  @Override
+  public void periodic() {
+    SmartDashboard.putString("Grabber", solenoid.get().toString());
   }
 }

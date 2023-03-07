@@ -35,6 +35,9 @@ public final class Constants {
         public static final int WRIST_MOTOR_PORT = 11;
 
         public static final int[] ARM_ENCODER_PORTS = {8, 9};
+
+        public static final Constraints ROTATION_CONSTRAINTS = new Constraints(1, 0.75);
+        public static final double ENCODER_DISTANCE_PER_PULSE = Math.PI * 2 / 420;
     }
 
     public static final class DriveConstants {
