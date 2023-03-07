@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import frc.robot.commands.ControlArm;
+import frc.robot.commands.ControlLights;
 import frc.robot.commands.ControlWrist;
 import frc.robot.commands.TeleOpDrive;
 import frc.robot.commands.ToggleGrabber;
@@ -17,6 +18,7 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Grabber;
 import frc.robot.subsystems.GrabberArm;
 import frc.robot.subsystems.GrabberWrist;
+import frc.robot.subsystems.Lights;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
@@ -36,6 +38,7 @@ public class RobotContainer {
   private final Grabber GRABBER = new Grabber();
   private final GrabberArm GRABBER_ARM = new GrabberArm();
   private final GrabberWrist GRABBER_WRIST = new GrabberWrist();
+  private final Lights LIGHTS = new Lights();
 
   // The robot's commands
   private final TeleOpDrive DRIVE_COMMAND = new TeleOpDrive(
@@ -57,12 +60,15 @@ public class RobotContainer {
     () -> operatorController.getRightY()
   );
 
+  private final ControlLights CONTROL_LIGHTS = new ControlLights(LIGHTS, DRIVETRAIN_SUBSYSTEM);
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     DRIVETRAIN_SUBSYSTEM.setDefaultCommand(DRIVE_COMMAND);
     GRABBER_ARM.setDefaultCommand(CONTROL_ARM);
     GRABBER_WRIST.setDefaultCommand(CONTROL_WRIST);
+    LIGHTS.setDefaultCommand(CONTROL_LIGHTS);
     // Configure the button bindings
     configureButtonBindings();
   }

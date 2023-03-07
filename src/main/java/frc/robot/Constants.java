@@ -97,4 +97,10 @@ public final class Constants {
             (2 * Math.PI) / ENCODER_CYCLES_PER_REVOLUTION;
         
     }
+
+    public static final class LED_CONSTANTS {
+        public static final int RED_LED_PORT = 10;
+        public static final int GREEN_LED_PORT = 12;
+        public static final int BLUE_LED_PORT = 11;
+    }
 }

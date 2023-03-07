@@ -54,6 +54,13 @@ public class TeleOpDrive extends CommandBase {
     ySpeed = Math.abs(ySpeed) > InputConstants.DEADBAND ? ySpeed : 0;
     turningSpeed = Math.abs(turningSpeed) > InputConstants.DEADBAND ? turningSpeed : 0;
 
+    if (xSpeed == 0 && ySpeed == 0 && turningSpeed == 0) {
+      DRIVETRAIN.idle = true;
+    }
+    else {
+      DRIVETRAIN.idle = false;
+    }
+    
     ChassisSpeeds chassisSpeeds = new ChassisSpeeds(ySpeed, xSpeed, turningSpeed);
 
     SwerveModuleState[] moduleStates = DriveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds);

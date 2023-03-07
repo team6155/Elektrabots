@@ -17,6 +17,7 @@ import frc.robot.Constants.DriveConstants;
  * This robot uses four swerve modules as its wheels.
  */
 public class Drivetrain extends SubsystemBase {
+  public boolean idle;
 
   private final SwerveModule FRONT_LEFT = new SwerveModule(
     DriveConstants.FRONT_LEFT_DRIVING_MOTOR_PORT,
