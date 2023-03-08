@@ -43,7 +43,7 @@ public class GrabberArm extends SubsystemBase {
     double measurement = encoder.getDistance();
     SmartDashboard.putString("Measurement", "" + encoder.getDistance());
     SmartDashboard.putString("Raw Pulses", "" + encoder.getDistance() * GrabberConstants.ENCODER_DISTANCE_PER_PULSE);
-    double goal = MathUtil.clamp(measurement + speed, 0, Math.PI);
+    double goal = MathUtil.clamp(measurement + speed, -.2, Math.PI);
     SmartDashboard.putString("Goal", "" + goal);
     run(goal);
   }
@@ -54,5 +54,9 @@ public class GrabberArm extends SubsystemBase {
     SmartDashboard.putString("PID output", "" + speed);
     leftMotor.set(speed);
     rightMotor.set(speed);
+  }
+
+  public void resetEncoder() {
+    encoder.reset();
   }
 }

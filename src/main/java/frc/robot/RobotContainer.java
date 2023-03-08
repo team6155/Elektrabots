@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
 import frc.robot.commands.ControlArm;
 import frc.robot.commands.ControlLights;
 import frc.robot.commands.ControlWrist;
+import frc.robot.commands.ResetArmEncoder;
 import frc.robot.commands.TeleOpDrive;
 import frc.robot.commands.ToggleGrabber;
 import frc.robot.subsystems.Drivetrain;
@@ -63,6 +64,7 @@ public class RobotContainer {
 
   private final ControlLights CONTROL_LIGHTS = new ControlLights(LIGHTS, DRIVETRAIN_SUBSYSTEM);
 
+  private final ResetArmEncoder RESET_ARM_ENCODER = new ResetArmEncoder(GRABBER_ARM);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -82,6 +84,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     operatorController.button(8).onTrue(TOGGLE_GRABBER);
+    operatorController.button(7).onTrue(RESET_ARM_ENCODER);
   }
 
   /**
