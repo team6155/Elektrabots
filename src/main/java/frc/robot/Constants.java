@@ -102,5 +102,8 @@ public final class Constants {
         public static final int RED_LED_PORT = 10;
         public static final int GREEN_LED_PORT = 12;
         public static final int BLUE_LED_PORT = 11;
+
+        public static final int PWM_RATE = 1000;
+        public static final double FREQUENCY = .5;
     }
 }
