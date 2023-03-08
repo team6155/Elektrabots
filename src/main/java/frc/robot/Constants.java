@@ -24,7 +24,7 @@ public final class Constants {
 
     public static final class InputConstants {
         public static final double DEADBAND = 0.05;
-        public static final double ACCELERATION_RATE_LIMIT = 1;
+        public static final double ACCELERATION_RATE_LIMIT = .75;
     }
 
     public static final class GrabberConstants {

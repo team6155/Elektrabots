@@ -6,21 +6,25 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.GrabberConstants;
+import frc.robot.Constants.InputConstants;
 
 public class GrabberWrist extends SubsystemBase {
-  private static final double SPEED_LIMIT = .5;
+  private static final double SPEED_LIMIT = .75;
+  private final SlewRateLimiter RATE_LIMITER;
   private MotorController motor;
 
   /** Creates a new GrabberWrist. */
   public GrabberWrist() {
+    RATE_LIMITER = new SlewRateLimiter(InputConstants.ACCELERATION_RATE_LIMIT);
     motor = new WPI_VictorSPX(GrabberConstants.WRIST_MOTOR_PORT);
   }
 
   public void run(double speed) {
-    motor.set(speed * SPEED_LIMIT);
+    motor.set(RATE_LIMITER.calculate(speed * SPEED_LIMIT));
   }
 
   @Override

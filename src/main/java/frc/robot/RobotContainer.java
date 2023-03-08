@@ -20,6 +20,7 @@ import frc.robot.subsystems.GrabberArm;
 import frc.robot.subsystems.GrabberWrist;
 import frc.robot.subsystems.Lights;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 /**
@@ -30,7 +31,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
  */
 public class RobotContainer {
   CommandXboxController driverController = new CommandXboxController(Constants.DRIVER_CONTROLLER_PORT);
-  CommandXboxController operatorController = new CommandXboxController(Constants.OPERATOR_CONTROLLER_PORT);
+  CommandJoystick operatorController = new CommandJoystick(Constants.OPERATOR_CONTROLLER_PORT);
   private final Gyro GYRO = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
 
   // The robot's subsystems
@@ -52,12 +53,12 @@ public class RobotContainer {
 
   private final ControlArm CONTROL_ARM = new ControlArm(
     GRABBER_ARM,
-    () -> -operatorController.getLeftY()
+    () -> -operatorController.getRawAxis(1)
   );
 
   private final ControlWrist CONTROL_WRIST = new ControlWrist(
     GRABBER_WRIST,
-    () -> operatorController.getRightY()
+    () -> operatorController.getRawAxis(3)
   );
 
   private final ControlLights CONTROL_LIGHTS = new ControlLights(LIGHTS, DRIVETRAIN_SUBSYSTEM);
@@ -80,7 +81,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    operatorController.a().onTrue(TOGGLE_GRABBER);
+    operatorController.button(8).onTrue(TOGGLE_GRABBER);
   }
 
   /**
