@@ -8,11 +8,13 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.InputConstants;
 import frc.robot.Constants.SwerveModuleConstants;
 
 public class SwerveModule {
@@ -69,6 +71,17 @@ public class SwerveModule {
 
   public void resetEncoders() {
     TURNING_ENCODER.reset();
+  }
+
+  public boolean resetWheel() {
+    if (Math.abs(TURNING_ENCODER.getDistance()) <= InputConstants.DEADBAND) {
+      TURNING_PID_CONTROLLER.enableContinuousInput(-Math.PI, Math.PI);
+      return true;
+    }
+    SmartDashboard.putString(name + " encoder pulses", "" + TURNING_ENCODER.getDistance());
+    TURNING_PID_CONTROLLER.disableContinuousInput();
+    TURNING_MOTOR.set(TURNING_PID_CONTROLLER.calculate(TURNING_ENCODER.getDistance(), 0));
+    return false;
   }
 
   public void test() {
