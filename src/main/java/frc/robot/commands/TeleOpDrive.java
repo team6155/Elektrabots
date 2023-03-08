@@ -20,7 +20,7 @@ import frc.robot.subsystems.Drivetrain;
 public class TeleOpDrive extends CommandBase {
   private final Drivetrain DRIVETRAIN;
   private final Supplier<Double> X_SPEED_INPUT, Y_SPEED_INPUT, TURNING_SPEED_INPUT;
-  private final SlewRateLimiter X_LIMITER, Y_LIMITER, TURNING_LIMITER;
+  private final SlewRateLimiter X_LIMITER, Y_LIMITER;
   
   /**
    * Constructor for the Drive command
@@ -35,7 +35,6 @@ public class TeleOpDrive extends CommandBase {
     TURNING_SPEED_INPUT = turningSpeedInput;
     X_LIMITER = new SlewRateLimiter(.9);
     Y_LIMITER = new SlewRateLimiter(.9);
-    TURNING_LIMITER = new SlewRateLimiter(InputConstants.ACCELERATION_RATE_LIMIT);
     addRequirements(DRIVETRAIN);
   }
 
