@@ -5,10 +5,11 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalOutput;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.LED_CONSTANTS;
+import frc.robot.Constants.LEDConstants;
 
 public class Lights extends SubsystemBase {
   private DigitalOutput redLED;
@@ -16,16 +17,17 @@ public class Lights extends SubsystemBase {
   private DigitalOutput blueLED;
   private Timer timer;
   private double amplitude;
+  private double safetyTime;
 
   /** Creates a new Lights. */
   public Lights() {
-    redLED = new DigitalOutput(LED_CONSTANTS.RED_LED_PORT);
-    greenLED = new DigitalOutput(LED_CONSTANTS.GREEN_LED_PORT);
-    blueLED = new DigitalOutput(LED_CONSTANTS.BLUE_LED_PORT);
+    redLED = new DigitalOutput(LEDConstants.RED_LED_PORT);
+    greenLED = new DigitalOutput(LEDConstants.GREEN_LED_PORT);
+    blueLED = new DigitalOutput(LEDConstants.BLUE_LED_PORT);
 
-    redLED.setPWMRate(LED_CONSTANTS.PWM_RATE);
-    greenLED.setPWMRate(LED_CONSTANTS.PWM_RATE);
-    blueLED.setPWMRate(LED_CONSTANTS.PWM_RATE);
+    redLED.setPWMRate(LEDConstants.PWM_RATE);
+    greenLED.setPWMRate(LEDConstants.PWM_RATE);
+    blueLED.setPWMRate(LEDConstants.PWM_RATE);
 
     redLED.enablePWM(0);
     greenLED.enablePWM(0);
@@ -41,17 +43,29 @@ public class Lights extends SubsystemBase {
     SmartDashboard.putNumber("Amplitude", .9 * (1 + Math.sin(timer.get())) / 2 + .01);
   }
 
-  public void breathe() {
-    redLED.updateDutyCycle(0);
-    double time = timer.get();
-    amplitude = .9 * (1 + Math.sin(time / LED_CONSTANTS.FREQUENCY)) / 2 + .1;
-    greenLED.updateDutyCycle(amplitude);
+  public void breathe(double red, double green, double blue) {
+    double time = getTime() / LEDConstants.BREATHE_FREQUENCY;
+    amplitude = .74 * (1 + Math.sin(getTime())) / 2 + .01;
+    redLED.updateDutyCycle(amplitude * red);
+    greenLED.updateDutyCycle(amplitude * green);
+    blueLED.updateDutyCycle(amplitude * blue);
   }
 
   public void blink() {
     greenLED.updateDutyCycle(0);
-    double time = timer.get();
-    amplitude = (int)(time / LED_CONSTANTS.FREQUENCY) % 2 == 0 ? 1 : 0;
-    redLED.updateDutyCycle(amplitude);
+    int time = (int)(getTime() / LEDConstants.BLINK_FREQUENCY);
+    amplitude = (int)getTime() % 2 == 0 ? .75 : 0;
+    if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
+      redLED.updateDutyCycle(amplitude);
+      blueLED.updateDutyCycle(0);
+    }
+    else {
+      blueLED.updateDutyCycle(amplitude);
+      redLED.updateDutyCycle(0);
+    }
+  }
+
+  public double getTime() {
+    return timer.get();
   }
 }

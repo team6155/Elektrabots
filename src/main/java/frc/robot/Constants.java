@@ -98,12 +98,19 @@ public final class Constants {
         
     }
 
-    public static final class LED_CONSTANTS {
+    public static final class LEDConstants {
         public static final int RED_LED_PORT = 10;
         public static final int GREEN_LED_PORT = 12;
         public static final int BLUE_LED_PORT = 11;
 
         public static final int PWM_RATE = 1000;
-        public static final double FREQUENCY = .5;
+        public static final double BREATHE_FREQUENCY = .5;
+        public static final double BLINK_FREQUENCY = .5;
+        public static final double COLOR_FREQUENCY = Math.PI;
+    }
+
+    public static final class CameraConstants {
+        public static final int MAIN_CAMERA_CHANNEL = 0;
+        public static final int GRABBER_CAMERA_CHANNEL = 1;
     }
 }
