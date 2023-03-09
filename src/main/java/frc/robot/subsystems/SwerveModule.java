@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
@@ -25,6 +26,7 @@ public class SwerveModule {
   private final Encoder TURNING_ENCODER;
 
   private final ProfiledPIDController TURNING_PID_CONTROLLER;
+  private final SlewRateLimiter RATE_LIMITER;
 
   private String name;
 
@@ -44,6 +46,8 @@ public class SwerveModule {
         SwerveModuleConstants.ROTATION_CONSTRAINTS);
     TURNING_PID_CONTROLLER.enableContinuousInput(-Math.PI, Math.PI);
 
+    RATE_LIMITER = new SlewRateLimiter(.9);
+
     this.name = name;
   }
 
@@ -55,13 +59,16 @@ public class SwerveModule {
       }
       state = SwerveModuleState.optimize(state, new Rotation2d(TURNING_ENCODER.getDistance()));
     }
-    double driveOutput = state.speedMetersPerSecond / DriveConstants.MAX_SPEED_METERS_PER_SECOND;
+    double driveOutput = RATE_LIMITER.calculate(state.speedMetersPerSecond);
     double turnOutput = TURNING_PID_CONTROLLER.calculate(TURNING_ENCODER.getDistance(), state.angle.getRadians());
     SmartDashboard.putString(name + " swerve state", state.toString());
     SmartDashboard.putString(name + " encoder pulses", "" + TURNING_ENCODER.getDistance());
 
     DRIVING_MOTOR.set(driveOutput);
     TURNING_MOTOR.set(turnOutput);
+
+    SmartDashboard.putNumber(name + " drive motor speed", driveOutput);
+    SmartDashboard.putNumber(name + " turning motor speed", turnOutput);
   }
 
   public void stop() {
@@ -86,6 +93,6 @@ public class SwerveModule {
 
   public void test() {
     DRIVING_MOTOR.set(0);
-    TURNING_MOTOR.set(.3);
+    TURNING_MOTOR.set(0);
   }
 }

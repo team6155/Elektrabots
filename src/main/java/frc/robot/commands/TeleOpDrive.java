@@ -20,7 +20,6 @@ import frc.robot.subsystems.Drivetrain;
 public class TeleOpDrive extends CommandBase {
   private final Drivetrain DRIVETRAIN;
   private final Supplier<Double> X_SPEED_INPUT, Y_SPEED_INPUT, TURNING_SPEED_INPUT;
-  private final SlewRateLimiter X_LIMITER, Y_LIMITER;
   
   /**
    * Constructor for the Drive command
@@ -33,8 +32,6 @@ public class TeleOpDrive extends CommandBase {
     X_SPEED_INPUT = xSpeedInput;
     Y_SPEED_INPUT = ySpeedInput;
     TURNING_SPEED_INPUT = turningSpeedInput;
-    X_LIMITER = new SlewRateLimiter(.9);
-    Y_LIMITER = new SlewRateLimiter(.9);
     addRequirements(DRIVETRAIN);
   }
 
@@ -45,8 +42,8 @@ public class TeleOpDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double xSpeed = X_LIMITER.calculate(X_SPEED_INPUT.get());
-    double ySpeed = Y_LIMITER.calculate(Y_SPEED_INPUT.get());
+    double xSpeed = X_SPEED_INPUT.get();
+    double ySpeed = Y_SPEED_INPUT.get();
     double turningSpeed = TURNING_SPEED_INPUT.get();
 
     xSpeed = Math.abs(xSpeed) > InputConstants.DEADBAND ? xSpeed : 0;
