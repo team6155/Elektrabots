@@ -16,6 +16,7 @@ import frc.robot.commands.ResetArmEncoder;
 import frc.robot.commands.ResetWheels;
 import frc.robot.commands.TeleOpDrive;
 import frc.robot.commands.ToggleGrabber;
+import frc.robot.subsystems.Camera;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Grabber;
 import frc.robot.subsystems.GrabberArm;
@@ -42,6 +43,7 @@ public class RobotContainer {
   private final GrabberArm GRABBER_ARM = new GrabberArm();
   private final GrabberWrist GRABBER_WRIST = new GrabberWrist();
   private final Lights LIGHTS = new Lights();
+  private final Camera CAMERA = new Camera();
 
   // The robot's commands
   private final TeleOpDrive DRIVE_COMMAND = new TeleOpDrive(
