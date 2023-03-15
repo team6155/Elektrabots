@@ -20,6 +20,7 @@ import frc.robot.subsystems.Drivetrain;
 public class TeleOpDrive extends CommandBase {
   private final Drivetrain DRIVETRAIN;
   private final Supplier<Double> X_SPEED_INPUT, Y_SPEED_INPUT, TURNING_SPEED_INPUT;
+  private final Supplier<Boolean> BOOST;
   
   /**
    * Constructor for the Drive command
@@ -27,11 +28,12 @@ public class TeleOpDrive extends CommandBase {
    * @param controller The xbox controller used to drive the robot.
    */
   public TeleOpDrive(Drivetrain drivetrain,
-      Supplier<Double> xSpeedInput, Supplier<Double> ySpeedInput, Supplier<Double> turningSpeedInput) {
+      Supplier<Double> xSpeedInput, Supplier<Double> ySpeedInput, Supplier<Double> turningSpeedInput, Supplier<Boolean> boost) {
     DRIVETRAIN = drivetrain;
     X_SPEED_INPUT = xSpeedInput;
     Y_SPEED_INPUT = ySpeedInput;
     TURNING_SPEED_INPUT = turningSpeedInput;
+    BOOST = boost;
     addRequirements(DRIVETRAIN);
   }
 
@@ -61,7 +63,12 @@ public class TeleOpDrive extends CommandBase {
 
     SwerveModuleState[] moduleStates = DriveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds);
 
-    DRIVETRAIN.setModuleStates(moduleStates, true);
+    if (BOOST.get()) {
+      DRIVETRAIN.setModuleStates(moduleStates, true, 1);
+    }
+    else {
+      DRIVETRAIN.setModuleStates(moduleStates, true, DriveConstants.SPEED_RATIO);
+    }
   }
 
   // Called once the command ends or is interrupted.
@@ -71,7 +78,7 @@ public class TeleOpDrive extends CommandBase {
 
     SwerveModuleState[] moduleStates = DriveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds);
 
-    DRIVETRAIN.setModuleStates(moduleStates, false);
+    DRIVETRAIN.setModuleStates(moduleStates, false, DriveConstants.SPEED_RATIO);
   }
 
   // Returns true when the command should end.

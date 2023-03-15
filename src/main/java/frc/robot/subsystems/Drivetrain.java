@@ -67,8 +67,8 @@ public class Drivetrain extends SubsystemBase {
     REAR_RIGHT.stop();
   }
 
-  public void setModuleStates(SwerveModuleState[] desiredStates, boolean optimize) {
-    SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, DriveConstants.SPEED_RATIO);
+  public void setModuleStates(SwerveModuleState[] desiredStates, boolean optimize, double speedRatio) {
+    SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, speedRatio);
     FRONT_LEFT.setDesiredState(desiredStates[0], optimize);
     FRONT_RIGHT.setDesiredState(desiredStates[1], optimize);
     REAR_LEFT.setDesiredState(desiredStates[2], optimize);

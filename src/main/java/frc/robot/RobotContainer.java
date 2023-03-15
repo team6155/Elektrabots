@@ -50,7 +50,8 @@ public class RobotContainer {
     DRIVETRAIN_SUBSYSTEM,
     () -> driverController.getLeftX(),
     () -> driverController.getLeftY(),
-    () -> driverController.getRightX()
+    () -> driverController.getRightX(),
+    () -> driverController.getRightTriggerAxis() > .8
   );
 
   private final ToggleGrabber TOGGLE_GRABBER = new ToggleGrabber(GRABBER);
