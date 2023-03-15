@@ -23,6 +23,7 @@ public class TeleOpDrive extends CommandBase {
   private final Gyro GYRO;
   private final Supplier<Double> X_SPEED_INPUT, Y_SPEED_INPUT, TURNING_SPEED_INPUT;
   private final Supplier<Boolean> BOOST;
+  private final Supplier<Boolean> FIELD_ORIENTED;
 
   private final PIDController PID;
   
@@ -31,15 +32,16 @@ public class TeleOpDrive extends CommandBase {
    * @param drivetrain The drivetrain subsystem.
    * @param controller The xbox controller used to drive the robot.
    */
-  public TeleOpDrive(Drivetrain drivetrain, Gyro gyro,
-      Supplier<Double> xSpeedInput, Supplier<Double> ySpeedInput,
-      Supplier<Double> turningSpeedInput, Supplier<Boolean> boost) {
+  public TeleOpDrive(Drivetrain drivetrain, Gyro gyro, Supplier<Double> xSpeedInput,
+      Supplier<Double> ySpeedInput, Supplier<Double> turningSpeedInput,
+      Supplier<Boolean> boost, Supplier<Boolean> fieldOriented) {
     DRIVETRAIN = drivetrain;
     GYRO = gyro;
     X_SPEED_INPUT = xSpeedInput;
     Y_SPEED_INPUT = ySpeedInput;
     TURNING_SPEED_INPUT = turningSpeedInput;
     BOOST = boost;
+    FIELD_ORIENTED = fieldOriented;
 
     PID = new PIDController(1, 0, 0);
 
@@ -71,6 +73,9 @@ public class TeleOpDrive extends CommandBase {
     }
     
     ChassisSpeeds chassisSpeeds = new ChassisSpeeds(ySpeed, xSpeed, turningSpeed);
+    if (FIELD_ORIENTED.get()) {
+      chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(chassisSpeeds, GYRO.getRotation2d());
+    }
 
     SwerveModuleState[] moduleStates = DriveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds);
 
