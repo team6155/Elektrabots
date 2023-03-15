@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
+import frc.robot.commands.AutonomousDrive;
+import frc.robot.commands.AutonomousGrabber;
 import frc.robot.commands.ControlArm;
 import frc.robot.commands.ControlLights;
 import frc.robot.commands.ControlWrist;
@@ -72,6 +74,10 @@ public class RobotContainer {
 
   private final ResetWheels RESET_WHEELS = new ResetWheels(DRIVETRAIN_SUBSYSTEM);
 
+  private final AutonomousGrabber AUTONOMOUS_GRABBER = new AutonomousGrabber(GRABBER, GRABBER_WRIST);
+  private final AutonomousDrive AUTONOMOUS_DRIVE = new AutonomousDrive(DRIVETRAIN_SUBSYSTEM);
+
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     DRIVETRAIN_SUBSYSTEM.setDefaultCommand(DRIVE_COMMAND);
@@ -100,7 +106,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return null;
+    return AUTONOMOUS_GRABBER.andThen(AUTONOMOUS_DRIVE);
   }
 
   public void resetGyro() {
