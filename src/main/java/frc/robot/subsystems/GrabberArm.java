@@ -25,29 +25,31 @@ public class GrabberArm extends SubsystemBase {
   public GrabberArm() {
     leftMotor = new WPI_VictorSPX(GrabberConstants.ARM_LEFT_MOTOR_PORT);
     rightMotor = new WPI_VictorSPX(GrabberConstants.ARM_RIGHT_MOTOR_PORT);
-    leftMotor.setInverted(true);
+    leftMotor.setInverted(false);
 
     encoder = new Encoder(GrabberConstants.ARM_ENCODER_PORTS[0], GrabberConstants.ARM_ENCODER_PORTS[1]);
     encoder.setDistancePerPulse(GrabberConstants.ENCODER_DISTANCE_PER_PULSE);
-    encoder.setReverseDirection(true);
+    encoder.setReverseDirection(false);
 
-    pidController = new ProfiledPIDController(1, .1, .2, GrabberConstants.ROTATION_CONSTRAINTS);
+    pidController = new ProfiledPIDController(1, 0, 0, GrabberConstants.ROTATION_CONSTRAINTS);
   }
 
   public void teleopRun(double speed) {
     if (Math.abs(speed) < InputConstants.DEADBAND) {
       speed = 0;
     }
+    speed *= .6;
     double measurement = encoder.getDistance();
     double goal = MathUtil.clamp(measurement + speed, -.2, Math.PI);
-    run(goal);
+    //run(goal);
+    leftMotor.set(speed);
+  
   }
 
   public void run(double goal) {
     double measurement = encoder.getDistance();
-    double speed = MathUtil.clamp(pidController.calculate(measurement, goal), 0, .75);
+    double speed = MathUtil.clamp(pidController.calculate(measurement, goal), -.6, .6);
     leftMotor.set(speed);
-    rightMotor.set(speed);
   }
 
   public void resetEncoder() {
