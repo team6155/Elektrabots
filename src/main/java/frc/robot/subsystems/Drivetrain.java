@@ -74,32 +74,4 @@ public class Drivetrain extends SubsystemBase {
     REAR_LEFT.setDesiredState(desiredStates[2], optimize);
     REAR_RIGHT.setDesiredState(desiredStates[3], optimize);
   }
-
-  public void zeroHeading() {
-    GYRO.reset();
-  }
-
-  public double getHeading() {
-    return Math.IEEEremainder(GYRO.getAngle(), 360);
-  }
-
-  public double getTurnRate() {
-    return GYRO.getRate() * (DriveConstants.GYRO_REVERSED ? -1 : 1);
-  }
-
-  public boolean resetWheels() {
-    boolean reset = true;
-    reset = reset && FRONT_LEFT.resetWheel();
-    reset = reset && FRONT_RIGHT.resetWheel();
-    reset = reset && REAR_LEFT.resetWheel();
-    reset = reset && REAR_RIGHT.resetWheel();
-    return reset;
-  }
-
-  public void test() {
-    FRONT_LEFT.test();
-    FRONT_RIGHT.test();
-    REAR_LEFT.test();
-    REAR_RIGHT.test();
-  }
 }

@@ -15,7 +15,6 @@ import frc.robot.commands.ControlArm;
 import frc.robot.commands.ControlLights;
 import frc.robot.commands.ControlWrist;
 import frc.robot.commands.ResetArmEncoder;
-import frc.robot.commands.ResetWheels;
 import frc.robot.commands.TeleOpDrive;
 import frc.robot.commands.ToggleGrabber;
 import frc.robot.subsystems.Camera;
@@ -72,8 +71,6 @@ public class RobotContainer {
 
   private final ResetArmEncoder RESET_ARM_ENCODER = new ResetArmEncoder(GRABBER_ARM);
 
-  private final ResetWheels RESET_WHEELS = new ResetWheels(DRIVETRAIN_SUBSYSTEM);
-
   private final AutonomousGrabber AUTONOMOUS_GRABBER = new AutonomousGrabber(GRABBER, GRABBER_WRIST);
   private final AutonomousDrive AUTONOMOUS_DRIVE = new AutonomousDrive(DRIVETRAIN_SUBSYSTEM);
 
@@ -97,7 +94,6 @@ public class RobotContainer {
   private void configureButtonBindings() {
     operatorController.button(8).onTrue(TOGGLE_GRABBER);
     operatorController.button(7).onTrue(RESET_ARM_ENCODER);
-    //driverController.a().onTrue(RESET_WHEELS);
   }
 
   /**
