@@ -6,7 +6,6 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
@@ -54,8 +53,7 @@ public class Drivetrain extends SubsystemBase {
     DriveConstants.REAR_RIGHT_TURNING_ENCODER_PORTS,
     "Rear Right"
   );
-
-  private final Gyro GYRO = new ADXRS450_Gyro();
+  
   
   /** Creates a new Drivetrain. */
   public Drivetrain() {}

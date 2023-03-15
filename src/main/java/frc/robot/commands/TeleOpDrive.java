@@ -6,9 +6,10 @@ package frc.robot.commands;
 
 import java.util.function.Supplier;
 
-import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.InputConstants;
@@ -19,21 +20,29 @@ import frc.robot.subsystems.Drivetrain;
  */
 public class TeleOpDrive extends CommandBase {
   private final Drivetrain DRIVETRAIN;
+  private final Gyro GYRO;
   private final Supplier<Double> X_SPEED_INPUT, Y_SPEED_INPUT, TURNING_SPEED_INPUT;
   private final Supplier<Boolean> BOOST;
+
+  private final PIDController PID;
   
   /**
    * Constructor for the Drive command
    * @param drivetrain The drivetrain subsystem.
    * @param controller The xbox controller used to drive the robot.
    */
-  public TeleOpDrive(Drivetrain drivetrain,
-      Supplier<Double> xSpeedInput, Supplier<Double> ySpeedInput, Supplier<Double> turningSpeedInput, Supplier<Boolean> boost) {
+  public TeleOpDrive(Drivetrain drivetrain, Gyro gyro,
+      Supplier<Double> xSpeedInput, Supplier<Double> ySpeedInput,
+      Supplier<Double> turningSpeedInput, Supplier<Boolean> boost) {
     DRIVETRAIN = drivetrain;
+    GYRO = gyro;
     X_SPEED_INPUT = xSpeedInput;
     Y_SPEED_INPUT = ySpeedInput;
     TURNING_SPEED_INPUT = turningSpeedInput;
     BOOST = boost;
+
+    PID = new PIDController(1, 0, 0);
+
     addRequirements(DRIVETRAIN);
   }
 
@@ -47,6 +56,8 @@ public class TeleOpDrive extends CommandBase {
     double xSpeed = X_SPEED_INPUT.get();
     double ySpeed = Y_SPEED_INPUT.get();
     double turningSpeed = TURNING_SPEED_INPUT.get();
+
+    turningSpeed = PID.calculate(measurement(), measurement() + turningSpeed);
 
     xSpeed = Math.abs(xSpeed) > InputConstants.DEADBAND ? xSpeed : 0;
     ySpeed = Math.abs(ySpeed) > InputConstants.DEADBAND ? ySpeed : 0;
@@ -85,5 +96,9 @@ public class TeleOpDrive extends CommandBase {
   @Override
   public boolean isFinished() {
     return false;
+  }
+
+  private double measurement() {
+    return GYRO.getRotation2d().getRadians();
   }
 }
