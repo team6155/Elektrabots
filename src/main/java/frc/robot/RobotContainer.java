@@ -83,8 +83,11 @@ public class RobotContainer {
     GRABBER_ARM.setDefaultCommand(CONTROL_ARM);
     GRABBER_WRIST.setDefaultCommand(CONTROL_WRIST);
     //LIGHTS.setDefaultCommand(CONTROL_LIGHTS);
+
     // Configure the button bindings
     configureButtonBindings();
+
+    GYRO.calibrate();
   }
 
   /**

@@ -12,6 +12,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.InputConstants;
 import frc.robot.Constants.SwerveModuleConstants;
 
@@ -43,17 +44,13 @@ public class SwerveModule {
         SwerveModuleConstants.ROTATION_CONSTRAINTS);
     TURNING_PID_CONTROLLER.enableContinuousInput(-Math.PI, Math.PI);
 
-    RATE_LIMITER = new SlewRateLimiter(.9);
+    RATE_LIMITER = new SlewRateLimiter(.8);
 
     this.name = name;
   }
 
   public void setDesiredState(SwerveModuleState state, boolean optimize) {
     if (optimize) {
-      if (Math.abs(state.speedMetersPerSecond) < 0.001) {
-        stop();
-        return;
-      }
       state = SwerveModuleState.optimize(state, new Rotation2d(TURNING_ENCODER.getDistance()));
     }
     double driveOutput = RATE_LIMITER.calculate(state.speedMetersPerSecond);

@@ -10,6 +10,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.InputConstants;
@@ -43,7 +44,7 @@ public class TeleOpDrive extends CommandBase {
     BOOST = boost;
     FIELD_ORIENTED = fieldOriented;
 
-    PID = new PIDController(1, 0, 0);
+    PID = new PIDController(1, .1, .1);
 
     addRequirements(DRIVETRAIN);
   }
@@ -55,6 +56,7 @@ public class TeleOpDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    SmartDashboard.putNumber("Gyro", GYRO.getAngle());
     double xSpeed = X_SPEED_INPUT.get();
     double ySpeed = Y_SPEED_INPUT.get();
     double turningSpeed = TURNING_SPEED_INPUT.get();

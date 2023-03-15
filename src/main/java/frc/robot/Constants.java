@@ -86,7 +86,7 @@ public final class Constants {
     }
 
     public static final class SwerveModuleConstants {
-        public static final double TURNING_CONTROLLER_P_VALUE = 1;
+        public static final double TURNING_CONTROLLER_P_VALUE = 5;
 
         public static final Constraints ROTATION_CONSTRAINTS = new Constraints(2 * Math.PI, 2 * Math.PI);
 

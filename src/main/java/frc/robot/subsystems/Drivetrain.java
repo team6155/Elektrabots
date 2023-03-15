@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
@@ -66,7 +67,9 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void setModuleStates(SwerveModuleState[] desiredStates, boolean optimize, double speedRatio) {
+    SmartDashboard.putString("Desired speeds", desiredStates[0].toString());
     SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, speedRatio);
+    SmartDashboard.putString("Desaturated speeds", desiredStates[0].toString());
     FRONT_LEFT.setDesiredState(desiredStates[0], optimize);
     FRONT_RIGHT.setDesiredState(desiredStates[1], optimize);
     REAR_LEFT.setDesiredState(desiredStates[2], optimize);
