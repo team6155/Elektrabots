@@ -1,0 +1,30 @@
+<xml version="1.0">
+<dashboard>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
+		<location x="467" y="-1"/>
+		<width>459</width>
+		<height>378</height>
+		<property name="Camera Choice" value="Main Camera"/>
+	</static-widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
+		<location x="0" y="0"/>
+		<width>455</width>
+		<height>379</height>
+		<property name="Camera Choice" value=""/>
+	</static-widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
+		<location x="467" y="-1"/>
+		<width>459</width>
+		<height>378</height>
+		<property name="Camera Choice" value="Grabber Camera"/>
+	</static-widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
+		<location x="0" y="0"/>
+		<width>455</width>
+		<height>379</height>
+		<property name="Camera Choice" value=""/>
+	</static-widget>
+</dashboard>
+<live-window>
+</live-window>
+</xml>

@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.CameraConstants;
 
@@ -17,6 +18,9 @@ public class Camera extends SubsystemBase {
   public Camera() {
     MAIN_CAMERA = CameraServer.startAutomaticCapture("Main Camera", CameraConstants.MAIN_CAMERA_CHANNEL);
     GRABBER_CAMERA = CameraServer.startAutomaticCapture("Grabber Camera", CameraConstants.GRABBER_CAMERA_CHANNEL);
+
+    MAIN_CAMERA.setResolution(640, 480);
+    GRABBER_CAMERA.setResolution(640, 480);
   }
 
   @Override
