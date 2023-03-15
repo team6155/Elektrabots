@@ -10,7 +10,6 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.GrabberConstants;
 import frc.robot.Constants.InputConstants;
@@ -46,6 +45,7 @@ public class GrabberArm extends SubsystemBase {
   
   }
 
+  // TODO: Set PID loop back up.
   public void run(double goal) {
     double measurement = encoder.getDistance();
     double speed = MathUtil.clamp(pidController.calculate(measurement, goal), -.6, .6);
