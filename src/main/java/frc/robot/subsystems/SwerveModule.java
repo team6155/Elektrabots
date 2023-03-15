@@ -61,14 +61,9 @@ public class SwerveModule {
     }
     double driveOutput = RATE_LIMITER.calculate(state.speedMetersPerSecond);
     double turnOutput = TURNING_PID_CONTROLLER.calculate(TURNING_ENCODER.getDistance(), state.angle.getRadians());
-    SmartDashboard.putString(name + " swerve state", state.toString());
-    SmartDashboard.putString(name + " encoder pulses", "" + TURNING_ENCODER.getDistance());
 
     DRIVING_MOTOR.set(driveOutput);
     TURNING_MOTOR.set(turnOutput);
-
-    SmartDashboard.putNumber(name + " drive motor speed", driveOutput);
-    SmartDashboard.putNumber(name + " turning motor speed", turnOutput);
   }
 
   public void stop() {
@@ -85,7 +80,6 @@ public class SwerveModule {
       TURNING_PID_CONTROLLER.enableContinuousInput(-Math.PI, Math.PI);
       return true;
     }
-    SmartDashboard.putString(name + " encoder pulses", "" + TURNING_ENCODER.getDistance());
     TURNING_PID_CONTROLLER.disableContinuousInput();
     TURNING_MOTOR.set(TURNING_PID_CONTROLLER.calculate(TURNING_ENCODER.getDistance(), 0));
     return false;

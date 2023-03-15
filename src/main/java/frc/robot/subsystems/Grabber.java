@@ -30,7 +30,5 @@ public class Grabber extends SubsystemBase {
   }
   
   @Override
-  public void periodic() {
-    SmartDashboard.putString("Grabber", solenoid.get().toString());
-  }
+  public void periodic() {}
 }

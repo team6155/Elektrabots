@@ -39,17 +39,13 @@ public class GrabberArm extends SubsystemBase {
       speed = 0;
     }
     double measurement = encoder.getDistance();
-    SmartDashboard.putString("Measurement", "" + encoder.getDistance());
-    SmartDashboard.putString("Raw Pulses", "" + encoder.getDistance() * GrabberConstants.ENCODER_DISTANCE_PER_PULSE);
     double goal = MathUtil.clamp(measurement + speed, -.2, Math.PI);
-    SmartDashboard.putString("Goal", "" + goal);
     run(goal);
   }
 
   public void run(double goal) {
     double measurement = encoder.getDistance();
     double speed = MathUtil.clamp(pidController.calculate(measurement, goal), 0, .75);
-    SmartDashboard.putString("PID output", "" + speed);
     leftMotor.set(speed);
     rightMotor.set(speed);
   }

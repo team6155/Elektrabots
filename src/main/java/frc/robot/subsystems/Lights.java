@@ -38,10 +38,7 @@ public class Lights extends SubsystemBase {
   }
   
   @Override
-  public void periodic() {
-    SmartDashboard.putNumber("Time", timer.get());
-    SmartDashboard.putNumber("Amplitude", .9 * (1 + Math.sin(timer.get())) / 2 + .01);
-  }
+  public void periodic() {}
 
   public void breathe(double red, double green, double blue) {
     double time = getTime() / LEDConstants.BREATHE_FREQUENCY;

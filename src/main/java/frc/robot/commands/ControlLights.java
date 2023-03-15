@@ -71,9 +71,6 @@ public class ControlLights extends CommandBase {
       safetyTime = lights.getTime();
       lights.blink();
     }
-    SmartDashboard.putNumber("R", red);
-    SmartDashboard.putNumber("G", green);
-    SmartDashboard.putNumber("B", blue);
   }
 
   // Called once the command ends or is interrupted.
