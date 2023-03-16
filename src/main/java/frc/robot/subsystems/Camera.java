@@ -18,8 +18,10 @@ public class Camera extends SubsystemBase {
     MAIN_CAMERA = CameraServer.startAutomaticCapture("Main Camera", CameraConstants.MAIN_CAMERA_CHANNEL);
     GRABBER_CAMERA = CameraServer.startAutomaticCapture("Grabber Camera", CameraConstants.GRABBER_CAMERA_CHANNEL);
 
-    MAIN_CAMERA.setResolution(640, 480);
-    GRABBER_CAMERA.setResolution(640, 480);
+    MAIN_CAMERA.setResolution(320, 240);
+    MAIN_CAMERA.setFPS(15);
+    GRABBER_CAMERA.setResolution(320, 240);
+    GRABBER_CAMERA.setFPS(15);
   }
 
   @Override

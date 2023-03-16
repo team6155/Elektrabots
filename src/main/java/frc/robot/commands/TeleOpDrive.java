@@ -26,7 +26,7 @@ public class TeleOpDrive extends CommandBase {
   private final Supplier<Boolean> BOOST;
   private final Supplier<Boolean> FIELD_ORIENTED;
 
-  private final PIDController PID;
+  //private final PIDController PID;
   
   /**
    * Constructor for the Drive command
@@ -44,7 +44,7 @@ public class TeleOpDrive extends CommandBase {
     BOOST = boost;
     FIELD_ORIENTED = fieldOriented;
 
-    PID = new PIDController(1, .1, .1);
+    //PID = new PIDController(1, .1, .1);
 
     addRequirements(DRIVETRAIN);
   }
@@ -61,7 +61,7 @@ public class TeleOpDrive extends CommandBase {
     double ySpeed = Y_SPEED_INPUT.get();
     double turningSpeed = TURNING_SPEED_INPUT.get();
 
-    turningSpeed = PID.calculate(measurement(), measurement() + turningSpeed);
+    //turningSpeed = PID.calculate(measurement(), measurement() + turningSpeed);
 
     xSpeed = Math.abs(xSpeed) > InputConstants.DEADBAND ? xSpeed : 0;
     ySpeed = Math.abs(ySpeed) > InputConstants.DEADBAND ? ySpeed : 0;
@@ -76,7 +76,9 @@ public class TeleOpDrive extends CommandBase {
     
     ChassisSpeeds chassisSpeeds = new ChassisSpeeds(ySpeed, xSpeed, turningSpeed);
     if (FIELD_ORIENTED.get()) {
-      chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(chassisSpeeds, GYRO.getRotation2d());
+      chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(
+        chassisSpeeds, GYRO.getRotation2d().rotateBy(DriveConstants.STARTING_ROTATION)
+      );
     }
 
     SwerveModuleState[] moduleStates = DriveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds);

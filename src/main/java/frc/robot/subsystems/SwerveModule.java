@@ -64,23 +64,4 @@ public class SwerveModule {
     DRIVING_MOTOR.set(0);
     TURNING_MOTOR.set(0);
   }
-
-  public void resetEncoders() {
-    TURNING_ENCODER.reset();
-  }
-
-  public boolean resetWheel() {
-    if (Math.abs(TURNING_ENCODER.getDistance()) <= InputConstants.DEADBAND) {
-      TURNING_PID_CONTROLLER.enableContinuousInput(-Math.PI, Math.PI);
-      return true;
-    }
-    TURNING_PID_CONTROLLER.disableContinuousInput();
-    TURNING_MOTOR.set(TURNING_PID_CONTROLLER.calculate(TURNING_ENCODER.getDistance(), 0));
-    return false;
-  }
-
-  public void test() {
-    DRIVING_MOTOR.set(0);
-    TURNING_MOTOR.set(0);
-  }
 }

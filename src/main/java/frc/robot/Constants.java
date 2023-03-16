@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
@@ -83,10 +84,11 @@ public final class Constants {
         public static final double MAX_SPEED_METERS_PER_SECOND = 1;
         public static final double MAX_ANGULAR_SPEED_RADIANS_PER_SECOND = 2 * Math.PI;
         public static final double SPEED_RATIO = .75;
+        public static final Rotation2d STARTING_ROTATION = new Rotation2d(Math.PI);
     }
 
     public static final class SwerveModuleConstants {
-        public static final double TURNING_CONTROLLER_P_VALUE = 5;
+        public static final double TURNING_CONTROLLER_P_VALUE = 4;
 
         public static final Constraints ROTATION_CONSTRAINTS = new Constraints(2 * Math.PI, 2 * Math.PI);
 
