@@ -29,15 +29,15 @@ public final class Constants {
     }
 
     public static final class DriveConstants {
-        public static final int FRONT_LEFT_DRIVING_MOTOR_PORT = 6;
+        public static final int FRONT_LEFT_DRIVING_MOTOR_PORT = 7;
         public static final int FRONT_RIGHT_DRIVING_MOTOR_PORT = 3;
-        public static final int REAR_LEFT_DRIVING_MOTOR_PORT = 2;
-        public static final int REAR_RIGHT_DRIVING_MOTOR_PORT = 7;
+        public static final int REAR_LEFT_DRIVING_MOTOR_PORT = 6;
+        public static final int REAR_RIGHT_DRIVING_MOTOR_PORT = 2;
 
-        public static final int FRONT_LEFT_TURNING_MOTOR_PORT = 5;
+        public static final int FRONT_LEFT_TURNING_MOTOR_PORT = 8;
         public static final int FRONT_RIGHT_TURNING_MOTOR_PORT = 4;
-        public static final int REAR_LEFT_TURNING_MOTOR_PORT = 1;
-        public static final int REAR_RIGHT_TURNING_MOTOR_PORT = 8;
+        public static final int REAR_LEFT_TURNING_MOTOR_PORT = 5;
+        public static final int REAR_RIGHT_TURNING_MOTOR_PORT = 1;
         
         public static final boolean FRONT_LEFT_DRIVING_MOTOR_REVERSED = false;
         public static final boolean FRONT_RIGHT_DRIVING_MOTOR_REVERSED = false;
@@ -50,9 +50,9 @@ public final class Constants {
         public static final boolean REAR_RIGHT_TURNING_MOTOR_REVERSED = false;
 
         public static final int[] FRONT_LEFT_TURNING_ENCODER_PORTS = new int[] {6, 7};
-        public static final int[] FRONT_RIGHT_TURNING_ENCODER_PORTS = new int[] {4, 5};
-        public static final int[] REAR_LEFT_TURNING_ENCODER_PORTS = new int[] {0, 1};
-        public static final int[] REAR_RIGHT_TURNING_ENCODER_PORTS = new int[] {2, 3};
+        public static final int[] FRONT_RIGHT_TURNING_ENCODER_PORTS = new int[] {8, 9};
+        public static final int[] REAR_LEFT_TURNING_ENCODER_PORTS = new int[] {2, 3};
+        public static final int[] REAR_RIGHT_TURNING_ENCODER_PORTS = new int[] {0, 1};
 
         /** Distance between left and right wheels. */
         public static final double TRACK_WIDTH_METERS = .387;
@@ -89,6 +89,5 @@ public final class Constants {
 
     public static final class CameraConstants {
         public static final int MAIN_CAMERA_CHANNEL = 0;
-        public static final int GRABBER_CAMERA_CHANNEL = 1;
     }
 }

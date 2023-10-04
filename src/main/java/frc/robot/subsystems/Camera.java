@@ -11,17 +11,13 @@ import frc.robot.Constants.CameraConstants;
 
 public class Camera extends SubsystemBase {
   private final UsbCamera MAIN_CAMERA;
-  private final UsbCamera GRABBER_CAMERA;
 
   /** Creates a new Camera. */
   public Camera() {
     MAIN_CAMERA = CameraServer.startAutomaticCapture("Main Camera", CameraConstants.MAIN_CAMERA_CHANNEL);
-    GRABBER_CAMERA = CameraServer.startAutomaticCapture("Grabber Camera", CameraConstants.GRABBER_CAMERA_CHANNEL);
 
     MAIN_CAMERA.setResolution(320, 240);
     MAIN_CAMERA.setFPS(15);
-    GRABBER_CAMERA.setResolution(320, 240);
-    GRABBER_CAMERA.setFPS(15);
   }
 
   @Override
