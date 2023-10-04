@@ -28,19 +28,6 @@ public final class Constants {
         public static final double ACCELERATION_RATE_LIMIT = .9;
     }
 
-    public static final class GrabberConstants {
-        public static final int FORWARD_SOLENOID_PORT = 0;
-        public static final int REVERSE_SOLENOID_PORT = 1;
-        public static final int ARM_LEFT_MOTOR_PORT = 9;
-        public static final int ARM_RIGHT_MOTOR_PORT = 10;
-        public static final int WRIST_MOTOR_PORT = 11;
-
-        public static final int[] ARM_ENCODER_PORTS = {8, 9};
-
-        public static final Constraints ROTATION_CONSTRAINTS = new Constraints(1, 0.75);
-        public static final double ENCODER_DISTANCE_PER_PULSE = Math.PI * 2 / 420;
-    }
-
     public static final class DriveConstants {
         public static final int FRONT_LEFT_DRIVING_MOTOR_PORT = 6;
         public static final int FRONT_RIGHT_DRIVING_MOTOR_PORT = 3;
@@ -98,17 +85,6 @@ public final class Constants {
         public static final double TURNING_ENCODER_DISTANCE_PER_PULSE =
             (2 * Math.PI) / ENCODER_CYCLES_PER_REVOLUTION;
         
-    }
-
-    public static final class LEDConstants {
-        public static final int RED_LED_PORT = 10;
-        public static final int GREEN_LED_PORT = 12;
-        public static final int BLUE_LED_PORT = 11;
-
-        public static final int PWM_RATE = 1000;
-        public static final double BREATHE_FREQUENCY = .5;
-        public static final double BLINK_FREQUENCY = .5;
-        public static final double COLOR_FREQUENCY = Math.PI;
     }
 
     public static final class CameraConstants {
