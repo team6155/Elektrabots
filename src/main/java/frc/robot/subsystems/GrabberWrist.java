@@ -13,7 +13,7 @@ import frc.robot.Constants.GrabberConstants;
 import frc.robot.Constants.InputConstants;
 
 public class GrabberWrist extends SubsystemBase {
-  private static final double SPEED_LIMIT = .9;
+  private static final double SPEED_LIMIT = 1;
   private final SlewRateLimiter RATE_LIMITER;
   private MotorController motor;
 

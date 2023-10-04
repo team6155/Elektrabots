@@ -43,7 +43,7 @@ public class RobotContainer {
   private final Grabber GRABBER = new Grabber();
   private final GrabberArm GRABBER_ARM = new GrabberArm();
   private final GrabberWrist GRABBER_WRIST = new GrabberWrist();
-  //private final Lights LIGHTS = new Lights();
+  private final Lights LIGHTS = new Lights();
   private final Camera CAMERA = new Camera();
 
   // The robot's commands
@@ -69,7 +69,7 @@ public class RobotContainer {
     () -> operatorController.getRawAxis(3)
   );
 
-  //private final ControlLights CONTROL_LIGHTS = new ControlLights(LIGHTS, DRIVETRAIN_SUBSYSTEM);
+  private final ControlLights CONTROL_LIGHTS = new ControlLights(LIGHTS, DRIVETRAIN_SUBSYSTEM);
 
   private final ResetArmEncoder RESET_ARM_ENCODER = new ResetArmEncoder(GRABBER_ARM);
 
@@ -82,7 +82,7 @@ public class RobotContainer {
     DRIVETRAIN_SUBSYSTEM.setDefaultCommand(DRIVE_COMMAND);
     GRABBER_ARM.setDefaultCommand(CONTROL_ARM);
     GRABBER_WRIST.setDefaultCommand(CONTROL_WRIST);
-    //LIGHTS.setDefaultCommand(CONTROL_LIGHTS);
+    LIGHTS.setDefaultCommand(CONTROL_LIGHTS);
 
     // Configure the button bindings
     configureButtonBindings();
