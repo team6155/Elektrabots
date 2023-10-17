@@ -57,9 +57,9 @@ public class TeleOpDrive extends CommandBase {
   @Override
   public void execute() {
     SmartDashboard.putNumber("Gyro", GYRO.getAngle());
-    double xSpeed = X_SPEED_INPUT.get();
-    double ySpeed = Y_SPEED_INPUT.get();
-    double turningSpeed = TURNING_SPEED_INPUT.get();
+    double xSpeed = -X_SPEED_INPUT.get();
+    double ySpeed = -Y_SPEED_INPUT.get();
+    double turningSpeed = -TURNING_SPEED_INPUT.get();
 
     //turningSpeed = PID.calculate(measurement(), measurement() + turningSpeed);
 
