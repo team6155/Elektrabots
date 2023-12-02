@@ -11,6 +11,7 @@ import frc.robot.subsystems.Wheels;
 public class Drive extends CommandBase {
   public Wheels wheels;
   public XboxController controller;
+  public double maxSpeed = .5;
   
   /** Creates a new Drive. */
   public Drive(Wheels wheels) {
@@ -30,10 +31,10 @@ public class Drive extends CommandBase {
   public void execute() {
     double forwardSpeed = controller.getLeftY(); 
     double rotationalSpeed = controller.getRightX();
-    wheels.frontLeftWheel.set(normalize(forwardSpeed + rotationalSpeed));
-    wheels.rearLeftWheel.set(normalize(forwardSpeed + rotationalSpeed));
-    wheels.frontRightWheel.set(normalize(forwardSpeed - rotationalSpeed));
-    wheels.rearRightWheel.set(normalize(forwardSpeed - rotationalSpeed));
+    wheels.frontLeftWheel.set(normalize(forwardSpeed + rotationalSpeed)*maxSpeed);
+    wheels.rearLeftWheel.set(normalize(forwardSpeed + rotationalSpeed)*maxSpeed);
+    wheels.frontRightWheel.set(normalize(forwardSpeed - rotationalSpeed)*maxSpeed);
+    wheels.rearRightWheel.set(normalize(forwardSpeed - rotationalSpeed)*maxSpeed);
 
 
 

@@ -4,15 +4,17 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Wheels extends SubsystemBase {
   // tpdp: change channel numbers
-public PWMVictorSPX frontRightWheel = new PWMVictorSPX(-1);
-public PWMVictorSPX frontLeftWheel = new PWMVictorSPX(-1);
-public PWMVictorSPX rearRightWheel = new PWMVictorSPX(-1);
-public PWMVictorSPX rearLeftWheel = new PWMVictorSPX(-1);
+public WPI_VictorSPX frontRightWheel = new WPI_VictorSPX(6);
+public WPI_VictorSPX frontLeftWheel = new WPI_VictorSPX(3);
+public WPI_VictorSPX rearRightWheel = new WPI_VictorSPX(7);
+public WPI_VictorSPX rearLeftWheel = new WPI_VictorSPX(2);
   /** Creates a new Wheels. */
   public Wheels() {}
 
