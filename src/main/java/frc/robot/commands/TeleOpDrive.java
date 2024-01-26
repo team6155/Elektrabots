@@ -9,9 +9,9 @@ import java.util.function.Supplier;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.InputConstants;
 import frc.robot.subsystems.Drivetrain;
@@ -19,9 +19,9 @@ import frc.robot.subsystems.Drivetrain;
 /**
  * Drive the robot according to input from the controller.
  */
-public class TeleOpDrive extends CommandBase {
+public class TeleOpDrive extends Command {
   private final Drivetrain DRIVETRAIN;
-  private final Gyro GYRO;
+  private final ADXRS450_Gyro GYRO;
   private final Supplier<Double> X_SPEED_INPUT, Y_SPEED_INPUT, TURNING_SPEED_INPUT;
   private final Supplier<Boolean> BOOST;
   private final Supplier<Boolean> FIELD_ORIENTED;
@@ -33,7 +33,7 @@ public class TeleOpDrive extends CommandBase {
    * @param drivetrain The drivetrain subsystem.
    * @param controller The xbox controller used to drive the robot.
    */
-  public TeleOpDrive(Drivetrain drivetrain, Gyro gyro, Supplier<Double> xSpeedInput,
+  public TeleOpDrive(Drivetrain drivetrain, ADXRS450_Gyro gyro, Supplier<Double> xSpeedInput,
       Supplier<Double> ySpeedInput, Supplier<Double> turningSpeedInput,
       Supplier<Boolean> boost, Supplier<Boolean> fieldOriented) {
     DRIVETRAIN = drivetrain;

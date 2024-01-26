@@ -28,19 +28,6 @@ public final class Constants {
         public static final double ACCELERATION_RATE_LIMIT = .9;
     }
 
-    public static final class GrabberConstants {
-        public static final int FORWARD_SOLENOID_PORT = 0;
-        public static final int REVERSE_SOLENOID_PORT = 1;
-        public static final int ARM_LEFT_MOTOR_PORT = 9;
-        public static final int ARM_RIGHT_MOTOR_PORT = 10;
-        public static final int WRIST_MOTOR_PORT = 11;
-
-        public static final int[] ARM_ENCODER_PORTS = {8, 9};
-
-        public static final Constraints ROTATION_CONSTRAINTS = new Constraints(1, 0.75);
-        public static final double ENCODER_DISTANCE_PER_PULSE = Math.PI * 2 / 420;
-    }
-
     public static final class DriveConstants {
         public static final int FRONT_LEFT_DRIVING_MOTOR_PORT = 6;
         public static final int FRONT_RIGHT_DRIVING_MOTOR_PORT = 3;
@@ -62,11 +49,18 @@ public final class Constants {
         public static final boolean REAR_LEFT_TURNING_MOTOR_REVERSED = false;
         public static final boolean REAR_RIGHT_TURNING_MOTOR_REVERSED = false;
 
-        public static final int[] FRONT_LEFT_TURNING_ENCODER_PORTS = new int[] {6, 7};
-        public static final int[] FRONT_RIGHT_TURNING_ENCODER_PORTS = new int[] {4, 5};
-        public static final int[] REAR_LEFT_TURNING_ENCODER_PORTS = new int[] {0, 1};
-        public static final int[] REAR_RIGHT_TURNING_ENCODER_PORTS = new int[] {2, 3};
+        //TODO: Update encoder ports
+        public static final int[] FRONT_LEFT_DRIVING_ENCODER_PORTS = new int[] {-1, -1};
+        public static final int[] FRONT_RIGHT_DRIVING_ENCODER_PORTS = new int[] {-1, -1};
+        public static final int[] REAR_LEFT_DRIVING_ENCODER_PORTS = new int[] {-1, -1};
+        public static final int[] REAR_RIGHT_DRIVING_ENCODER_PORTS = new int[] {-1, -1};
 
+        public static final int[] FRONT_LEFT_TURNING_ENCODER_PORTS = new int[] {7, 6};
+        public static final int[] FRONT_RIGHT_TURNING_ENCODER_PORTS = new int[] {9, 8};
+        public static final int[] REAR_LEFT_TURNING_ENCODER_PORTS = new int[] {3, 2};
+        public static final int[] REAR_RIGHT_TURNING_ENCODER_PORTS = new int[] {1, 0};
+
+        //TODO: Update dimensions to new chassis
         /** Distance between left and right wheels. */
         public static final double TRACK_WIDTH_METERS = .387;
         /** Distance between front and back wheels. */
@@ -81,38 +75,24 @@ public final class Constants {
         
         public static boolean GYRO_REVERSED = false;
 
-        public static final double MAX_SPEED_METERS_PER_SECOND = 1;
-        public static final double MAX_ANGULAR_SPEED_RADIANS_PER_SECOND = 2 * Math.PI;
+        public static final double MAX_SPEED_METERS_PER_SECOND = 4.117848;
+        public static final double MAX_ANGULAR_SPEED_RADIANS_PER_SECOND = Math.PI;
         public static final double SPEED_RATIO = .75;
         public static final Rotation2d STARTING_ROTATION = new Rotation2d(Math.PI);
     }
 
     public static final class SwerveModuleConstants {
-        public static final double TURNING_CONTROLLER_P_VALUE = 4;
+        public static final double DRIVING_CONTROLLER_P_VALUE = 0.5;
+        public static final double TURNING_CONTROLLER_P_VALUE = 0.5;
 
         public static final Constraints ROTATION_CONSTRAINTS = new Constraints(2 * Math.PI, 2 * Math.PI);
 
         public static final double ENCODER_CYCLES_PER_REVOLUTION = 420;
+        //TODO: Update value
         public static final double WHEEL_DIAMETER_METERS = .102;
 
         public static final double TURNING_ENCODER_DISTANCE_PER_PULSE =
             (2 * Math.PI) / ENCODER_CYCLES_PER_REVOLUTION;
         
-    }
-
-    public static final class LEDConstants {
-        public static final int RED_LED_PORT = 10;
-        public static final int GREEN_LED_PORT = 12;
-        public static final int BLUE_LED_PORT = 11;
-
-        public static final int PWM_RATE = 1000;
-        public static final double BREATHE_FREQUENCY = .5;
-        public static final double BLINK_FREQUENCY = .5;
-        public static final double COLOR_FREQUENCY = Math.PI;
-    }
-
-    public static final class CameraConstants {
-        public static final int MAIN_CAMERA_CHANNEL = 0;
-        public static final int GRABBER_CAMERA_CHANNEL = 1;
     }
 }

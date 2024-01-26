@@ -24,6 +24,7 @@ public class Drivetrain extends SubsystemBase {
     DriveConstants.FRONT_LEFT_TURNING_MOTOR_PORT,
     DriveConstants.FRONT_LEFT_DRIVING_MOTOR_REVERSED,
     DriveConstants.FRONT_LEFT_TURNING_MOTOR_REVERSED,
+    DriveConstants.FRONT_LEFT_DRIVING_ENCODER_PORTS,
     DriveConstants.FRONT_LEFT_TURNING_ENCODER_PORTS,
     "Front Left"
   );
@@ -33,6 +34,7 @@ public class Drivetrain extends SubsystemBase {
     DriveConstants.FRONT_RIGHT_TURNING_MOTOR_PORT,
     DriveConstants.FRONT_RIGHT_DRIVING_MOTOR_REVERSED,
     DriveConstants.FRONT_RIGHT_TURNING_MOTOR_REVERSED,
+    DriveConstants.FRONT_RIGHT_DRIVING_ENCODER_PORTS,
     DriveConstants.FRONT_RIGHT_TURNING_ENCODER_PORTS,
     "Front Right"
   );
@@ -42,6 +44,7 @@ public class Drivetrain extends SubsystemBase {
     DriveConstants.REAR_LEFT_TURNING_MOTOR_PORT,
     DriveConstants.REAR_LEFT_DRIVING_MOTOR_REVERSED,
     DriveConstants.REAR_LEFT_TURNING_MOTOR_REVERSED,
+    DriveConstants.REAR_LEFT_DRIVING_ENCODER_PORTS,
     DriveConstants.REAR_LEFT_TURNING_ENCODER_PORTS,
     "Rear Left"
   );
@@ -51,6 +54,7 @@ public class Drivetrain extends SubsystemBase {
     DriveConstants.REAR_RIGHT_TURNING_MOTOR_PORT,
     DriveConstants.REAR_RIGHT_DRIVING_MOTOR_REVERSED,
     DriveConstants.REAR_RIGHT_TURNING_MOTOR_REVERSED,
+    DriveConstants.REAR_RIGHT_DRIVING_ENCODER_PORTS,
     DriveConstants.REAR_RIGHT_TURNING_ENCODER_PORTS,
     "Rear Right"
   );

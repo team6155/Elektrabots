@@ -21,6 +21,7 @@ public class SwerveModule {
   private final MotorController DRIVING_MOTOR;
   private final MotorController TURNING_MOTOR;
 
+  private final Encoder DRIVING_ENCODER;
   private final Encoder TURNING_ENCODER;
 
   private final ProfiledPIDController TURNING_PID_CONTROLLER;
@@ -30,13 +31,14 @@ public class SwerveModule {
 
   /** Creates a new SwerveModule. */
   public SwerveModule(int drivingMotorChannel, int turningMotorChannel, boolean drivingMotorReversed, 
-      boolean turningMotorReversed, int[] turningEncoderChannels, String name) {
+      boolean turningMotorReversed, int[] drivingEncoderChannels, int[] turningEncoderChannels, String name) {
 
     DRIVING_MOTOR = new WPI_VictorSPX(drivingMotorChannel);
     TURNING_MOTOR = new WPI_VictorSPX(turningMotorChannel);
     DRIVING_MOTOR.setInverted(drivingMotorReversed);
     TURNING_MOTOR.setInverted(turningMotorReversed);
 
+    DRIVING_ENCODER = new Encoder(turningEncoderChannels[0], turningEncoderChannels[1]);
     TURNING_ENCODER = new Encoder(turningEncoderChannels[0], turningEncoderChannels[1]);
     TURNING_ENCODER.setDistancePerPulse(SwerveModuleConstants.TURNING_ENCODER_DISTANCE_PER_PULSE);
 
