@@ -22,6 +22,18 @@ public final class Constants {
     public static final int DRIVER_CONTROLLER_PORT = 0;
     public static final int OPERATOR_CONTROLLER_PORT = 1;
 
+    //TODO: update channel number 
+    public static final class IntakeConstants {
+        public static final int MOTOR_CHANNEL = -1;
+    }
+
+    public static final class ShooterConstants {
+        public static final int MOTOR_CHANNEL = -1;
+
+    }
+    public static final class WinchConstants{
+        public static final int MOTOR_CHANNEL = -1;
+    }
 
     public static final class InputConstants {
         public static final double DEADBAND = 0.05;
@@ -29,15 +41,15 @@ public final class Constants {
     }
 
     public static final class DriveConstants {
-        public static final int FRONT_LEFT_DRIVING_MOTOR_PORT = 6;
-        public static final int FRONT_RIGHT_DRIVING_MOTOR_PORT = 3;
-        public static final int REAR_LEFT_DRIVING_MOTOR_PORT = 2;
-        public static final int REAR_RIGHT_DRIVING_MOTOR_PORT = 7;
+        public static final int FRONT_LEFT_DRIVING_MOTOR_PORT = 1;
+        public static final int FRONT_RIGHT_DRIVING_MOTOR_PORT = 7;
+        public static final int REAR_LEFT_DRIVING_MOTOR_PORT = 3;
+        public static final int REAR_RIGHT_DRIVING_MOTOR_PORT = 5;
 
-        public static final int FRONT_LEFT_TURNING_MOTOR_PORT = 5;
-        public static final int FRONT_RIGHT_TURNING_MOTOR_PORT = 4;
-        public static final int REAR_LEFT_TURNING_MOTOR_PORT = 1;
-        public static final int REAR_RIGHT_TURNING_MOTOR_PORT = 8;
+        public static final int FRONT_LEFT_TURNING_MOTOR_PORT = 2;
+        public static final int FRONT_RIGHT_TURNING_MOTOR_PORT = 8;
+        public static final int REAR_LEFT_TURNING_MOTOR_PORT = 4;
+        public static final int REAR_RIGHT_TURNING_MOTOR_PORT = 6;
         
         public static final boolean FRONT_LEFT_DRIVING_MOTOR_REVERSED = false;
         public static final boolean FRONT_RIGHT_DRIVING_MOTOR_REVERSED = false;
