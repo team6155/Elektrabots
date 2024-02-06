@@ -74,9 +74,9 @@ public final class Constants {
 
         //TODO: Update dimensions to new chassis
         /** Distance between left and right wheels. */
-        public static final double TRACK_WIDTH_METERS = .387;
+        public static final double TRACK_WIDTH_METERS = .61;
         /** Distance between front and back wheels. */
-        public static final double WHEEL_BASE_METERS = .711;
+        public static final double WHEEL_BASE_METERS = .737;
         public static final SwerveDriveKinematics DRIVE_KINEMATICS =
             new SwerveDriveKinematics(
                 new Translation2d(WHEEL_BASE_METERS / 2, TRACK_WIDTH_METERS / 2),
@@ -88,20 +88,20 @@ public final class Constants {
         public static boolean GYRO_REVERSED = false;
 
         public static final double MAX_SPEED_METERS_PER_SECOND = 4.117848;
-        public static final double MAX_ANGULAR_SPEED_RADIANS_PER_SECOND = Math.PI;
+        public static final double MAX_ANGULAR_SPEED_RADIANS_PER_SECOND = 2 * Math.PI;
         public static final double SPEED_RATIO = .75;
         public static final Rotation2d STARTING_ROTATION = new Rotation2d(Math.PI);
     }
 
     public static final class SwerveModuleConstants {
-        public static final double DRIVING_CONTROLLER_P_VALUE = 0.5;
-        public static final double TURNING_CONTROLLER_P_VALUE = 0.5;
+        public static final double DRIVING_CONTROLLER_P_VALUE = 1;
+        public static final double TURNING_CONTROLLER_P_VALUE = 1;
 
         public static final Constraints ROTATION_CONSTRAINTS = new Constraints(2 * Math.PI, 2 * Math.PI);
 
-        public static final double ENCODER_CYCLES_PER_REVOLUTION = 420;
+        public static final double ENCODER_CYCLES_PER_REVOLUTION = 682.666;
         //TODO: Update value
-        public static final double WHEEL_DIAMETER_METERS = .102;
+        public static final double WHEEL_DIAMETER_METERS = .0762;
 
         public static final double TURNING_ENCODER_DISTANCE_PER_PULSE =
             (2 * Math.PI) / ENCODER_CYCLES_PER_REVOLUTION;
