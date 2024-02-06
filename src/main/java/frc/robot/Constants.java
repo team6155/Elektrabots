@@ -37,7 +37,6 @@ public final class Constants {
 
     public static final class InputConstants {
         public static final double DEADBAND = 0.05;
-        public static final double ACCELERATION_RATE_LIMIT = .9;
     }
 
     public static final class DriveConstants {
@@ -51,26 +50,10 @@ public final class Constants {
         public static final int REAR_LEFT_TURNING_MOTOR_PORT = 4;
         public static final int REAR_RIGHT_TURNING_MOTOR_PORT = 6;
         
-        public static final boolean FRONT_LEFT_DRIVING_MOTOR_REVERSED = false;
-        public static final boolean FRONT_RIGHT_DRIVING_MOTOR_REVERSED = false;
-        public static final boolean REAR_LEFT_DRIVING_MOTOR_REVERSED = false;
-        public static final boolean REAR_RIGHT_DRIVING_MOTOR_REVERSED = false;
-        
-        public static final boolean FRONT_LEFT_TURNING_MOTOR_REVERSED = false;
-        public static final boolean FRONT_RIGHT_TURNING_MOTOR_REVERSED = false;
-        public static final boolean REAR_LEFT_TURNING_MOTOR_REVERSED = false;
-        public static final boolean REAR_RIGHT_TURNING_MOTOR_REVERSED = false;
-
-        //TODO: Update encoder ports
-        public static final int[] FRONT_LEFT_DRIVING_ENCODER_PORTS = new int[] {-1, -1};
-        public static final int[] FRONT_RIGHT_DRIVING_ENCODER_PORTS = new int[] {-1, -1};
-        public static final int[] REAR_LEFT_DRIVING_ENCODER_PORTS = new int[] {-1, -1};
-        public static final int[] REAR_RIGHT_DRIVING_ENCODER_PORTS = new int[] {-1, -1};
-
-        public static final int[] FRONT_LEFT_TURNING_ENCODER_PORTS = new int[] {7, 6};
-        public static final int[] FRONT_RIGHT_TURNING_ENCODER_PORTS = new int[] {9, 8};
-        public static final int[] REAR_LEFT_TURNING_ENCODER_PORTS = new int[] {3, 2};
-        public static final int[] REAR_RIGHT_TURNING_ENCODER_PORTS = new int[] {1, 0};
+        public static final double FRONT_LEFT_ANGULAR_OFFSET = -Math.PI / 2;
+        public static final double FRONT_RIGHT_ANGULAR_OFFSET = 0;
+        public static final double REAR_LEFT_ANGULAR_OFFSET = Math.PI;
+        public static final double REAR_RIGHT_ANGULAR_OFFSET = Math.PI / 2;
 
         //TODO: Update dimensions to new chassis
         /** Distance between left and right wheels. */
@@ -86,25 +69,52 @@ public final class Constants {
             );
         
         public static boolean GYRO_REVERSED = false;
-
-        public static final double MAX_SPEED_METERS_PER_SECOND = 4.117848;
-        public static final double MAX_ANGULAR_SPEED_RADIANS_PER_SECOND = 2 * Math.PI;
         public static final double SPEED_RATIO = .75;
         public static final Rotation2d STARTING_ROTATION = new Rotation2d(Math.PI);
+        public static final double DIRECTION_SLEW_RATE = 1.2;
+        public static final double MAGNITUDE_SLEW_RATE = 1.8;
+        public static final double ROTATIONAL_SLEW_RATE = 2.0;
+        public static final double MAX_SPEED_METERS_PER_SECOND = 4.8;
+        public static final double MAX_ANGULAR_SPEED = 2 * Math.PI;
     }
 
-    public static final class SwerveModuleConstants {
-        public static final double DRIVING_CONTROLLER_P_VALUE = 1;
-        public static final double TURNING_CONTROLLER_P_VALUE = 1;
+    public static abstract class SwerveModuleConstants {
+        public static final double DRIVING_P_VALUE = 1;
+        public static final double DRIVING_I_VALUE = 0;
+        public static final double DRIVING_D_VALUE = 0;
 
-        public static final Constraints ROTATION_CONSTRAINTS = new Constraints(2 * Math.PI, 2 * Math.PI);
+        public static final double TURNING_P_VALUE = 1;
+        public static final double TURNING_I_VALUE = 0;
+        public static final double TURNING_D_VALUE = 0;
 
-        public static final double ENCODER_CYCLES_PER_REVOLUTION = 682.666;
-        //TODO: Update value
         public static final double WHEEL_DIAMETER_METERS = .0762;
+        public static final double WHEEL_CIRCUMFERENCE_METERS = WHEEL_DIAMETER_METERS * Math.PI;
 
-        public static final double TURNING_ENCODER_DISTANCE_PER_PULSE =
-            (2 * Math.PI) / ENCODER_CYCLES_PER_REVOLUTION;
+        // The RevRobotics MAXSwerve Module we're using can be configured with one of three pinion gears: 12T, 13T, or 14T.
+        // Make sure this is accurate to our configuration.
+        // The other 3 teeth numbers are fixed.
+        public static final double DRIVING_MOTOR_PINION_TEETH = 14;
+        public static final double DRIVING_MOTOR_BEVEL_GEAR_TEETH = 45;
+        public static final double DRIVING_MOTOR_SPUR_GEAR_TEETH = 22;
+        public static final double DRIVING_MOTOR_BEVEL_PINION_TEETH = 15;
+        public static final double DRIVING_MOTOR_REDUCTION = (DRIVING_MOTOR_PINION_TEETH * DRIVING_MOTOR_SPUR_GEAR_TEETH)
+            / (DRIVING_MOTOR_PINION_TEETH * DRIVING_MOTOR_BEVEL_PINION_TEETH);
+        /** Convert the encoder's units into meters. */
+        public static final double DRIVING_ENCODER_POSITION_FACTOR = (WHEEL_DIAMETER_METERS * Math.PI)
+            / DRIVING_MOTOR_REDUCTION;
+
+        public static final double DRIVING_MOTOR_ROTATIONS_PER_SECOND = 5676 / 60;
+        public static final double DRIVING_MOTOR_METERS_PER_SECOND = DRIVING_MOTOR_ROTATIONS_PER_SECOND * WHEEL_CIRCUMFERENCE_METERS
+            / DRIVING_MOTOR_REDUCTION;
         
+        public static final double DRIVING_FF_VALUE = 1 / DRIVING_MOTOR_METERS_PER_SECOND;
+        public static final double TURNING_FF_VALUE = 0;
+        
+        /** Convert the encoder's units into radians. */
+        public static final double TURNING_ENCODER_POSITION_FACTOR = 2 * Math.PI;
+        public static final boolean TURNING_ENCODER_INVERTED = true;
+        
+        public static final int DRIVING_MOTOR_CURRENT_LIMIT = 50;
+        public static final int TURNING_MOTOR_CURRENT_LIMIT = 20;
     }
 }

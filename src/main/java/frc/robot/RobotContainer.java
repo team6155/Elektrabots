@@ -36,7 +36,8 @@ public class RobotContainer {
     () -> driverController.getLeftY(),
     () -> driverController.getRightX(),
     () -> driverController.getRightTriggerAxis() > .8,
-    () -> driverController.getLeftTriggerAxis() > .8
+    () -> driverController.getLeftTriggerAxis() > .8,
+    true
   );
 
 

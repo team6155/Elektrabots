@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -21,40 +22,28 @@ public class Drivetrain extends SubsystemBase {
   private final SwerveModule FRONT_LEFT = new SwerveModule(
     DriveConstants.FRONT_LEFT_DRIVING_MOTOR_PORT,
     DriveConstants.FRONT_LEFT_TURNING_MOTOR_PORT,
-    DriveConstants.FRONT_LEFT_DRIVING_MOTOR_REVERSED,
-    DriveConstants.FRONT_LEFT_TURNING_MOTOR_REVERSED,
-    DriveConstants.FRONT_LEFT_DRIVING_ENCODER_PORTS,
-    DriveConstants.FRONT_LEFT_TURNING_ENCODER_PORTS,
+    DriveConstants.FRONT_LEFT_ANGULAR_OFFSET,
     "Front Left"
   );
 
   private final SwerveModule FRONT_RIGHT = new SwerveModule(
     DriveConstants.FRONT_RIGHT_DRIVING_MOTOR_PORT,
     DriveConstants.FRONT_RIGHT_TURNING_MOTOR_PORT,
-    DriveConstants.FRONT_RIGHT_DRIVING_MOTOR_REVERSED,
-    DriveConstants.FRONT_RIGHT_TURNING_MOTOR_REVERSED,
-    DriveConstants.FRONT_RIGHT_DRIVING_ENCODER_PORTS,
-    DriveConstants.FRONT_RIGHT_TURNING_ENCODER_PORTS,
+    DriveConstants.FRONT_RIGHT_ANGULAR_OFFSET,
     "Front Right"
   );
 
   private final SwerveModule REAR_LEFT = new SwerveModule(
     DriveConstants.REAR_LEFT_DRIVING_MOTOR_PORT,
     DriveConstants.REAR_LEFT_TURNING_MOTOR_PORT,
-    DriveConstants.REAR_LEFT_DRIVING_MOTOR_REVERSED,
-    DriveConstants.REAR_LEFT_TURNING_MOTOR_REVERSED,
-    DriveConstants.REAR_LEFT_DRIVING_ENCODER_PORTS,
-    DriveConstants.REAR_LEFT_TURNING_ENCODER_PORTS,
+    DriveConstants.REAR_LEFT_ANGULAR_OFFSET,
     "Rear Left"
   );
 
   private final SwerveModule REAR_RIGHT = new SwerveModule(
     DriveConstants.REAR_RIGHT_DRIVING_MOTOR_PORT,
     DriveConstants.REAR_RIGHT_TURNING_MOTOR_PORT,
-    DriveConstants.REAR_RIGHT_DRIVING_MOTOR_REVERSED,
-    DriveConstants.REAR_RIGHT_TURNING_MOTOR_REVERSED,
-    DriveConstants.REAR_RIGHT_DRIVING_ENCODER_PORTS,
-    DriveConstants.REAR_RIGHT_TURNING_ENCODER_PORTS,
+    DriveConstants.REAR_RIGHT_ANGULAR_OFFSET,
     "Rear Right"
   );
   
@@ -62,11 +51,14 @@ public class Drivetrain extends SubsystemBase {
   /** Creates a new Drivetrain. */
   public Drivetrain() {}
 
+  /**
+   * Sets the wheels into an X formation to prevent movement.
+   */
   public void stopModules() {
-    FRONT_LEFT.stop();
-    FRONT_RIGHT.stop();
-    REAR_LEFT.stop();
-    REAR_RIGHT.stop();
+    FRONT_LEFT.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)), true);
+    FRONT_RIGHT.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)), true);;
+    REAR_LEFT.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)), true);;
+    REAR_RIGHT.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)), true);;
   }
 
   public void setModuleStates(SwerveModuleState[] desiredStates, boolean optimize, double speedRatio) {
