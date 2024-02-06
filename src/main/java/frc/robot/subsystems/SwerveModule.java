@@ -5,6 +5,11 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.revrobotics.AbsoluteEncoder;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.SparkAbsoluteEncoder.Type;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.filter.SlewRateLimiter;
@@ -18,11 +23,11 @@ import frc.robot.Constants.SwerveModuleConstants;
 
 public class SwerveModule {
 
-  private final MotorController DRIVING_MOTOR;
-  private final MotorController TURNING_MOTOR;
+  private final CANSparkMax DRIVING_MOTOR;
+  private final CANSparkMax TURNING_MOTOR;
 
-  private final Encoder DRIVING_ENCODER;
-  private final Encoder TURNING_ENCODER;
+  private final RelativeEncoder DRIVING_ENCODER;
+  private final AbsoluteEncoder TURNING_ENCODER;
 
   private final ProfiledPIDController TURNING_PID_CONTROLLER;
   private final SlewRateLimiter RATE_LIMITER;
@@ -33,14 +38,13 @@ public class SwerveModule {
   public SwerveModule(int drivingMotorChannel, int turningMotorChannel, boolean drivingMotorReversed, 
       boolean turningMotorReversed, int[] drivingEncoderChannels, int[] turningEncoderChannels, String name) {
 
-    DRIVING_MOTOR = new WPI_VictorSPX(drivingMotorChannel);
-    TURNING_MOTOR = new WPI_VictorSPX(turningMotorChannel);
+    DRIVING_MOTOR = new CANSparkMax(drivingMotorChannel, MotorType.kBrushless);
+    TURNING_MOTOR = new CANSparkMax(turningMotorChannel, MotorType.kBrushless);
     DRIVING_MOTOR.setInverted(drivingMotorReversed);
     TURNING_MOTOR.setInverted(turningMotorReversed);
 
-    DRIVING_ENCODER = new Encoder(turningEncoderChannels[0], turningEncoderChannels[1]);
-    TURNING_ENCODER = new Encoder(turningEncoderChannels[0], turningEncoderChannels[1]);
-    TURNING_ENCODER.setDistancePerPulse(SwerveModuleConstants.TURNING_ENCODER_DISTANCE_PER_PULSE);
+    DRIVING_ENCODER = DRIVING_MOTOR.getEncoder();
+    TURNING_ENCODER = TURNING_MOTOR.getAbsoluteEncoder(Type.kDutyCycle);
 
     TURNING_PID_CONTROLLER = new ProfiledPIDController(SwerveModuleConstants.TURNING_CONTROLLER_P_VALUE, 0, 0,
         SwerveModuleConstants.ROTATION_CONSTRAINTS);
@@ -53,10 +57,10 @@ public class SwerveModule {
 
   public void setDesiredState(SwerveModuleState state, boolean optimize) {
     if (optimize) {
-      state = SwerveModuleState.optimize(state, new Rotation2d(TURNING_ENCODER.getDistance()));
+      state = SwerveModuleState.optimize(state, new Rotation2d(TURNING_ENCODER.getPosition()));
     }
     double driveOutput = RATE_LIMITER.calculate(state.speedMetersPerSecond);
-    double turnOutput = TURNING_PID_CONTROLLER.calculate(TURNING_ENCODER.getDistance(), state.angle.getRadians());
+    double turnOutput = TURNING_PID_CONTROLLER.calculate(TURNING_ENCODER.getPosition(), state.angle.getRadians());
 
     DRIVING_MOTOR.set(driveOutput);
     TURNING_MOTOR.set(turnOutput);
