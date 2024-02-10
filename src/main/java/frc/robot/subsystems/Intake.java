@@ -20,14 +20,16 @@ public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
   public Intake() {
     motor1 = new CANSparkMax(IntakeConstants.MOTOR_CHANNEL_1, MotorType.kBrushless);
-    motor2 = new CANSparkMax(IntakeConstants.MOTOR_CHANNEL_1, MotorType.kBrushless);
-    motor3 = new CANSparkMax(IntakeConstants.MOTOR_CHANNEL_1, MotorType.kBrushless);
+    motor2 = new CANSparkMax(IntakeConstants.MOTOR_CHANNEL_2, MotorType.kBrushless);
+    motor3 = new CANSparkMax(IntakeConstants.MOTOR_CHANNEL_3, MotorType.kBrushless);
   }
 
-public void run(double speed){
-  motor.set(speed);
-
-}
+  /** setting all motors to the same speed */
+  public void run(double speed){
+    motor1.set(speed);
+    motor2.set(speed);
+    motor3.set(speed);
+  }
 
   @Override
   public void periodic() {
