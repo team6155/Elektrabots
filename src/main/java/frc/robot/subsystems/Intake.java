@@ -4,7 +4,6 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.MotorCommutation;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
@@ -13,11 +12,16 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 
 public class Intake extends SubsystemBase {
-  MotorController motor;
+  MotorController motor1;
+  MotorController motor2;
+  MotorController motor3;
+
 
   /** Creates a new Intake. */
   public Intake() {
-    motor = new CANSparkMax(IntakeConstants.MOTOR_CHANNEL, MotorType.kBrushless);
+    motor1 = new CANSparkMax(IntakeConstants.MOTOR_CHANNEL_1, MotorType.kBrushless);
+    motor2 = new CANSparkMax(IntakeConstants.MOTOR_CHANNEL_1, MotorType.kBrushless);
+    motor3 = new CANSparkMax(IntakeConstants.MOTOR_CHANNEL_1, MotorType.kBrushless);
   }
 
 public void run(double speed){
