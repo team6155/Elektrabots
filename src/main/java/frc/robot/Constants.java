@@ -95,7 +95,7 @@ public final class Constants {
         // The RevRobotics MAXSwerve Module we're using can be configured with one of three pinion gears: 12T, 13T, or 14T.
         // Make sure this is accurate to our configuration.
         // The other 3 teeth numbers are fixed.
-        public static final double DRIVING_MOTOR_PINION_TEETH = 14;
+        public static final double DRIVING_MOTOR_PINION_TEETH = 13;
         public static final double DRIVING_MOTOR_BEVEL_GEAR_TEETH = 45;
         public static final double DRIVING_MOTOR_SPUR_GEAR_TEETH = 22;
         public static final double DRIVING_MOTOR_BEVEL_PINION_TEETH = 15;
