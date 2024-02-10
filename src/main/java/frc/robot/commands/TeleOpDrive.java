@@ -6,12 +6,13 @@ package frc.robot.commands;
 
 import java.util.function.Supplier;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.util.WPIUtilJNI;
+import edu.wpi.first.wpilibj.ADIS16470_IMU.IMUAxis;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -119,7 +120,7 @@ public class TeleOpDrive extends Command {
       
       xSpeed = m_currentTranslationMag * Math.cos(m_currentTranslationDir);
       ySpeed = m_currentTranslationMag * Math.sin(m_currentTranslationDir);
-      m_currentRotation = m_rotLimiter.calculate(turningSpeed);
+      turningSpeed = m_rotLimiter.calculate(turningSpeed);
     }
 
     xSpeed *= DriveConstants.MAX_SPEED_METERS_PER_SECOND;
@@ -135,9 +136,7 @@ public class TeleOpDrive extends Command {
     
     ChassisSpeeds chassisSpeeds = new ChassisSpeeds(ySpeed, xSpeed, turningSpeed);
     if (FIELD_ORIENTED.get()) {
-      chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(
-        chassisSpeeds, GYRO.getRotation2d().rotateBy(DriveConstants.STARTING_ROTATION)
-      );
+      chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(chassisSpeeds, GYRO.getRotation2d());
     }
 
     SwerveModuleState[] moduleStates = DriveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds);
