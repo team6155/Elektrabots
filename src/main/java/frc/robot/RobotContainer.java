@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.Autonomous;
 import frc.robot.commands.TeleOpDrive;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -39,6 +40,7 @@ public class RobotContainer {
     () -> driverController.getLeftTriggerAxis() > .8,
     true
   );
+  private final Autonomous autonomous = new Autonomous(DRIVETRAIN_SUBSYSTEM);
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -66,7 +68,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return null;
+    return autonomous;
   }
 
   public void resetGyro() {
