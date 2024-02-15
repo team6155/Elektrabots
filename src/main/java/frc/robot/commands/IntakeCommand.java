@@ -24,11 +24,14 @@ public class IntakeCommand extends Command {
   @Override
   public void execute() {
     //TODO: Write execute function
+    intake.run(-1);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    intake.run(0);
+  }
 
   // Returns true when the command should end.
   @Override
