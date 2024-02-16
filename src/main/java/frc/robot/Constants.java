@@ -28,8 +28,8 @@ public final class Constants {
     }
 
     public static final class ShooterConstants {
-        public static final int MOTOR_CHANNEL_1 = -1;
-        public static final int MOTOR_CHANNEL_2 = -1;
+        public static final int MOTOR_CHANNEL_RIGHT = -1;
+        public static final int MOTOR_CHANNEL_LEFT = -1;
     }
     public static final class WinchConstants{
         public static final int MOTOR_CHANNEL = -1;

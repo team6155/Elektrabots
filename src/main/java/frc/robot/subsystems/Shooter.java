@@ -17,8 +17,8 @@ public class Shooter extends SubsystemBase {
 
   /** Creates a new Shooter. */
   public Shooter() {
-    motorRight = new CANSparkMax(ShooterConstants.MOTOR_CHANNEL_1, MotorType.kBrushless);
-    motorLeft = new CANSparkMax(ShooterConstants.MOTOR_CHANNEL_2, MotorType.kBrushless);
+    motorRight = new CANSparkMax(ShooterConstants.MOTOR_CHANNEL_RIGHT, MotorType.kBrushless);
+    motorLeft = new CANSparkMax(ShooterConstants.MOTOR_CHANNEL_LEFT, MotorType.kBrushless);
     motorRight.setInverted(true);
     motorLeft.setInverted(true);
   }
