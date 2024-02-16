@@ -10,9 +10,11 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.Autonomous;
 import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.ShooterCommand;
 import frc.robot.commands.TeleOpDrive;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -31,6 +33,7 @@ public class RobotContainer {
   // The robot's subsystems
   private final Drivetrain DRIVETRAIN_SUBSYSTEM = new Drivetrain();
   private final Intake INTAKE_SUBSYSTEM = new Intake();
+  private final Shooter SHOOTER_SUBSYSTEM = new Shooter();
 
   // The robot's commands
   private final TeleOpDrive DRIVE_COMMAND = new TeleOpDrive(
@@ -45,7 +48,7 @@ public class RobotContainer {
   );
   private final Autonomous autonomous = new Autonomous(DRIVETRAIN_SUBSYSTEM);
   private final IntakeCommand intakecommand = new IntakeCommand(INTAKE_SUBSYSTEM);
-
+  private final ShooterCommand shootercommand = new ShooterCommand(SHOOTER_SUBSYSTEM);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -65,6 +68,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     operatorController.button(0).whileTrue(intakecommand);
+    operatorController.button(1).whileTrue(shootercommand);
   }
 
   /**
