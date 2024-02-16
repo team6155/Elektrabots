@@ -22,6 +22,8 @@ public class Shooter extends SubsystemBase {
   }
 
   public void run(double speed){
+    motorRight.setInverted(true);
+    motorLeft.setInverted(true);
     motorRight.set(speed);
     motorLeft.set(speed);
   }
