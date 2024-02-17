@@ -9,6 +9,8 @@ import frc.robot.subsystems.Intake;
 
 public class IntakeCommand extends Command {
   Intake intake;
+  double motorSpeed = .5;
+
   /** Creates a new Intake. */
   public IntakeCommand(Intake intake) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -24,7 +26,7 @@ public class IntakeCommand extends Command {
   @Override
   public void execute() {
     //TODO: Write execute function
-    intake.run(-1);
+    intake.run(motorSpeed);
   }
 
   // Called once the command ends or is interrupted.
