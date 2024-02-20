@@ -79,7 +79,7 @@ public final class Constants {
     }
 
     public static abstract class SwerveModuleConstants {
-        public static final double DRIVING_P_VALUE = 1;
+        public static final double DRIVING_P_VALUE = 0.04;
         public static final double DRIVING_I_VALUE = 0;
         public static final double DRIVING_D_VALUE = 0;
 
