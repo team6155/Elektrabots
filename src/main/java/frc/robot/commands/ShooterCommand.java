@@ -9,7 +9,7 @@ import frc.robot.subsystems.Shooter;
 
 public class ShooterCommand extends Command {
   Shooter shooter;
-  double motorSpeed = 1;
+  double motorSpeed = .5;
   /** Creates a new ShooterCommand. */
   public ShooterCommand(Shooter shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -30,7 +30,9 @@ public class ShooterCommand extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    shooter.run(0);
+  }
 
   // Returns true when the command should end.
   @Override

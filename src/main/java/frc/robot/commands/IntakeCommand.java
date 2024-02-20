@@ -9,7 +9,7 @@ import frc.robot.subsystems.Intake;
 
 public class IntakeCommand extends Command {
   Intake intake;
-  double motorSpeed = .5;
+  double motorSpeed = .2;
 
   /** Creates a new Intake. */
   public IntakeCommand(Intake intake) {
