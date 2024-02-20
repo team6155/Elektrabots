@@ -24,12 +24,12 @@ public final class Constants {
 
     //TODO: update channel number 
     public static final class IntakeConstants {
-        public static final int MOTOR_CHANNEL = -1;
+        public static final int MOTOR_CHANNEL = 12;
     }
 
     public static final class ShooterConstants {
-        public static final int MOTOR_CHANNEL_RIGHT = -1;
-        public static final int MOTOR_CHANNEL_LEFT = -1;
+        public static final int MOTOR_CHANNEL_RIGHT = 10;
+        public static final int MOTOR_CHANNEL_LEFT = 11;
     }
     public static final class WinchConstants{
         public static final int MOTOR_CHANNEL = -1;
