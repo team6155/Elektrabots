@@ -16,7 +16,7 @@ public class Climber extends SubsystemBase {
   
   /** Creates a new Climber. */
   public Climber() {
-    climbMotor =new CANSparkMax(IntakeConstants.MOTOR_CHANNEL, MotorType.kBrushless);
+    climbMotor =new CANSparkMax(-1, MotorType.kBrushless);
   }
   @Override
   public void periodic() {
