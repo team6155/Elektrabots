@@ -54,6 +54,7 @@ public class RobotContainer {
   private final IntakeCommand intakecommand = new IntakeCommand(INTAKE_SUBSYSTEM);
   private final ShooterCommand shootercommand = new ShooterCommand(SHOOTER_SUBSYSTEM);
   private final ClimberCommand climbercommand = new ClimberCommand(CLIMBER_SUBSYSTEM);
+  private final Command testCommand = Commands.parallel(intakecommand, shootercommand);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -83,7 +84,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return (Commands.parallel(intakecommand, shootercommand));
+    return testCommand;
   }
 
   public void resetGyro() {
