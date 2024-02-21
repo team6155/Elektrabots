@@ -4,24 +4,20 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.WinchConstants;
+import frc.robot.Constants.IntakeConstants;
 
-public class Winch extends SubsystemBase {
-  MotorController motor;
-
-  /** Creates a new Winch. */
-  public Winch() {
-    motor = new CANSparkMax(WinchConstants.MOTOR_CHANNEL, MotorType.kBrushless);
+public class Arm extends SubsystemBase {
+  MotorController motor ;
+  
+  /** Creates a new Climber. */
+  public Arm() {
+    motor =new CANSparkMax(-1, MotorType.kBrushless);
   }
-public void run(double speed){
-  motor.set(speed);
-}
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

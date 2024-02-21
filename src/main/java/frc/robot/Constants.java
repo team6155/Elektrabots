@@ -31,7 +31,7 @@ public final class Constants {
         public static final int MOTOR_CHANNEL_RIGHT = 10;
         public static final int MOTOR_CHANNEL_LEFT = 11;
     }
-    public static final class WinchConstants{
+    public static final class ArjutggConstants{
         public static final int MOTOR_CHANNEL = -1;
     }
 
