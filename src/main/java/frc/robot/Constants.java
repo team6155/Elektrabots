@@ -17,7 +17,7 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-public final class Constants {
+public final class Constants extends Object {
     // Computer USB ports
     public static final int DRIVER_CONTROLLER_PORT = 0;
     public static final int OPERATOR_CONTROLLER_PORT = 1;
@@ -31,8 +31,10 @@ public final class Constants {
         public static final int MOTOR_CHANNEL_RIGHT = 10;
         public static final int MOTOR_CHANNEL_LEFT = 11;
     }
-    public static final class ArjutggConstants{
-        public static final int MOTOR_CHANNEL = -1;
+    public static final class ArmConstants{
+        public static final int MOTOR_CHANNEL = 13;
+        public static final int MOTOR2_CHANNEL = 14;
+
     }
 
     public static final class InputConstants {

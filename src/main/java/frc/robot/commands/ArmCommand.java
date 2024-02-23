@@ -4,12 +4,19 @@
 
 package frc.robot.commands;
 
+import java.util.function.Supplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Arm;
 
 public class ArmCommand extends Command {
+  private final Supplier<Double> speed ;
+  private final Arm arm ;
   /** Creates a new ClimberCommand. */
-  public ArmCommand(Arm arm) {
+  public ArmCommand(Arm arm, Supplier<Double> speed) {
+    addRequirements(arm);
+    this.speed = speed ;
+    this.arm = arm ;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -19,11 +26,15 @@ public class ArmCommand extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    arm.run(speed.get()*.2);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    arm.run(0);
+  }
 
   // Returns true when the command should end.
   @Override

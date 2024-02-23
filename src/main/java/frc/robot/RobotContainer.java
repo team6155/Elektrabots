@@ -30,7 +30,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
  */
 public class RobotContainer {
   CommandXboxController driverController = new CommandXboxController(Constants.DRIVER_CONTROLLER_PORT);
-  CommandJoystick operatorController = new CommandJoystick(Constants.OPERATOR_CONTROLLER_PORT);
+  CommandXboxController operatorController = new CommandXboxController(Constants.OPERATOR_CONTROLLER_PORT);
   private final ADXRS450_Gyro GYRO = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
 
   // The robot's subsystems
@@ -53,12 +53,13 @@ public class RobotContainer {
   private final Autonomous autonomous = new Autonomous(DRIVETRAIN_SUBSYSTEM);
   private final IntakeCommand intakecommand = new IntakeCommand(INTAKE_SUBSYSTEM);
   private final ShooterCommand shootercommand = new ShooterCommand(SHOOTER_SUBSYSTEM);
-  private final ArmCommand armCommand = new ArmCommand(ARM_SUBSYSTEM);
+  private final ArmCommand armCommand = new ArmCommand(ARM_SUBSYSTEM, () -> operatorController.getLeftY());
   private final Command testCommand = Commands.parallel(intakecommand, shootercommand);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     DRIVETRAIN_SUBSYSTEM.setDefaultCommand(DRIVE_COMMAND);
+    ARM_SUBSYSTEM.setDefaultCommand(armCommand);
 
     // Configure the button bindings
     configureButtonBindings();
