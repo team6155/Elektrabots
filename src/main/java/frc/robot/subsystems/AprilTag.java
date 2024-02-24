@@ -20,13 +20,13 @@ public class AprilTag extends SubsystemBase {
     // double tx = LimelightHelpers.getTX("");
     LimelightHelpers.LimelightResults llresults = LimelightHelpers.getLatestResults("");
     NetworkTable nt = LimelightHelpers.getLimelightNTTable("limelight");
-    getLimelightNTTableEntry();
-    getLimelightNTDouble();
-    setLimelightNTDouble();
-    setLimelightNTDoubleArray();
-    getLimelightNTDouleArray();
-    getLimelightNTString();
-    getLimelightURLString();
+    // getLimelightNTTableEntry();
+    // getLimelightNTDouble();
+    // setLimelightNTDouble();
+    // setLimelightNTDoubleArray();
+    // getLimelightNTDouleArray();
+    // getLimelightNTString();
+    // getLimelightURLString();
 
 
 
