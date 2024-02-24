@@ -9,11 +9,11 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.Autonomous;
-import frc.robot.commands.ClimberCommand;
+import frc.robot.commands.ArmCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.ShooterCommand;
 import frc.robot.commands.TeleOpDrive;
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -30,14 +30,14 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
  */
 public class RobotContainer {
   CommandXboxController driverController = new CommandXboxController(Constants.DRIVER_CONTROLLER_PORT);
-  CommandJoystick operatorController = new CommandJoystick(Constants.OPERATOR_CONTROLLER_PORT);
+  CommandXboxController operatorController = new CommandXboxController(Constants.OPERATOR_CONTROLLER_PORT);
   private final ADXRS450_Gyro GYRO = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
 
   // The robot's subsystems
   private final Drivetrain DRIVETRAIN_SUBSYSTEM = new Drivetrain();
   private final Intake INTAKE_SUBSYSTEM = new Intake();
   private final Shooter SHOOTER_SUBSYSTEM = new Shooter();
-  private final Climber CLIMBER_SUBSYSTEM = new Climber();
+  private final Arm ARM_SUBSYSTEM = new Arm();
 
   // The robot's commands
   private final TeleOpDrive DRIVE_COMMAND = new TeleOpDrive(
@@ -53,11 +53,13 @@ public class RobotContainer {
   private final Autonomous autonomous = new Autonomous(DRIVETRAIN_SUBSYSTEM);
   private final IntakeCommand intakecommand = new IntakeCommand(INTAKE_SUBSYSTEM);
   private final ShooterCommand shootercommand = new ShooterCommand(SHOOTER_SUBSYSTEM);
-  private final ClimberCommand climbercommand = new ClimberCommand(CLIMBER_SUBSYSTEM);
+  private final ArmCommand armCommand = new ArmCommand(ARM_SUBSYSTEM, () -> operatorController.getLeftY());
+  private final Command testCommand = Commands.parallel(intakecommand, shootercommand);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     DRIVETRAIN_SUBSYSTEM.setDefaultCommand(DRIVE_COMMAND);
+    ARM_SUBSYSTEM.setDefaultCommand(armCommand);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -74,7 +76,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     operatorController.button(0).whileTrue(intakecommand);
     operatorController.button(1).whileTrue(shootercommand);
-    operatorController.button(2).whileTrue(climbercommand);
+    operatorController.button(2).whileTrue(armCommand);
   }
 
   /**
@@ -83,7 +85,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return (Commands.parallel(intakecommand, shootercommand));
+    return testCommand;
   }
 
   public void resetGyro() {

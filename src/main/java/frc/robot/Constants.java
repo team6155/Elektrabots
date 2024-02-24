@@ -17,22 +17,24 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-public final class Constants {
+public final class Constants extends Object {
     // Computer USB ports
     public static final int DRIVER_CONTROLLER_PORT = 0;
     public static final int OPERATOR_CONTROLLER_PORT = 1;
 
     //TODO: update channel number 
     public static final class IntakeConstants {
-        public static final int MOTOR_CHANNEL = -1;
+        public static final int MOTOR_CHANNEL = 12;
     }
 
     public static final class ShooterConstants {
-        public static final int MOTOR_CHANNEL_RIGHT = -1;
-        public static final int MOTOR_CHANNEL_LEFT = -1;
+        public static final int MOTOR_CHANNEL_RIGHT = 10;
+        public static final int MOTOR_CHANNEL_LEFT = 11;
     }
-    public static final class WinchConstants{
-        public static final int MOTOR_CHANNEL = -1;
+    public static final class ArmConstants{
+        public static final int MOTOR_CHANNEL = 13;
+        public static final int MOTOR2_CHANNEL = 14;
+
     }
 
     public static final class InputConstants {
@@ -79,7 +81,7 @@ public final class Constants {
     }
 
     public static abstract class SwerveModuleConstants {
-        public static final double DRIVING_P_VALUE = 1;
+        public static final double DRIVING_P_VALUE = 0.04;
         public static final double DRIVING_I_VALUE = 0;
         public static final double DRIVING_D_VALUE = 0;
 
