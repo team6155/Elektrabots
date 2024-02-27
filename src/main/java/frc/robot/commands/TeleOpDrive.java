@@ -73,9 +73,9 @@ public class TeleOpDrive extends Command {
   @Override
   public void execute() {
     SmartDashboard.putNumber("Gyro", GYRO.getAngle());
-    double xSpeed = X_SPEED_INPUT.get();
-    double ySpeed = Y_SPEED_INPUT.get();
-    double turningSpeed = TURNING_SPEED_INPUT.get();
+    double xSpeed = X_SPEED_INPUT.get() * DriveConstants.SPEED_RATIO;
+    double ySpeed = Y_SPEED_INPUT.get() * DriveConstants.SPEED_RATIO;
+    double turningSpeed = TURNING_SPEED_INPUT.get() * DriveConstants.SPEED_RATIO;
 
     xSpeed = Math.abs(xSpeed) > InputConstants.DEADBAND ? xSpeed : 0;
     ySpeed = Math.abs(ySpeed) > InputConstants.DEADBAND ? ySpeed : 0;

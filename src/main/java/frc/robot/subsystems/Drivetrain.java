@@ -63,7 +63,7 @@ public class Drivetrain extends SubsystemBase {
 
   public void setModuleStates(SwerveModuleState[] desiredStates, boolean optimize, double speedRatio) {
     SmartDashboard.putString("Desired speeds", desiredStates[0].toString());
-    SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, speedRatio);
+    SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, DriveConstants.MAX_SPEED_METERS_PER_SECOND);
     SmartDashboard.putString("Desaturated speeds", desiredStates[0].toString());
     FRONT_LEFT.setDesiredState(desiredStates[0], optimize);
     FRONT_RIGHT.setDesiredState(desiredStates[1], optimize);
