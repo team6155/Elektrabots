@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Arm;
 
 public class ArmCommand extends Command {
+  private final double limit = .2;
   private final Supplier<Double> speed ;
   private final Arm arm ;
   /** Creates a new ClimberCommand. */
@@ -27,7 +28,7 @@ public class ArmCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    arm.run(speed.get()*.2);
+    arm.run(speed.get()*limit);
   }
 
   // Called once the command ends or is interrupted.
