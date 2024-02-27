@@ -134,10 +134,10 @@ public class SwerveModule {
   }
 
   public void testDrive() {
-    DRIVING_MOTOR.set(.5);
+    DRIVING_MOTOR.set(.2);
   }
 
   public void testRotation() {
-    TURNING_MOTOR.set(.5);
+    TURNING_MOTOR.set(.2);
   }
 }
