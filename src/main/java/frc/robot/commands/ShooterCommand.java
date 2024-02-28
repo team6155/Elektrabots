@@ -4,16 +4,20 @@
 
 package frc.robot.commands;
 
+import java.util.function.Supplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Shooter;
 
 public class ShooterCommand extends Command {
   Shooter shooter;
-  double motorSpeed = .5;
-  /** Creates a new ShooterCommand. */
-  public ShooterCommand(Shooter shooter) {
+  private final Supplier<Double> motorSpeed;
+  private final double limit = .2;
+
+  public ShooterCommand(Shooter shooter, Supplier<Double> motorSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shooter);
+    this.motorSpeed = motorSpeed; 
     this.shooter= shooter;
   }
 
@@ -25,7 +29,7 @@ public class ShooterCommand extends Command {
   @Override
   public void execute() {
     //TODO: Write execute function
-    shooter.run(motorSpeed);
+    shooter.run(motorSpeed.get()*limit);
   }
 
   // Called once the command ends or is interrupted.

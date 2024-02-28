@@ -8,7 +8,8 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.Autonomous;
+import frc.robot.commands.TestDrivingMotors;
+import frc.robot.commands.TestRotationMotors;
 import frc.robot.commands.ArmCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.ShooterCommand;
@@ -50,7 +51,6 @@ public class RobotContainer {
     () -> driverController.getLeftTriggerAxis() > .8,
     true
   );
-  private final Autonomous autonomous = new Autonomous(DRIVETRAIN_SUBSYSTEM);
   private final IntakeCommand intakecommand = new IntakeCommand(INTAKE_SUBSYSTEM);
   private final ShooterCommand shootercommand = new ShooterCommand(SHOOTER_SUBSYSTEM);
   private final ArmCommand armCommand = new ArmCommand(ARM_SUBSYSTEM, () -> operatorController.getLeftY());
@@ -60,6 +60,8 @@ public class RobotContainer {
   public RobotContainer() {
     DRIVETRAIN_SUBSYSTEM.setDefaultCommand(DRIVE_COMMAND);
     ARM_SUBSYSTEM.setDefaultCommand(armCommand);
+    INTAKE_SUBSYSTEM.setDefaultCommand(intakecommand);
+    SHOOTER_SUBSYSTEM.setDefaultCommand(shootercommand);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -74,9 +76,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    operatorController.button(0).whileTrue(intakecommand);
-    operatorController.button(1).whileTrue(shootercommand);
-    operatorController.button(2).whileTrue(armCommand);
+
   }
 
   /**

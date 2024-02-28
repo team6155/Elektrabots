@@ -4,18 +4,22 @@
 
 package frc.robot.commands;
 
+import java.util.function.Supplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 
 public class IntakeCommand extends Command {
   Intake intake;
-  double motorSpeed = .2;
+  private final Supplier<Double> motorSpeed; 
+  private final  double limit = .2;
 
   /** Creates a new Intake. */
-  public IntakeCommand(Intake intake) {
+  public IntakeCommand(Intake intake, Supplier<Double> motorSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intake);
-    this.intake= intake;
+    this.motorSpeed = motorSpeed; 
+    this.intake = intake;
   }
 
   // Called when the command is initially scheduled.
@@ -26,7 +30,7 @@ public class IntakeCommand extends Command {
   @Override
   public void execute() {
     //TODO: Write execute function
-    intake.run(motorSpeed);
+    intake.run(motorSpeed.get()*limit);
   }
 
   // Called once the command ends or is interrupted.
