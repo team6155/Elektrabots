@@ -5,6 +5,8 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.SparkAbsoluteEncoder.Type;
+import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
@@ -13,17 +15,21 @@ import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.IntakeConstants;
 
 public class Arm extends SubsystemBase {
-  MotorController motor ;
-  MotorController motor2; 
+  CANSparkMax leftMotor ;
+  CANSparkMax rightMotor; 
+  private final AbsoluteEncoder encoder; 
   
   /** Creates a new Climber. */
   public Arm() {
-    motor = new CANSparkMax(ArmConstants.MOTOR_CHANNEL, MotorType.kBrushless);
-    motor2 = new CANSparkMax(ArmConstants.MOTOR2_CHANNEL, MotorType.kBrushless);
+    leftMotor = new CANSparkMax(ArmConstants.LEFT_MOTOR_CHANNEL, MotorType.kBrushless);
+    rightMotor = new CANSparkMax(ArmConstants.RIGHT_MOTOR_CHANNEL, MotorType.kBrushless);
+    leftMotor.setInverted(true);
+    encoder = rightMotor.getAbsoluteEncoder(Type.kDutyCycle);
+    encoder.setInverted(true);
   }
   public void run (double speed){
-    motor.set(speed);
-    motor2.set(speed);
+    leftMotor.set(speed);
+    rightMotor.set(speed);
   }
   @Override
   public void periodic() {

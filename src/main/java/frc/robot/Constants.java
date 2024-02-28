@@ -32,8 +32,8 @@ public final class Constants extends Object {
         public static final int MOTOR_CHANNEL_LEFT = 11;
     }
     public static final class ArmConstants{
-        public static final int MOTOR_CHANNEL = 13;
-        public static final int MOTOR2_CHANNEL = 14;
+        public static final int LEFT_MOTOR_CHANNEL = 13;
+        public static final int RIGHT_MOTOR_CHANNEL = 14;
 
     }
 
