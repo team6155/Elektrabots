@@ -71,7 +71,7 @@ public final class Constants extends Object {
             );
         
         public static boolean GYRO_REVERSED = false;
-        public static final double SPEED_RATIO = .75;
+        public static final double SPEED_RATIO = .5;
         public static final Rotation2d STARTING_ROTATION = new Rotation2d(Math.PI);
         public static final double DIRECTION_SLEW_RATE = 1.2;
         public static final double MAGNITUDE_SLEW_RATE = 1.8;

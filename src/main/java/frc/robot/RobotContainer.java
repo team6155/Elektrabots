@@ -51,10 +51,13 @@ public class RobotContainer {
     () -> driverController.getLeftTriggerAxis() > .8,
     true
   );
-  private final IntakeCommand intakecommand = new IntakeCommand(INTAKE_SUBSYSTEM);
-  private final ShooterCommand shootercommand = new ShooterCommand(SHOOTER_SUBSYSTEM);
+  private final IntakeCommand intakecommand = new IntakeCommand(INTAKE_SUBSYSTEM, () -> operatorController.getLeftTriggerAxis());
+  private final ShooterCommand shootercommand = new ShooterCommand(SHOOTER_SUBSYSTEM,()-> operatorController.getRightTriggerAxis() );
   private final ArmCommand armCommand = new ArmCommand(ARM_SUBSYSTEM, () -> operatorController.getLeftY());
-  private final Command testCommand = Commands.parallel(intakecommand, shootercommand);
+  //private final Command testShooterAndIntake = Commands.parallel(intakecommand, shootercommand);
+  private final TestDrivingMotors testDrivingMotors = new TestDrivingMotors(DRIVETRAIN_SUBSYSTEM);
+  private final TestRotationMotors testRotationMotors = new TestRotationMotors(DRIVETRAIN_SUBSYSTEM);
+  private final Command testDrivetrain = testDrivingMotors.andThen(testRotationMotors);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -85,7 +88,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return testCommand;
+    return testDrivetrain;
   }
 
   public void resetGyro() {
