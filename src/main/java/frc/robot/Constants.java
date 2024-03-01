@@ -99,7 +99,7 @@ public final class Constants extends Object {
         public static final double DRIVING_MOTOR_BEVEL_GEAR_TEETH = 45;
         public static final double DRIVING_MOTOR_SPUR_GEAR_TEETH = 22;
         public static final double DRIVING_MOTOR_BEVEL_PINION_TEETH = 15;
-        public static final double DRIVING_MOTOR_REDUCTION = (DRIVING_MOTOR_PINION_TEETH * DRIVING_MOTOR_SPUR_GEAR_TEETH)
+        public static final double DRIVING_MOTOR_REDUCTION = (DRIVING_MOTOR_BEVEL_GEAR_TEETH * DRIVING_MOTOR_SPUR_GEAR_TEETH)
             / (DRIVING_MOTOR_PINION_TEETH * DRIVING_MOTOR_BEVEL_PINION_TEETH);
         /** Convert the encoder's units into meters. */
         public static final double DRIVING_ENCODER_POSITION_FACTOR = (WHEEL_DIAMETER_METERS * Math.PI)
