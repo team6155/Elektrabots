@@ -71,6 +71,13 @@ public class Drivetrain extends SubsystemBase {
     REAR_RIGHT.setDesiredState(desiredStates[3], optimize);
   }
 
+  public void stop() {
+    FRONT_LEFT.stop();
+    FRONT_RIGHT.stop();
+    REAR_LEFT.stop();
+    REAR_RIGHT.stop();
+  }
+  
   public void testMotorDriving() {
     FRONT_LEFT.testDrive();
     FRONT_RIGHT.testDrive();
