@@ -61,7 +61,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    DRIVETRAIN_SUBSYSTEM.setDefaultCommand(DRIVE_COMMAND);
+    //DRIVETRAIN_SUBSYSTEM.setDefaultCommand(DRIVE_COMMAND);
     ARM_SUBSYSTEM.setDefaultCommand(armCommand);
     INTAKE_SUBSYSTEM.setDefaultCommand(intakecommand);
     SHOOTER_SUBSYSTEM.setDefaultCommand(shootercommand);
