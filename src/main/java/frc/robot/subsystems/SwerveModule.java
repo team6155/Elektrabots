@@ -34,14 +34,16 @@ public class SwerveModule {
   private String name;
 
   /** Creates a new SwerveModule and configures the motors, encoders, and PID controllers. */
-  public SwerveModule(int drivingMotorChannel, int turningMotorChannel, double chassisAngularOffset, String name) {
+  public SwerveModule(int drivingMotorCANId, int turningMotorCANId, double chassisAngularOffset, String name) {
 
     // Set up motors
-    DRIVING_MOTOR = new CANSparkMax(drivingMotorChannel, MotorType.kBrushless);
+    DRIVING_MOTOR = new CANSparkMax(drivingMotorCANId, MotorType.kBrushless);
+    DRIVING_MOTOR.restoreFactoryDefaults();
     DRIVING_MOTOR.setIdleMode(IdleMode.kBrake);
     DRIVING_MOTOR.setSmartCurrentLimit(SwerveModuleConstants.DRIVING_MOTOR_CURRENT_LIMIT);
 
-    TURNING_MOTOR = new CANSparkMax(turningMotorChannel, MotorType.kBrushless);
+    TURNING_MOTOR = new CANSparkMax(turningMotorCANId, MotorType.kBrushless);
+    TURNING_MOTOR.restoreFactoryDefaults();
     TURNING_MOTOR.setIdleMode(IdleMode.kBrake);
     TURNING_MOTOR.setSmartCurrentLimit(SwerveModuleConstants.TURNING_MOTOR_CURRENT_LIMIT);
 
@@ -87,7 +89,8 @@ public class SwerveModule {
     DRIVING_MOTOR.burnFlash();
     TURNING_MOTOR.burnFlash();
     
-
+    this.chassisAngularOffset = chassisAngularOffset;
+    desiredState.angle = new Rotation2d(TURNING_ENCODER.getPosition());
     this.name = name;
   }
 

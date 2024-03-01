@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.SPI.Port;
 import frc.robot.commands.TestDrivingMotors;
 import frc.robot.commands.TestRotationMotors;
 import frc.robot.commands.ArmCommand;
@@ -35,7 +36,7 @@ public class RobotContainer {
   private final ADXRS450_Gyro GYRO = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
 
   // The robot's subsystems
-  private final Drivetrain DRIVETRAIN_SUBSYSTEM = new Drivetrain();
+  private final Drivetrain DRIVETRAIN_SUBSYSTEM = new Drivetrain(GYRO);
   private final Intake INTAKE_SUBSYSTEM = new Intake();
   private final Shooter SHOOTER_SUBSYSTEM = new Shooter();
   private final Arm ARM_SUBSYSTEM = new Arm();
@@ -43,11 +44,9 @@ public class RobotContainer {
   // The robot's commands
   private final TeleOpDrive DRIVE_COMMAND = new TeleOpDrive(
     DRIVETRAIN_SUBSYSTEM,
-    GYRO,
-    () -> driverController.getLeftX(),
     () -> driverController.getLeftY(),
+    () -> driverController.getLeftX(),
     () -> driverController.getRightX(),
-    () -> driverController.getRightTriggerAxis() > .8,
     () -> driverController.getLeftTriggerAxis() > .8,
     true
   );
@@ -61,7 +60,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    //DRIVETRAIN_SUBSYSTEM.setDefaultCommand(DRIVE_COMMAND);
+    DRIVETRAIN_SUBSYSTEM.setDefaultCommand(DRIVE_COMMAND);
     ARM_SUBSYSTEM.setDefaultCommand(armCommand);
     INTAKE_SUBSYSTEM.setDefaultCommand(intakecommand);
     SHOOTER_SUBSYSTEM.setDefaultCommand(shootercommand);
@@ -79,7 +78,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-
+    
   }
 
   /**
