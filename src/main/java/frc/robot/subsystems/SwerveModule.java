@@ -45,10 +45,6 @@ public class SwerveModule {
     TURNING_MOTOR.setIdleMode(IdleMode.kBrake);
     TURNING_MOTOR.setSmartCurrentLimit(SwerveModuleConstants.TURNING_MOTOR_CURRENT_LIMIT);
 
-    // Save motor configuration in case of a brown out.
-    DRIVING_MOTOR.burnFlash();
-    TURNING_MOTOR.burnFlash();
-
   
     /**
      * Set up Encoders
@@ -85,6 +81,11 @@ public class SwerveModule {
     TURNING_PID_CONTROLLER.setD(SwerveModuleConstants.TURNING_D_VALUE);
     TURNING_PID_CONTROLLER.setFF(SwerveModuleConstants.TURNING_FF_VALUE);
     TURNING_PID_CONTROLLER.setOutputRange(-1, 1);
+
+
+    // Save motor configuration in case of a brown out.
+    DRIVING_MOTOR.burnFlash();
+    TURNING_MOTOR.burnFlash();
     
 
     this.name = name;
