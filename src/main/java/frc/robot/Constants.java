@@ -115,7 +115,7 @@ public final class Constants extends Object {
         public static final double TURNING_ENCODER_POSITION_FACTOR = 2 * Math.PI;
         public static final boolean TURNING_ENCODER_INVERTED = true;
         
-        public static final int DRIVING_MOTOR_CURRENT_LIMIT = 50;
+        public static final int DRIVING_MOTOR_CURRENT_LIMIT = 30;
         public static final int TURNING_MOTOR_CURRENT_LIMIT = 20;
     }
 }
