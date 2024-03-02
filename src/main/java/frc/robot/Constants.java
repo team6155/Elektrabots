@@ -56,7 +56,6 @@ public final class Constants extends Object {
         public static final double REAR_LEFT_ANGULAR_OFFSET = Math.PI;
         public static final double REAR_RIGHT_ANGULAR_OFFSET = Math.PI / 2;
 
-        //TODO: Update dimensions to new chassis
         /** Distance between left and right wheels. */
         public static final double TRACK_WIDTH_METERS = .61;
         /** Distance between front and back wheels. */
