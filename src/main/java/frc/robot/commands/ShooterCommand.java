@@ -12,7 +12,7 @@ import frc.robot.subsystems.Shooter;
 public class ShooterCommand extends Command {
   Shooter shooter;
   private final Supplier<Double> motorSpeed;
-  private final double limit = .2;
+  private final double limit = .5;
 
   public ShooterCommand(Shooter shooter, Supplier<Double> motorSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.

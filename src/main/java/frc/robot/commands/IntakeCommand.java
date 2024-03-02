@@ -12,7 +12,7 @@ import frc.robot.subsystems.Intake;
 public class IntakeCommand extends Command {
   Intake intake;
   private final Supplier<Double> motorSpeed; 
-  private final  double limit = .2;
+  private final  double limit = .5;
 
   /** Creates a new Intake. */
   public IntakeCommand(Intake intake, Supplier<Double> motorSpeed) {
