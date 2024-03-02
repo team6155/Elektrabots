@@ -7,7 +7,6 @@ package frc.robot;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -23,7 +22,6 @@ public final class Constants extends Object {
     public static final int OPERATOR_CONTROLLER_PORT = 1;
     public static final int WINCH_CONTROLLER_PORT = 2;
 
-    //TODO: update channel number 
     public static final class IntakeConstants {
         public static final int MOTOR_CHANNEL = 12;
     }
