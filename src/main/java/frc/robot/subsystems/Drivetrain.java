@@ -128,7 +128,6 @@ public class Drivetrain extends SubsystemBase {
       chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(chassisSpeeds, GYRO.getRotation2d());
     }
     SwerveModuleState[] moduleStates = DriveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds);
-    SwerveDriveKinematics.desaturateWheelSpeeds(moduleStates, DriveConstants.MAX_SPEED_METERS_PER_SECOND);
     setModuleStates(moduleStates, true);
   }
 
@@ -143,6 +142,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void setModuleStates(SwerveModuleState[] desiredStates, boolean optimize) {
+    SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, DriveConstants.MAX_SPEED_METERS_PER_SECOND);
     FRONT_LEFT.setDesiredState(desiredStates[0], optimize);
     FRONT_RIGHT.setDesiredState(desiredStates[1], optimize);
     REAR_LEFT.setDesiredState(desiredStates[2], optimize);
