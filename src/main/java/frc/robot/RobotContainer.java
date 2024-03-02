@@ -44,9 +44,9 @@ public class RobotContainer {
   // The robot's commands
   private final TeleOpDrive DRIVE_COMMAND = new TeleOpDrive(
     DRIVETRAIN_SUBSYSTEM,
-    () -> driverController.getLeftY(),
-    () -> driverController.getLeftX(),
-    () -> driverController.getRightX(),
+    () -> -driverController.getLeftY(),
+    () -> -driverController.getLeftX(),
+    () -> -driverController.getRightX(),
     () -> driverController.getLeftTriggerAxis() > .8,
     true
   );
