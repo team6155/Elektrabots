@@ -13,7 +13,7 @@ public class WinchAdjustment extends Command {
   private final Supplier<Double> leftSpeed ;
   private final Supplier<Double> rightSpeed ;
   private final Arm arm;
-  private final double limit = .5;
+  private final double limit = .2;
   /** Creates a new Arm2. */
   public WinchAdjustment(Arm arm, Supplier<Double> leftSpeed, Supplier<Double> rightSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
