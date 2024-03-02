@@ -21,6 +21,7 @@ public final class Constants extends Object {
     // Computer USB ports
     public static final int DRIVER_CONTROLLER_PORT = 0;
     public static final int OPERATOR_CONTROLLER_PORT = 1;
+    public static final int WINCH_CONTROLLER_PORT = 2;
 
     //TODO: update channel number 
     public static final class IntakeConstants {

@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.SPI.Port;
 import frc.robot.commands.TestDrivingMotors;
 import frc.robot.commands.TestRotationMotors;
+import frc.robot.commands.WinchAdjustment;
 import frc.robot.commands.ArmCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.ShooterCommand;
@@ -23,6 +24,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -33,6 +35,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 public class RobotContainer {
   CommandXboxController driverController = new CommandXboxController(Constants.DRIVER_CONTROLLER_PORT);
   CommandXboxController operatorController = new CommandXboxController(Constants.OPERATOR_CONTROLLER_PORT);
+  CommandXboxController winchController = new CommandXboxController(Constants.WINCH_CONTROLLER_PORT) ;
   private final ADXRS450_Gyro GYRO = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
 
   // The robot's subsystems
@@ -53,6 +56,7 @@ public class RobotContainer {
   private final IntakeCommand intakecommand = new IntakeCommand(INTAKE_SUBSYSTEM, () -> operatorController.getLeftTriggerAxis());
   private final ShooterCommand shootercommand = new ShooterCommand(SHOOTER_SUBSYSTEM,()-> operatorController.getRightTriggerAxis() );
   private final ArmCommand armCommand = new ArmCommand(ARM_SUBSYSTEM, () -> operatorController.getLeftY());
+  private final WinchAdjustment winchAdjustmentCommand = new WinchAdjustment (ARM_SUBSYSTEM, () -> winchController.getLeftY(), () -> winchController.getRightY());
   //private final Command testShooterAndIntake = Commands.parallel(intakecommand, shootercommand);
   private final TestDrivingMotors testDrivingMotors = new TestDrivingMotors(DRIVETRAIN_SUBSYSTEM);
   private final TestRotationMotors testRotationMotors = new TestRotationMotors(DRIVETRAIN_SUBSYSTEM);
@@ -78,7 +82,8 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    
+    Trigger winchControl = winchController.leftStick().or(winchController.rightStick());
+    winchControl.whileTrue(winchAdjustmentCommand);
   }
 
   /**

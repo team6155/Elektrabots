@@ -31,6 +31,10 @@ public class Arm extends SubsystemBase {
     leftMotor.set(speed);
     rightMotor.set(speed);
   }
+  public void run (double leftspeed, double rightspeed){
+    leftMotor.set(leftspeed);
+    rightMotor.set(rightspeed);
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
