@@ -47,9 +47,9 @@ public class TeleOpDrive extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double xSpeed = X_SPEED_INPUT.get() * DriveConstants.SPEED_RATIO;
-    double ySpeed = Y_SPEED_INPUT.get() * DriveConstants.SPEED_RATIO;
-    double turningSpeed = TURNING_SPEED_INPUT.get() * DriveConstants.SPEED_RATIO;
+    double xSpeed = X_SPEED_INPUT.get();
+    double ySpeed = Y_SPEED_INPUT.get();
+    double turningSpeed = TURNING_SPEED_INPUT.get();
 
     xSpeed = Math.abs(xSpeed) > InputConstants.DEADBAND ? xSpeed : 0;
     ySpeed = Math.abs(ySpeed) > InputConstants.DEADBAND ? ySpeed : 0;
