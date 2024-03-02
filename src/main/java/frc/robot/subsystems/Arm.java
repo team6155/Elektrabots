@@ -22,7 +22,7 @@ public class Arm extends SubsystemBase {
     leftMotor = new CANSparkMax(ArmConstants.LEFT_MOTOR_CHANNEL, MotorType.kBrushless);
     rightMotor = new CANSparkMax(ArmConstants.RIGHT_MOTOR_CHANNEL, MotorType.kBrushless);
     leftMotor.setInverted(true);
-    encoder = rightMotor.getAbsoluteEncoder(Type.kDutyCycle);
+    encoder = leftMotor.getAbsoluteEncoder(Type.kDutyCycle);
     encoder.setInverted(true);
   }
   public void run (double speed){
