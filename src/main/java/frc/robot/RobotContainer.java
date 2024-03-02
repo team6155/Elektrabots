@@ -53,7 +53,11 @@ public class RobotContainer {
     () -> driverController.getLeftTriggerAxis() > .8,
     true
   );
-  private final IntakeCommand intakecommand = new IntakeCommand(INTAKE_SUBSYSTEM, () -> operatorController.getLeftTriggerAxis());
+  private final IntakeCommand intakecommand = new IntakeCommand(
+    INTAKE_SUBSYSTEM,
+    () -> operatorController.getLeftTriggerAxis(),
+    () -> operatorController.leftBumper().getAsBoolean()
+  );
   private final ShooterCommand shootercommand = new ShooterCommand(SHOOTER_SUBSYSTEM,()-> operatorController.getRightTriggerAxis() );
   private final ArmCommand armCommand = new ArmCommand(ARM_SUBSYSTEM, () -> operatorController.getLeftY());
   private final WinchAdjustment winchAdjustmentCommand = new WinchAdjustment (ARM_SUBSYSTEM, () -> winchController.getLeftY(), () -> winchController.getRightY());

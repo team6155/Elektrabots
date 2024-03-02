@@ -13,11 +13,13 @@ public class IntakeCommand extends Command {
   Intake intake;
   private final Supplier<Double> motorSpeed; 
   private final  double limit = .5;
+  private final Supplier<Boolean> inverted ;
 
   /** Creates a new Intake. */
-  public IntakeCommand(Intake intake, Supplier<Double> motorSpeed) {
+  public IntakeCommand(Intake intake, Supplier<Double> motorSpeed, Supplier<Boolean> inverted) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intake);
+    this.inverted = inverted;
     this.motorSpeed = motorSpeed; 
     this.intake = intake;
   }
@@ -29,8 +31,11 @@ public class IntakeCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //TODO: Write execute function
-    intake.run(motorSpeed.get()*limit);
+    if (inverted.get()){
+      intake.run(-motorSpeed.get()*limit);
+    } else {
+      intake.run(motorSpeed.get()*limit);
+    }
   }
 
   // Called once the command ends or is interrupted.
