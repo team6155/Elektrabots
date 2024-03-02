@@ -19,13 +19,12 @@ public class Shooter extends SubsystemBase {
   public Shooter() {
     motorRight = new CANSparkMax(ShooterConstants.MOTOR_CHANNEL_RIGHT, MotorType.kBrushless);
     motorLeft = new CANSparkMax(ShooterConstants.MOTOR_CHANNEL_LEFT, MotorType.kBrushless);
-    motorLeft.setInverted(true);
     motorRight.setInverted(true);
   }
 
   public void run(double speed){
     motorRight.set(speed);
-    motorLeft.set(-speed);
+    motorLeft.set(speed);
   }
 
   @Override
