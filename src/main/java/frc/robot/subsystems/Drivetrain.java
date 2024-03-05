@@ -121,6 +121,11 @@ public class Drivetrain extends SubsystemBase {
       turningSpeed = m_rotLimiter.calculate(turningSpeed);
     }
 
+    // Convert the commanded speeds into the correct units for the drivetrain
+    xSpeed *= DriveConstants.MAX_SPEED_METERS_PER_SECOND;
+    ySpeed *= DriveConstants.MAX_SPEED_METERS_PER_SECOND;
+    turningSpeed *= DriveConstants.MAX_ANGULAR_SPEED;
+
     ChassisSpeeds chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed, turningSpeed);
     if (fieldRelative) {
       chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(chassisSpeeds, GYRO.getRotation2d());
