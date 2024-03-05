@@ -55,7 +55,7 @@ public class RobotContainer {
     () -> operatorController.leftBumper().getAsBoolean()
   );
   private final ShooterCommand shootercommand = new ShooterCommand(SHOOTER_SUBSYSTEM,()-> operatorController.getRightTriggerAxis() );
-  private final ArmCommand armCommand = new ArmCommand(ARM_SUBSYSTEM, () -> operatorController.getLeftY());
+  private final ArmCommand armCommand = new ArmCommand(ARM_SUBSYSTEM, () -> -operatorController.getLeftY());
   //private final Command testShooterAndIntake = Commands.parallel(intakecommand, shootercommand);
   private final TestDrivingMotors testDrivingMotors = new TestDrivingMotors(DRIVETRAIN_SUBSYSTEM);
   private final TestRotationMotors testRotationMotors = new TestRotationMotors(DRIVETRAIN_SUBSYSTEM);
