@@ -12,15 +12,13 @@ import frc.robot.subsystems.Shooter;
 public class ShooterCommand extends Command {
   Shooter shooter;
   private final Supplier<Double> motorSpeed;
-  private final double limit = 1;
-  private final Supplier<Boolean> inverted ;
+  private final double limit = .5;
 
-  public ShooterCommand(Shooter shooter, Supplier<Double> motorSpeed, Supplier<Boolean> inverted) {
+  public ShooterCommand(Shooter shooter, Supplier<Double> motorSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shooter);
     this.motorSpeed = motorSpeed; 
     this.shooter= shooter;
-    this.inverted = inverted;
   }
 
   // Called when the command is initially scheduled.
@@ -30,12 +28,7 @@ public class ShooterCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (inverted.get()) {
-      shooter.run(-motorSpeed.get()*limit);
-    }
-    else {
-      shooter.run(motorSpeed.get()*limit);
-    }
+    shooter.run(motorSpeed.get()*limit);
   }
 
   // Called once the command ends or is interrupted.

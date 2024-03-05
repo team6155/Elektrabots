@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.TestDrivingMotors;
 import frc.robot.commands.TestRotationMotors;
-import frc.robot.commands.WinchAdjustment;
 import frc.robot.commands.ArmCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.ShooterCommand;
@@ -21,7 +20,6 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -54,7 +52,11 @@ public class RobotContainer {
     () -> operatorController.getLeftTriggerAxis(),
     () -> operatorController.leftBumper().getAsBoolean()
   );
-  private final ShooterCommand shootercommand = new ShooterCommand(SHOOTER_SUBSYSTEM,()-> operatorController.getRightTriggerAxis() );
+  private final ShooterCommand shootercommand = new ShooterCommand(
+    SHOOTER_SUBSYSTEM,
+    ()-> operatorController.getRightTriggerAxis(),
+    () -> operatorController.rightBumper().getAsBoolean()
+  );
   private final ArmCommand armCommand = new ArmCommand(ARM_SUBSYSTEM, () -> -operatorController.getLeftY());
   //private final Command testShooterAndIntake = Commands.parallel(intakecommand, shootercommand);
   private final TestDrivingMotors testDrivingMotors = new TestDrivingMotors(DRIVETRAIN_SUBSYSTEM);
