@@ -55,7 +55,7 @@ public class RobotContainer {
   );
   private final ShooterCommand shootercommand = new ShooterCommand(
     SHOOTER_SUBSYSTEM,
-    ()-> operatorController.getRightTriggerAxis(),
+    () -> operatorController.getRightTriggerAxis(),
     () -> operatorController.rightBumper().getAsBoolean()
   );
   private final ArmCommand armCommand = new ArmCommand(ARM_SUBSYSTEM, () -> -operatorController.getLeftY());
