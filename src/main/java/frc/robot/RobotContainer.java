@@ -45,7 +45,8 @@ public class RobotContainer {
     () -> -driverController.getLeftX(),
     () -> -driverController.getRightX(),
     () -> driverController.getLeftTriggerAxis() > .8,
-    true
+    true,
+    () -> driverController.getLeftTriggerAxis()
   );
   private final IntakeCommand intakecommand = new IntakeCommand(
     INTAKE_SUBSYSTEM,
