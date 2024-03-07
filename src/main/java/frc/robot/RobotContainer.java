@@ -48,16 +48,19 @@ public class RobotContainer {
     true,
     () -> driverController.getLeftTriggerAxis()
   );
+  
   private final IntakeCommand intakecommand = new IntakeCommand(
     INTAKE_SUBSYSTEM,
     () -> operatorController.getLeftTriggerAxis(),
     () -> operatorController.leftBumper().getAsBoolean()
   );
+
   private final ShooterCommand shootercommand = new ShooterCommand(
     SHOOTER_SUBSYSTEM,
     () -> operatorController.getRightTriggerAxis(),
-    () -> operatorController.rightBumper().getAsBoolean()
+    () -> operatorController.leftBumper().getAsBoolean()
   );
+
   private final ArmCommand armCommand = new ArmCommand(ARM_SUBSYSTEM, () -> -operatorController.getLeftY());
   //private final Command testShooterAndIntake = Commands.parallel(intakecommand, shootercommand);
   private final TestDrivingMotors testDrivingMotors = new TestDrivingMotors(DRIVETRAIN_SUBSYSTEM);
