@@ -131,7 +131,6 @@ public class SwerveModule {
     TURNING_PID_CONTROLLER.setReference(state.angle.getRadians(), CANSparkMax.ControlType.kPosition);
 
     desiredState = state;
-    SmartDashboard.putString(name + ":", state.toString());
   }
 
   public void stop() {

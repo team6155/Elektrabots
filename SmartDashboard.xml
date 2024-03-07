@@ -1,12 +1,13 @@
 <xml version="1.0">
 <dashboard>
-	<widget field="Desaturated speeds" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="20"/>
-	</widget>
-	<widget field="Desired speeds" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="0"/>
-	</widget>
 </dashboard>
 <live-window>
 </live-window>
+	<hidden field="Rear Left:"/>
+	<hidden field="Rear Right:"/>
+	<hidden field="Desaturated speeds"/>
+	<hidden field="Encoder"/>
+	<hidden field="Front Right:"/>
+	<hidden field="Front Left:"/>
+	<hidden field="Desired speeds"/>
 </xml>
