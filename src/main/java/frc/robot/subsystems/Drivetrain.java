@@ -5,9 +5,12 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.util.WPIUtilJNI;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
@@ -60,11 +63,24 @@ public class Drivetrain extends SubsystemBase {
     DriveConstants.REAR_RIGHT_ANGULAR_OFFSET,
     "Rear Right"
   );
+
+  // Odometry class for tracking robot pose
+  SwerveDriveOdometry m_odometry;
   
   
   /** Creates a new Drivetrain. */
   public Drivetrain(ADXRS450_Gyro gyro) {
     GYRO = gyro;
+    m_odometry = new SwerveDriveOdometry(
+      DriveConstants.DRIVE_KINEMATICS,
+      Rotation2d.fromDegrees(GYRO.getAngle()),
+      new SwerveModulePosition[] {
+        FRONT_LEFT.getPosition(),
+        FRONT_RIGHT.getPosition(),
+        REAR_LEFT.getPosition(),
+        REAR_RIGHT.getPosition()
+      }
+    );
   }
 
   /**
@@ -144,6 +160,10 @@ public class Drivetrain extends SubsystemBase {
     REAR_RIGHT.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)), true);;
   }
 
+  public void setModuleStates(SwerveModuleState[] desiredStates) {
+    setModuleStates(desiredStates, true);
+  }
+  
   public void setModuleStates(SwerveModuleState[] desiredStates, boolean optimize) {
     SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, DriveConstants.MAX_SPEED_METERS_PER_SECOND);
     FRONT_LEFT.setDesiredState(desiredStates[0], optimize);
@@ -171,5 +191,46 @@ public class Drivetrain extends SubsystemBase {
     FRONT_RIGHT.testRotation();
     REAR_LEFT.testRotation();
     REAR_RIGHT.testRotation();
+  }
+
+  @Override
+  public void periodic() {
+    // Update the odometry in the periodic block
+    m_odometry.update(
+      Rotation2d.fromDegrees(GYRO.getAngle()),
+      new SwerveModulePosition[] {
+        FRONT_LEFT.getPosition(),
+        FRONT_RIGHT.getPosition(),
+        REAR_LEFT.getPosition(),
+        REAR_RIGHT.getPosition()
+      }
+    );
+  }
+
+  /**
+   * Returns the currently-estimated pose of the robot.
+   *
+   * @return The pose.
+   */
+  public Pose2d getPose() {
+    return m_odometry.getPoseMeters();
+  }
+
+  /**
+   * Resets the odometry to the specified pose.
+   *
+   * @param pose The pose to which to set the odometry.
+   */
+  public void resetOdometry(Pose2d pose) {
+    m_odometry.resetPosition(
+      Rotation2d.fromDegrees(GYRO.getAngle()),
+      new SwerveModulePosition[] {
+        FRONT_LEFT.getPosition(),
+        FRONT_RIGHT.getPosition(),
+        REAR_LEFT.getPosition(),
+        REAR_RIGHT.getPosition()
+      },
+      pose
+    );
   }
 }
