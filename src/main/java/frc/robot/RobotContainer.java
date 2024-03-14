@@ -28,6 +28,7 @@ import frc.robot.commands.ResetGyro;
 import frc.robot.commands.ShooterCommand;
 import frc.robot.commands.TeleOpDrive;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Camera;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -51,6 +52,7 @@ public class RobotContainer {
   private final Intake INTAKE_SUBSYSTEM = new Intake();
   private final Shooter SHOOTER_SUBSYSTEM = new Shooter();
   private final Arm ARM_SUBSYSTEM = new Arm();
+  private final Camera CAMERA = new Camera();
 
   // The robot's commands
   private final TeleOpDrive DRIVE_COMMAND = new TeleOpDrive(

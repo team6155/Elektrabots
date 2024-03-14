@@ -1,13 +1,24 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Constrained Speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="322"/>
+	</widget>
+	<widget field="Gyro" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="40"/>
+	</widget>
+	<widget field="Arm Speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="20"/>
+	</widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
+		<location x="152" y="8"/>
+		<width>420</width>
+		<height>313</height>
+		<property name="Camera Choice" value="Main Camera"/>
+	</static-widget>
+	<widget field="Encoder" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="0"/>
+	</widget>
 </dashboard>
 <live-window>
 </live-window>
-	<hidden field="Rear Left:"/>
-	<hidden field="Rear Right:"/>
-	<hidden field="Desaturated speeds"/>
-	<hidden field="Encoder"/>
-	<hidden field="Front Right:"/>
-	<hidden field="Front Left:"/>
-	<hidden field="Desired speeds"/>
 </xml>
