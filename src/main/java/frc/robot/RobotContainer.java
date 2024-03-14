@@ -24,6 +24,7 @@ import frc.robot.Constants.AutonomousConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.ArmCommand;
 import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.ResetGyro;
 import frc.robot.commands.ShooterCommand;
 import frc.robot.commands.TeleOpDrive;
 import frc.robot.subsystems.Arm;
@@ -78,7 +79,8 @@ public class RobotContainer {
   //private final Command testShooterAndIntake = Commands.parallel(intakecommand, shootercommand);
   private final TestDrivingMotors testDrivingMotors = new TestDrivingMotors(DRIVETRAIN_SUBSYSTEM);
   private final TestRotationMotors testRotationMotors = new TestRotationMotors(DRIVETRAIN_SUBSYSTEM);
-  private final Command testDrivetrain = testDrivingMotors.andThen(testRotationMotors);
+  //private final Command testDrivetrain = testDrivingMotors.andThen(testRotationMotors);
+  private final ResetGyro resetGyroCommand = new ResetGyro(GYRO);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -121,8 +123,8 @@ public class RobotContainer {
         new Pose2d(0, 0, new Rotation2d(0)),
         // Empty list of "in-between" points for the robot to pass through.
         List.of(),
-        // End 1 meter straight ahead of where we started, facing forward
-        new Pose2d(1, 0, new Rotation2d(0)),
+        // End 2 meter straight ahead of where we started, facing forward
+        new Pose2d(2, 0, new Rotation2d(0)),
         config);
 
     var thetaController = new ProfiledPIDController(
@@ -145,7 +147,7 @@ public class RobotContainer {
     DRIVETRAIN_SUBSYSTEM.resetOdometry(exampleTrajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
-    return swerveControllerCommand.andThen(() -> DRIVETRAIN_SUBSYSTEM.drive(0, 0, 0, false, false));
+    return resetGyroCommand.andThen(swerveControllerCommand.andThen(() -> DRIVETRAIN_SUBSYSTEM.drive(0, 0, 0, false, false)));
   }
 
   public void resetGyro() {
