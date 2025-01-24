@@ -10,13 +10,19 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Camera extends SubsystemBase {
-  private final UsbCamera CAMERA;
+  private final UsbCamera INTAKE_CAMERA;
+  private final UsbCamera SHOOTER_CAMERA;
 
   /** Creates a new Camera. */
   public Camera() {
-    CAMERA = CameraServer.startAutomaticCapture("Main Camera", Constants.CAMERA_CHANNEL);
-    CAMERA.setResolution(320, 240);
-    CAMERA.setFPS(15);
+    INTAKE_CAMERA = CameraServer.startAutomaticCapture("Intake Camera", Constants.INTAKE_CAMERA_CHANNEL);
+    INTAKE_CAMERA.setResolution(320, 240);
+    INTAKE_CAMERA.setFPS(15);
+
+    SHOOTER_CAMERA = CameraServer.startAutomaticCapture("Shooter Camera", Constants.SHOOTER_CAMERA_CHANNEL);
+    SHOOTER_CAMERA.setResolution(320, 240);
+    SHOOTER_CAMERA.setFPS(15);
+  
   }
 
   @Override

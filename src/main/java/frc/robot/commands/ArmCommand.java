@@ -12,12 +12,18 @@ import frc.robot.subsystems.Arm;
 public class ArmCommand extends Command {
   private final double limit = 1;
   private final Supplier<Double> speed ;
+  private final Supplier<Boolean> upOverride;
+  private final Supplier<Boolean> downOverride;
+  private final Supplier<Boolean> overide ;
   private final Arm arm ;
   /** Creates a new ClimberCommand. */
-  public ArmCommand(Arm arm, Supplier<Double> speed) {
+  public ArmCommand(Arm arm, Supplier<Double> speed, Supplier<Boolean> upOverride, Supplier<Boolean> downOverride, Supplier<Boolean> overide) {
     addRequirements(arm);
     this.speed = speed ;
     this.arm = arm ;
+    this.overide = overide ;
+    this.upOverride = upOverride;
+    this.downOverride = downOverride;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -28,13 +34,26 @@ public class ArmCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    arm.run(speed.get()*limit);
+    if (overide.get()) {
+      if (upOverride.get()) {
+        arm.run(.2, false);
+      }
+      else if (downOverride.get()) {
+        arm.run(-.2, false);
+      }
+      else {
+        arm.run(0, false);
+      }
+    }
+    else {
+      arm.run(speed.get()*limit, true);
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    arm.run(0);
+    arm.run(0, false);
   }
 
   // Returns true when the command should end.

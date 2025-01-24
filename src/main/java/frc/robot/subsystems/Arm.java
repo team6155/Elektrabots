@@ -18,35 +18,43 @@ public class Arm extends SubsystemBase {
   CANSparkMax leftMotor ;
   CANSparkMax rightMotor; 
   private final RelativeEncoder encoder; 
-  private final double min = -1;
-  private final double max = -1; //TODO: figure out what this value actually is
-  private final double threshold = -1;
-  private final boolean constrain = false;
+  private final double min = -15;
+  private final double max = 185;
+  private final double threshold = (max - min) * .25;
+  private final double offset = 180;
   
   /** Creates a new Climber. */
   public Arm() {
     leftMotor = new CANSparkMax(ArmConstants.LEFT_MOTOR_CHANNEL, MotorType.kBrushless);
     rightMotor = new CANSparkMax(ArmConstants.RIGHT_MOTOR_CHANNEL, MotorType.kBrushless);
     rightMotor.setInverted(true);
+    leftMotor.setInverted(false);
+    rightMotor.setSmartCurrentLimit(40);
+    leftMotor.setSmartCurrentLimit(40);
     encoder = leftMotor.getEncoder();
   }
 
-  public void run (double speed){
-    double current = encoder.getPosition();
+  public void run (double speed, boolean constrain){
+    double constrainedSpeed = speed;
+    double current = getOffsetEncoder();
     if (constrain ){
-      if (current > max - threshold){
-        speed *= (max - current)/threshold;
+      if (current > (max - threshold) && speed > 0){
+        constrainedSpeed *= (max - current)/threshold;
       }
-      if (current < min + threshold){
-        speed *= (current - min)/threshold;
+      if (current < (min + threshold) && speed < 0){
+        constrainedSpeed *= (current - min)/threshold;
       }
     }
-    leftMotor.set(speed);
-    rightMotor.set(speed);
+    leftMotor.set(constrainedSpeed);
+    rightMotor.set(constrainedSpeed);
+  }
+
+  private double getOffsetEncoder() {
+    return encoder.getPosition() + offset;
   }
   
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Encoder", encoder.getPosition());
+    //SmartDashboard.putNumber("Encoder", getOffsetEncoder());
   }
 }

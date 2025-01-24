@@ -50,20 +50,22 @@ public class TeleOpDrive extends Command {
     double xSpeed = X_SPEED_INPUT.get() * DriveConstants.SPEED_RATIO;
     double ySpeed = Y_SPEED_INPUT.get() * DriveConstants.SPEED_RATIO;
     double turningSpeed = TURNING_SPEED_INPUT.get() * DriveConstants.SPEED_RATIO;
+    double brake = leftTrigger.get();
 
     xSpeed = Math.abs(xSpeed) > InputConstants.DEADBAND ? xSpeed : 0;
     ySpeed = Math.abs(ySpeed) > InputConstants.DEADBAND ? ySpeed : 0;
     turningSpeed = Math.abs(turningSpeed) > InputConstants.DEADBAND ? turningSpeed : 0;
-    if (leftTrigger.get() < 1 )
+    if (brake < 1 )
     { 
-      DRIVETRAIN.drive(xSpeed*1-leftTrigger.get(), ySpeed*1-leftTrigger.get(), turningSpeed*1-leftTrigger.get(), FIELD_ORIENTED.get(), rateLimit);
+      xSpeed *= 1 - brake;
+      ySpeed *= 1 - brake;
+      turningSpeed *= 1 - brake;
+      DRIVETRAIN.drive(xSpeed, ySpeed, turningSpeed, FIELD_ORIENTED.get(), rateLimit);
     }
     if (leftTrigger.get() ==1)
     {
       DRIVETRAIN.brake();
     }
-
-    DRIVETRAIN.drive(xSpeed, ySpeed, turningSpeed, FIELD_ORIENTED.get(), rateLimit);
   }
 
   public void brake(){

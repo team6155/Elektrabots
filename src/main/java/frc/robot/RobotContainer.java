@@ -34,6 +34,7 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 /**
@@ -60,7 +61,7 @@ public class RobotContainer {
     () -> -driverController.getLeftY(),
     () -> -driverController.getLeftX(),
     () -> -driverController.getRightX(),
-    () -> driverController.getLeftTriggerAxis() > .8,
+    () -> (driverController.rightTrigger(.8).getAsBoolean()),
     true,
     () -> driverController.getLeftTriggerAxis()
   );
@@ -77,7 +78,14 @@ public class RobotContainer {
     () -> operatorController.leftBumper().getAsBoolean()
   );
 
-  private final ArmCommand armCommand = new ArmCommand(ARM_SUBSYSTEM, () -> -operatorController.getLeftY());
+  private final ArmCommand armCommand = new ArmCommand(
+    ARM_SUBSYSTEM, 
+    () -> -operatorController.getLeftY(), 
+    () -> operatorController.povUp().getAsBoolean(), 
+    () -> operatorController.povDown().getAsBoolean(),
+    () -> operatorController.a().getAsBoolean()
+  );
+
   //private final Command testShooterAndIntake = Commands.parallel(intakecommand, shootercommand);
   private final TestDrivingMotors testDrivingMotors = new TestDrivingMotors(DRIVETRAIN_SUBSYSTEM);
   private final TestRotationMotors testRotationMotors = new TestRotationMotors(DRIVETRAIN_SUBSYSTEM);
@@ -112,44 +120,45 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+    return new ShooterCommand(SHOOTER_SUBSYSTEM, () -> 1.0, () -> false).alongWith(new ArmCommand(ARM_SUBSYSTEM, () -> -.6, () -> false, () -> false, () -> false).withTimeout(1.8), new WaitCommand(2.0).andThen(new IntakeCommand(INTAKE_SUBSYSTEM, () -> 1.0, () -> false)));
     // Create config for trajectory
-    TrajectoryConfig config = new TrajectoryConfig(
-        AutonomousConstants.kMaxSpeedMetersPerSecond,
-        AutonomousConstants.kMaxAccelerationMetersPerSecondSquared)
-        // Add kinematics to ensure max speed is actually obeyed
-        .setKinematics(DriveConstants.DRIVE_KINEMATICS);
+    // TrajectoryConfig config = new TrajectoryConfig(
+    //     AutonomousConstants.kMaxSpeedMetersPerSecond,
+    //     AutonomousConstants.kMaxAccelerationMetersPerSecondSquared)
+    //     // Add kinematics to ensure max speed is actually obeyed
+    //     .setKinematics(DriveConstants.DRIVE_KINEMATICS);
 
-    // An example trajectory to follow. All units in meters.
-    Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
-        // Start at the origin facing the +X direction
-        new Pose2d(0, 0, new Rotation2d(0)),
-        // Empty list of "in-between" points for the robot to pass through.
-        List.of(),
-        // End 2 meter straight ahead of where we started, facing forward
-        new Pose2d(2, 0, new Rotation2d(0)),
-        config);
+    // // An example trajectory to follow. All units in meters.
+    // Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
+    //     // Start at the origin facing the +X direction
+    //     new Pose2d(0, 0, new Rotation2d(0)),
+    //     // Empty list of "in-between" points for the robot to pass through.
+    //     List.of(),
+    //     // End 2 meter straight ahead of where we started, facing forward
+    //     new Pose2d(2, 0, new Rotation2d(0)),
+    //     config);
 
-    var thetaController = new ProfiledPIDController(
-        AutonomousConstants.kPThetaController, 0, 0, AutonomousConstants.kThetaControllerConstraints);
-    thetaController.enableContinuousInput(-Math.PI, Math.PI);
+    // var thetaController = new ProfiledPIDController(
+    //     AutonomousConstants.kPThetaController, 0, 0, AutonomousConstants.kThetaControllerConstraints);
+    // thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
-    SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
-        exampleTrajectory,
-        DRIVETRAIN_SUBSYSTEM::getPose, // Functional interface to feed supplier
-        DriveConstants.DRIVE_KINEMATICS,
+    // SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
+    //     exampleTrajectory,
+    //     DRIVETRAIN_SUBSYSTEM::getPose, // Functional interface to feed supplier
+    //     DriveConstants.DRIVE_KINEMATICS,
 
-        // Position controllers
-        new PIDController(AutonomousConstants.kPXController, 0, 0),
-        new PIDController(AutonomousConstants.kPYController, 0, 0),
-        thetaController,
-        DRIVETRAIN_SUBSYSTEM::setModuleStates,
-        DRIVETRAIN_SUBSYSTEM);
+    //     // Position controllers
+    //     new PIDController(AutonomousConstants.kPXController, 0, 0),
+    //     new PIDController(AutonomousConstants.kPYController, 0, 0),
+    //     thetaController,
+    //     DRIVETRAIN_SUBSYSTEM::setModuleStates,
+    //     DRIVETRAIN_SUBSYSTEM);
 
-    // Reset odometry to the starting pose of the trajectory.
-    DRIVETRAIN_SUBSYSTEM.resetOdometry(exampleTrajectory.getInitialPose());
+    // // Reset odometry to the starting pose of the trajectory.
+    // DRIVETRAIN_SUBSYSTEM.resetOdometry(exampleTrajectory.getInitialPose());
 
-    // Run path following command, then stop at the end.
-    return resetGyroCommand.andThen(swerveControllerCommand.andThen(() -> DRIVETRAIN_SUBSYSTEM.drive(0, 0, 0, false, false)));
+    // // Run path following command, then stop at the end.
+    // return resetGyroCommand.andThen(swerveControllerCommand.andThen(() -> DRIVETRAIN_SUBSYSTEM.drive(0, 0, 0, false, false)));
   }
 
   public void resetGyro() {
