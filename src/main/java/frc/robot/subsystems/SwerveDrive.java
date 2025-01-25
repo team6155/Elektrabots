@@ -4,11 +4,41 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.SwerveModuleConstants;
 
 public class SwerveDrive extends SubsystemBase {
-  /** Creates a new SwerveDrive. */
-  public SwerveDrive() {}
+  private SwerveModule frwheel;
+  private SwerveModule flwheel;
+  private SwerveModule brwheel;
+  private SwerveModule blwheel;
+
+  public SwerveDrive() {
+    frwheel = new SwerveModule(SwerveModuleConstants.FrmotorTurn, SwerveModuleConstants.FrmotorDrive);
+    flwheel = new SwerveModule(SwerveModuleConstants.FlmotorTurn, SwerveModuleConstants.FlmotorDrive);
+    brwheel = new SwerveModule(SwerveModuleConstants.BrmotorTurn, SwerveModuleConstants.BrmotorDrive);
+    blwheel = new SwerveModule(SwerveModuleConstants.BlmotorTurn, SwerveModuleConstants.BlmotorDrive);
+  }
+
+  public void setModuleStates(SwerveModuleState[] states){
+    frwheel.run(states[0]);
+    flwheel.run(states[1]);
+    brwheel.run(states[2]);
+    blwheel.run(states[3]);
+  }
+
+  public void Drive(double xSpeed, double ySpeed, double rotation){
+    // TODO: convert speeds from decimal to meters per second and radians per second
+    var states = SwerveModuleConstants.driveKinematics.toSwerveModuleStates(
+      new ChassisSpeeds(xSpeed, ySpeed, rotation)
+    );
+    setModuleStates(states);
+  }
 
   @Override
   public void periodic() {
