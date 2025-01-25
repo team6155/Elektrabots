@@ -16,4 +16,23 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+  public static class HangerConstants{
+    public static final int motorID = -1 ;
+  }
+  public static class IntakeConstants{
+    public static final int motorID = -1;
+  }
+  public static class ElevatorConstants{
+    public static final int motorID = -1;
+  }
+  public static class SwerveModuleConstants{
+    public static final int FlmotorTurn = -1;
+    public static final int FlmotorDrive = -1;
+    public static final int FrmotorTurn = -1;
+    public static final int FrmotorDrive = -1;
+    public static final int BlmotorTurn = -1;
+    public static final int BlmotorDrive= -1;
+    public static final int BrmotorTurn = -1;
+    public static final int BrmotorDrive = -1;
+  }
 }

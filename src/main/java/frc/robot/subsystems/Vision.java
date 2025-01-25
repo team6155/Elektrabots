@@ -4,23 +4,12 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.SparkMax;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.IntakeConstants;
 
-public class Intake extends SubsystemBase {
-  private SparkMax motor;
+public class Vision extends SubsystemBase {
+  /** Creates a new Vision. */
+  public Vision() {}
 
-  public Intake() {
-    motor= new SparkMax(IntakeConstants.motorID, MotorType.kBrushless);
-  }
-
-  public void run(double speed){
-    motor.set(speed);
-  }
-  
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
