@@ -11,7 +11,10 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
 
+import frc.robot.configs;
 import frc.robot.Constants.SwerveModuleConstants;
 
 /** Add your docs here. */
@@ -26,6 +29,8 @@ public class SwerveModule {
     motorDrive = new SparkMax(DrivemotorID, MotorType.kBrushless);
     driveController = motorDrive.getClosedLoopController();
     turnController = motorTurn.getClosedLoopController();
+    motorDrive.configure(configs.drivingConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    motorTurn.configure(configs.turningConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
   
   public void run(SwerveModuleState state){

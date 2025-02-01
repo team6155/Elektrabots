@@ -41,6 +41,17 @@ public final class Constants {
     public static final SwerveDriveKinematics driveKinematics = new SwerveDriveKinematics(
       null, null, null, null
     );
+    public static final double drivetrainWidth = 0.5969; //meters
+    public static final double drivetrainLength = 0.7239; //meters
+    public static final int kDrivingMotorPinionTeeth = 13;
+    public static final double kFreeSpeedRpm =5676;
+    public static final double kDrivingMotorFreeSpeedRps = kFreeSpeedRpm / 60 ;
+    public static final double kWheelDiameterMeters = 0.0762;
+    public static final double kWheelCircumferenceMeters = kWheelDiameterMeters * Math.PI;
+    public static final double kDrivingMotorReduction = (45.0*22) / (kDrivingMotorPinionTeeth*15);
+    public static final double kDriveWheelFreeSpeedRps = (kDrivingMotorFreeSpeedRps * kWheelCircumferenceMeters);
+    public static final double kMaxSpeedMetersPerSecond = 4.8;
+    public static final double kMaxAngularSpeed = 2 * Math.PI;
   }
 
 }
