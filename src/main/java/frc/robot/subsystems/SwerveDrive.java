@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -34,10 +35,20 @@ public class SwerveDrive extends SubsystemBase {
 
   public void Drive(double xSpeed, double ySpeed, double rotation){
     // TODO: convert speeds from decimal to meters per second and radians per second
+    xSpeed*= SwerveModuleConstants.kMaxSpeedMetersPerSecond;
+    ySpeed*= SwerveModuleConstants.kMaxSpeedMetersPerSecond;
+    rotation*= SwerveModuleConstants.kMaxAngularSpeed;
     var states = SwerveModuleConstants.driveKinematics.toSwerveModuleStates(
       new ChassisSpeeds(xSpeed, ySpeed, rotation)
     );
     setModuleStates(states);
+  }
+
+  public void brake(){
+    flwheel.run(new SwerveModuleState(0,Rotation2d.fromDegrees(45)));
+    frwheel.run(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
+    blwheel.run( new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
+    brwheel.run(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
   }
 
   @Override
