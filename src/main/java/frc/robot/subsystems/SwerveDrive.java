@@ -20,10 +20,26 @@ public class SwerveDrive extends SubsystemBase {
   private SwerveModule blwheel;
 
   public SwerveDrive() {
-    frwheel = new SwerveModule(SwerveModuleConstants.FrmotorTurn, SwerveModuleConstants.FrmotorDrive);
-    flwheel = new SwerveModule(SwerveModuleConstants.FlmotorTurn, SwerveModuleConstants.FlmotorDrive);
-    brwheel = new SwerveModule(SwerveModuleConstants.BrmotorTurn, SwerveModuleConstants.BrmotorDrive);
-    blwheel = new SwerveModule(SwerveModuleConstants.BlmotorTurn, SwerveModuleConstants.BlmotorDrive);
+    frwheel = new SwerveModule(
+        SwerveModuleConstants.FrmotorTurn, 
+        SwerveModuleConstants.FrmotorDrive,
+        SwerveModuleConstants.kFrontRightChassisAngularOffset
+    );
+    flwheel = new SwerveModule(
+        SwerveModuleConstants.FlmotorTurn, 
+        SwerveModuleConstants.FlmotorDrive,
+        SwerveModuleConstants.kFrontLeftChassisAngularOffset
+    );
+    brwheel = new SwerveModule(
+        SwerveModuleConstants.BrmotorTurn,
+        SwerveModuleConstants.BrmotorDrive,
+        SwerveModuleConstants.kBackRightChassisAngularOffset
+    );
+    blwheel = new SwerveModule(
+        SwerveModuleConstants.BlmotorTurn, 
+        SwerveModuleConstants.BlmotorDrive,
+        SwerveModuleConstants.kBackLeftChassisAngularOffset
+    );
   }
 
   public void setModuleStates(SwerveModuleState[] states){
