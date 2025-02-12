@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 
 /**
@@ -38,11 +39,14 @@ public final class Constants {
     public static final int BrmotorTurn = -1;
     public static final int BrmotorDrive = -1;
     //TODO: get wheel measurements
-    public static final SwerveDriveKinematics driveKinematics = new SwerveDriveKinematics(
-      null, null, null, null
-    );
     public static final double drivetrainWidth = 0.5969; //meters
     public static final double drivetrainLength = 0.7239; //meters
+    public static final SwerveDriveKinematics driveKinematics = new SwerveDriveKinematics(
+      new Translation2d(drivetrainWidth/2, drivetrainLength/2),
+      new Translation2d(-drivetrainWidth/2,drivetrainLength/2),
+      new Translation2d(drivetrainWidth/2,-drivetrainLength/2),
+      new Translation2d(-drivetrainWidth/2,-drivetrainLength/2)
+    );
     public static final int kDrivingMotorPinionTeeth = 13;
     public static final double kFreeSpeedRpm =5676;
     public static final double kDrivingMotorFreeSpeedRps = kFreeSpeedRpm / 60 ;
