@@ -21,6 +21,10 @@ public class Hanger extends SubsystemBase {
     motor.set(speed);
   }
 
+  public void run(double downSpeed, double upSpeed){
+    run(downSpeed-upSpeed);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

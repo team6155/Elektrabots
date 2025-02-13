@@ -65,21 +65,28 @@ public class RobotContainer {
         )
       )
     );
-   
+    hanger.setDefaultCommand(
+      new RunCommand(
+        () -> hanger.run(
+          m_driverController.getLeftTriggerAxis(),
+          m_driverController.getRightTriggerAxis()
+        )
+      )
+    );
     elevator.setDefaultCommand(
       new RunCommand(
-      () ->  elevator.run(
-        m_operatorController.getLeftY()
+        () ->  elevator.run(
+          m_operatorController.getLeftY()
+        )
       )
-    )
-  );
+    );
     intake.setDefaultCommand(
       new RunCommand(
-      () -> intake.run(
-        m_operatorController.getRightY()
+        () -> intake.run(
+          m_operatorController.getRightY()
+        )
       )
-    )
-  );
+    );
   }
 
   /**
