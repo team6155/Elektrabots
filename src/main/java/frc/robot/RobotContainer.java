@@ -7,7 +7,10 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Hanger;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.SwerveDrive;
 import frc.robot.subsystems.Vision;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -25,25 +28,25 @@ public class RobotContainer {
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final SwerveDrive swerveDrive;
+  private final Elevator elevator;
+  private final Intake intake;
+  private final Hanger hanger;
   private final Vision m_Limelight = new Vision();
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort
   );
-
+  private final CommandXboxController m_operatorController =
+    new CommandXboxController(OperatorConstants.kOperatorControllerPort
+    );
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    swerveDrive = new SwerveDrive();
+    elevator = new Elevator();
+    intake = new Intake();
+    hanger = new Hanger();
     // Configure the trigger bindings
     configureBindings();
-    swerveDrive = new SwerveDrive();
-    swerveDrive.setDefaultCommand(
-      new RunCommand(
-        () -> swerveDrive.Drive(
-          m_driverController.getLeftX(), 
-          m_driverController.getLeftY(), 
-          m_driverController.getRightX()
-        )
-      )
-    );
+    
   }
 
   /**
@@ -56,7 +59,30 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-
+    swerveDrive.setDefaultCommand(
+      new RunCommand(
+        () -> swerveDrive.Drive(
+          m_driverController.getLeftX(), 
+          m_driverController.getLeftY(), 
+          m_driverController.getRightX()
+        )
+      )
+    );
+   
+    elevator.setDefaultCommand(
+      new RunCommand(
+      () ->  elevator.run(
+        m_operatorController.getLeftY()
+      )
+    )
+  );
+    intake.setDefaultCommand(
+      new RunCommand(
+      () -> intake.run(
+        m_operatorController.getRightY()
+      )
+    )
+  );
   }
 
   /**
