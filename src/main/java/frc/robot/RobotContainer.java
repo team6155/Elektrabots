@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.Seektarget;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Hanger;
 import frc.robot.subsystems.Intake;
@@ -28,6 +29,7 @@ public class RobotContainer {
   private final Elevator elevator;
   private final Intake intake;
   private final Hanger hanger;
+  private final Seektarget seekTarget;
   private final Vision m_Limelight = new Vision();
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort
@@ -41,6 +43,7 @@ public class RobotContainer {
     elevator = new Elevator();
     intake = new Intake();
     hanger = new Hanger();
+    seekTarget = new Seektarget(m_Limelight, swerveDrive);
     // Configure the trigger bindings
     configureBindings();
     
@@ -96,6 +99,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return null;
+    return seekTarget;
   }
 }
