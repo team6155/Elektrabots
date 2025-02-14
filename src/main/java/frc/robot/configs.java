@@ -14,6 +14,7 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 
 /** Add your docs here. */
 public class configs {
+    public static final SparkMaxConfig elevatorConfig = new SparkMaxConfig();
     public static final SparkMaxConfig drivingConfig = new SparkMaxConfig();
     public static final SparkMaxConfig turningConfig = new SparkMaxConfig(); 
     static{
@@ -21,6 +22,8 @@ public class configs {
                 / SwerveModuleConstants.kDrivingMotorReduction;
         double turningFactor = 2 * Math.PI;
         double drivingVelocityFeedForward = 1 / SwerveModuleConstants.kDriveWheelFreeSpeedRps;
+       double elevatorFactor = 0;
+
         drivingConfig
             .idleMode(IdleMode.kBrake)
             .smartCurrentLimit(50);
@@ -46,5 +49,16 @@ public class configs {
             .outputRange(-1, 1)
             .positionWrappingEnabled(true)
             .positionWrappingInputRange(0, turningFactor);
+
+        elevatorConfig
+            .idleMode(IdleMode.kBrake)
+            .smartCurrentLimit(50);//TODO; check limit
+        elevatorConfig.encoder
+            .positionConversionFactor(elevatorFactor)
+            .velocityConversionFactor(elevatorFactor / 60.0);
+        elevatorConfig.closedLoop
+            .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+            .pid(0.04, 0, 0)
+            .outputRange(-1, 1);
     }
 }
