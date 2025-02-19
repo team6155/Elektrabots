@@ -30,8 +30,13 @@ public class Vision extends SubsystemBase {
     VecBuilder.fill(.05, .05, Units.degreesToRadians(5)),
     VecBuilder.fill(.5, .5, Units.degreesToRadians(30))
   );
+
   /** Creates a new Vision. */
   public Vision() {
+  }
+
+  public boolean foundAprilTag(){
+    return LimelightHelpers.getTargetCount("") > 0;
   }
 
   @Override

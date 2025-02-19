@@ -63,5 +63,10 @@ public final class Constants {
     public static final double kBackLeftChassisAngularOffset = Math.PI;
     public static final double kBackRightChassisAngularOffset = Math.PI / 2;
   }
-
+  public static class VisionConstants{
+    public static final double limelightHeight = 0; //distance from center of the lense to the floor
+    public static final double limelightAngle = 0; //degrees rotated from perfectly vertical
+    
+  }
 }
+
