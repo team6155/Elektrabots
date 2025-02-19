@@ -55,7 +55,7 @@ public class SwerveDrive extends SubsystemBase {
     ySpeed*= SwerveModuleConstants.kMaxSpeedMetersPerSecond;
     rotation*= SwerveModuleConstants.kMaxAngularSpeed;
     var states = SwerveModuleConstants.driveKinematics.toSwerveModuleStates(
-      new ChassisSpeeds(xSpeed, ySpeed, rotation)
+      new ChassisSpeeds(ySpeed, xSpeed, rotation)
     );
     setModuleStates(states);
   }
