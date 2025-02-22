@@ -24,6 +24,7 @@ public class configs {
                 / SwerveModuleConstants.kDrivingMotorReduction;
         double turningFactor = 2 * Math.PI;
         double drivingVelocityFeedForward = 1 / SwerveModuleConstants.kDriveWheelFreeSpeedRps;
+        //TODO: set factors
         double elevatorFactor = 0; //meters
         double intakeFactor = 0; //radians
         double hangerFactor = 0; //radians
@@ -41,7 +42,7 @@ public class configs {
             .outputRange(-1, 1);
 
         turningConfig
-            .idleMode(IdleMode.kBrake)
+            .idleMode(IdleMode.kBrake) // stopping if not recieving inputs
             .smartCurrentLimit(20);
         turningConfig.absoluteEncoder
             .inverted(true)

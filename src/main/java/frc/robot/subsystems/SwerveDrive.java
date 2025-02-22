@@ -43,10 +43,10 @@ public class SwerveDrive extends SubsystemBase {
   }
 
   public void setModuleStates(SwerveModuleState[] states){
-    frwheel.run(states[0]);
-    flwheel.run(states[1]);
-    brwheel.run(states[2]);
-    blwheel.run(states[3]);
+    flwheel.run(states[0]);
+    frwheel.run(states[1]);
+    blwheel.run(states[2]);
+    brwheel.run(states[3]);
   }
 
   public void Drive(double xSpeed, double ySpeed, double rotation){

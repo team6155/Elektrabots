@@ -44,8 +44,8 @@ public final class Constants {
     public static final double drivetrainLength = 0.7239; //meters
     public static final SwerveDriveKinematics driveKinematics = new SwerveDriveKinematics(
       new Translation2d(drivetrainWidth/2, drivetrainLength/2),
-      new Translation2d(-drivetrainWidth/2,drivetrainLength/2),
       new Translation2d(drivetrainWidth/2,-drivetrainLength/2),
+      new Translation2d(-drivetrainWidth/2,drivetrainLength/2),
       new Translation2d(-drivetrainWidth/2,-drivetrainLength/2)
     );
     public static final int kDrivingMotorPinionTeeth = 13;
