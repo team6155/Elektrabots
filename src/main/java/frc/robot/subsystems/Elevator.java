@@ -12,6 +12,7 @@ import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.configs;
 import frc.robot.Constants.ElevatorConstants;
@@ -45,7 +46,11 @@ public class Elevator extends SubsystemBase {
       }
     }
     PIDcontroller.setReference(speed, ControlType.kVelocity);
+  }
 
+  public void set(double height){
+    height = MathUtil.clamp(height, lowerLimit, upperLimit);
+    PIDcontroller.setReference(height, ControlType.kPosition);
   }
 
   @Override
