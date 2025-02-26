@@ -12,6 +12,7 @@ import frc.robot.subsystems.Hanger;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.SwerveDrive;
 import frc.robot.subsystems.Vision;
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -63,9 +64,9 @@ public class RobotContainer {
     swerveDrive.setDefaultCommand(
       new RunCommand(
         () -> swerveDrive.Drive(
-          m_driverController.getLeftX(), 
-          m_driverController.getLeftY(), 
-          m_driverController.getRightX()
+          MathUtil.applyDeadband(m_driverController.getLeftX(), OperatorConstants.deadbandValue), 
+          MathUtil.applyDeadband(m_driverController.getLeftY(), OperatorConstants.deadbandValue), 
+          MathUtil.applyDeadband(m_driverController.getRightX(), OperatorConstants.deadbandValue)
         )
       )
     );
