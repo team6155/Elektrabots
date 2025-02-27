@@ -22,24 +22,24 @@ public final class Constants {
     public static final double deadbandValue = .05;
   }
   public static class HangerConstants{
-    public static final int motorID = -1 ;
+    public static final int motorID = 9;
   }
   public static class IntakeConstants{
-    public static final int motorID = -1;
+    public static final int motorID = 10;
   }
   public static class ElevatorConstants{
-    public static final int motorID = -1;
+    public static final int motorID = 11;
   }
   public static class SwerveModuleConstants{
     //TODO: set canIDS 
-    public static final int FlmotorTurn = -1;
-    public static final int FlmotorDrive = -1;
-    public static final int FrmotorTurn = -1;
-    public static final int FrmotorDrive = -1;
-    public static final int BlmotorTurn = -1;
-    public static final int BlmotorDrive= -1;
-    public static final int BrmotorTurn = -1;
-    public static final int BrmotorDrive = -1;
+    public static final int FlmotorTurn = 2;
+    public static final int FlmotorDrive = 1;
+    public static final int FrmotorTurn = 8;
+    public static final int FrmotorDrive = 7;
+    public static final int BlmotorTurn = 4;
+    public static final int BlmotorDrive= 3;
+    public static final int BrmotorTurn = 6;
+    public static final int BrmotorDrive = 5;
     //TODO: get wheel measurements
     public static final double drivetrainWidth = 0.5969; //meters
     public static final double drivetrainLength = 0.7239; //meters
