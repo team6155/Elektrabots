@@ -12,6 +12,7 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.HangerConstants;
 import frc.robot.configs;
@@ -48,8 +49,16 @@ public class Hanger extends SubsystemBase {
   }
 
   public void run(double downSpeed, double upSpeed){
-    
     run(downSpeed-upSpeed);
+  }
+
+  public void set(double angle){
+    angle = MathUtil.clamp(angle, lowerLimit, upperLimit);
+    PIDcontroller.setReference(angle, ControlType.kPosition);
+  }
+
+  public double getAngle(){
+    return encoder.getPosition();
   }
 
   @Override

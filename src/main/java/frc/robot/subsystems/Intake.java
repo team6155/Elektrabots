@@ -12,6 +12,7 @@ import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.configs;
@@ -46,6 +47,15 @@ public class Intake extends SubsystemBase {
     }
     PIDcontroller.setReference(speed, ControlType.kVelocity);
     
+  }
+
+  public void set(double angle){
+    angle = MathUtil.clamp(angle, lowerLimit, upperLimit);
+    PIDcontroller.setReference(angle, ControlType.kPosition);
+  }
+
+  public double getAngle(){
+    return encoder.getPosition();
   }
   
   @Override
