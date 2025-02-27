@@ -13,6 +13,7 @@ import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.configs;
 import frc.robot.Constants.ElevatorConstants;
@@ -36,13 +37,13 @@ public class Elevator extends SubsystemBase {
 
   public void run (double speed){
     if(speed > 0){
-      if (encoder.getPosition() > (upperLimit - ((upperLimit - lowerLimit)*threshold))){
-        speed*=(upperLimit-encoder.getPosition())/((upperLimit - lowerLimit)*threshold);
+      if (getHeight() > (upperLimit - ((upperLimit - lowerLimit)*threshold))){
+        speed*=(upperLimit-getHeight())/((upperLimit - lowerLimit)*threshold);
       }
     }
     if(speed<0){
-      if (encoder.getPosition() < (lowerLimit + ((upperLimit-lowerLimit)*threshold))){
-        speed*=(encoder.getPosition()-lowerLimit)/((upperLimit - lowerLimit)*threshold) ;
+      if (getHeight() < (lowerLimit + ((upperLimit-lowerLimit)*threshold))){
+        speed*=(getHeight()-lowerLimit)/((upperLimit - lowerLimit)*threshold) ;
       }
     }
     PIDcontroller.setReference(speed, ControlType.kVelocity);
@@ -51,6 +52,9 @@ public class Elevator extends SubsystemBase {
   public void set(double height){
     height = MathUtil.clamp(height, lowerLimit, upperLimit);
     PIDcontroller.setReference(height, ControlType.kPosition);
+  }
+  public double getHeight(){
+    return encoder.getPosition();
   }
 
   @Override
