@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 
 import com.revrobotics.spark.SparkClosedLoopController;
@@ -49,5 +50,13 @@ public class SwerveModule {
     state.optimize(new Rotation2d(turningEncoder.getPosition()));
     driveController.setReference(state.speedMetersPerSecond, ControlType.kVelocity);
     turnController.setReference(state.angle.getRadians(), ControlType.kPosition);
+  }
+
+  public Rotation2d getAngle(){
+    return Rotation2d.fromRadians(turningEncoder.getPosition()+chassisAngularOffset);
+  }
+
+  public SwerveModulePosition getModulePosition(){
+    return new SwerveModulePosition(drivingEncoder.getPosition(), getAngle());
   }
 }

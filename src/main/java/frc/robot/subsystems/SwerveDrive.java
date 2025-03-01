@@ -7,9 +7,13 @@ package frc.robot.subsystems;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.SwerveModuleConstants;
 
@@ -18,8 +22,10 @@ public class SwerveDrive extends SubsystemBase {
   private SwerveModule flwheel;
   private SwerveModule brwheel;
   private SwerveModule blwheel;
+  private SwerveDrivePoseEstimator poseEstimator;
+  private ADXRS450_Gyro gyro;
 
-  public SwerveDrive() {
+  public SwerveDrive(SwerveDrivePoseEstimator poseEstimator) {
     frwheel = new SwerveModule(
         SwerveModuleConstants.FrmotorTurn, 
         SwerveModuleConstants.FrmotorDrive,
@@ -40,6 +46,14 @@ public class SwerveDrive extends SubsystemBase {
         SwerveModuleConstants.BlmotorDrive,
         SwerveModuleConstants.kBackLeftChassisAngularOffset
     );
+    this.poseEstimator = poseEstimator;
+    SwerveModulePosition[] positions = {
+      frwheel.getModulePosition(),
+      flwheel.getModulePosition(),
+      brwheel.getModulePosition(),
+      blwheel.getModulePosition()
+    };
+    poseEstimator.resetPosition(gyro.getRotation2d(), positions , new Pose2d(7.5,4,new Rotation2d()));
   }
 
   public void setModuleStates(SwerveModuleState[] states){
@@ -67,8 +81,18 @@ public class SwerveDrive extends SubsystemBase {
     brwheel.run(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
   }
 
+  private SwerveModulePosition[] getModulePositions(){
+    SwerveModulePosition[] positions = {
+      frwheel.getModulePosition(),
+      flwheel.getModulePosition(),
+      brwheel.getModulePosition(),
+      blwheel.getModulePosition()
+    };
+    return positions;
+  }
+    
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    poseEstimator.update(gyro.getRotation2d(), getModulePositions());
   }
 }

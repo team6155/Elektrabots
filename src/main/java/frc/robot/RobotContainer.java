@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.Constants.SwerveModuleConstants;
 import frc.robot.commands.Drivetarget;
 import frc.robot.commands.Seektarget;
 import frc.robot.subsystems.Elevator;
@@ -13,6 +14,12 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.SwerveDrive;
 import frc.robot.subsystems.Vision;
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -32,23 +39,42 @@ public class RobotContainer {
   private final Intake intake;
   private final Hanger hanger;
   private final Seektarget seekTarget;
-  private final Vision m_Limelight = new Vision();
+  private final Vision m_Limelight;
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort
   );
   private final CommandXboxController m_operatorController =
     new CommandXboxController(OperatorConstants.kOperatorControllerPort
     );
+  private final SwerveDrivePoseEstimator poseEstimator;
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    swerveDrive = new SwerveDrive();
+    poseEstimator = new SwerveDrivePoseEstimator(
+      SwerveModuleConstants.driveKinematics,
+      new Rotation2d(),
+      new SwerveModulePosition[] {
+        new SwerveModulePosition(),
+        new SwerveModulePosition(),
+        new SwerveModulePosition(),
+        new SwerveModulePosition()
+      },
+      new Pose2d(),
+      VecBuilder.fill(.05, .05, Units.degreesToRadians(5)),
+      VecBuilder.fill(.7, .7, 9999999)
+    );
+
+    swerveDrive = new SwerveDrive(poseEstimator);
     elevator = new Elevator();
     intake = new Intake();
     hanger = new Hanger();
+    m_Limelight = new Vision(poseEstimator);
+
+    
     seekTarget = new Seektarget(m_Limelight, swerveDrive);
+
     // Configure the trigger bindings
     configureBindings();
-    
   }
 
   /**

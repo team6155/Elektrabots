@@ -17,22 +17,10 @@ import frc.robot.Constants.SwerveModuleConstants;
 import frc.robot.LimelightHelpers.PoseEstimate;
 
 public class Vision extends SubsystemBase {
-  private final SwerveDrivePoseEstimator poseEstimator = new SwerveDrivePoseEstimator(
-    SwerveModuleConstants.driveKinematics,
-    new Rotation2d(),
-    new SwerveModulePosition[] {
-      new SwerveModulePosition(),
-      new SwerveModulePosition(),
-      new SwerveModulePosition(),
-      new SwerveModulePosition()
-    },
-    new Pose2d(),
-    VecBuilder.fill(.05, .05, Units.degreesToRadians(5)),
-    VecBuilder.fill(.5, .5, Units.degreesToRadians(30))
-  );
-
+  private final SwerveDrivePoseEstimator poseEstimator;
   /** Creates a new Vision. */
-  public Vision() {
+  public Vision(SwerveDrivePoseEstimator poseEstimator) {
+    this.poseEstimator = poseEstimator;
   }
 
   public boolean foundAprilTag(){
@@ -50,10 +38,10 @@ public class Vision extends SubsystemBase {
     LimelightHelpers.PoseEstimate megaTag = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("");
 
     if(megaTag.tagCount > 0){
-      poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7, .7, 9999999));
       poseEstimator.addVisionMeasurement(megaTag.pose,megaTag.timestampSeconds);
     }  
     SmartDashboard.putNumber("poseX", poseEstimator.getEstimatedPosition().getX());
     SmartDashboard.putNumber("poseY", poseEstimator.getEstimatedPosition().getY());
   }
 }
+
