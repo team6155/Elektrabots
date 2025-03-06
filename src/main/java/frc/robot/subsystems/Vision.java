@@ -4,23 +4,28 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.kinematics.SwerveModulePosition;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
-import frc.robot.Constants.SwerveModuleConstants;
-import frc.robot.LimelightHelpers.PoseEstimate;
+import frc.robot.Constants.VisionConstants;
 
 public class Vision extends SubsystemBase {
   private final SwerveDrivePoseEstimator poseEstimator;
+  private final UsbCamera coralCamera;
+  private final UsbCamera hangerCamera;
+
   /** Creates a new Vision. */
   public Vision(SwerveDrivePoseEstimator poseEstimator) {
     this.poseEstimator = poseEstimator;
+    coralCamera = CameraServer.startAutomaticCapture("Coral Camera", VisionConstants.coralCamera);
+    coralCamera.setResolution(320, 240);
+    coralCamera.setFPS(15);
+    hangerCamera = CameraServer.startAutomaticCapture("Hanger Camera", VisionConstants.hangerCamera);
+    hangerCamera.setResolution(320, 240);
+    hangerCamera.setFPS(15);
   }
 
   public boolean foundAprilTag(){

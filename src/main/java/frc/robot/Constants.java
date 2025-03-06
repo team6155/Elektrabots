@@ -19,28 +19,38 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
     public static final int kOperatorControllerPort= 1;
-    public static final double deadbandValue = .05;
+    public static final double deadbandValue = .01;
   }
   public static class HangerConstants{
     public static final int motorID = 9;
+    public static final double lowerLimit= .333;
+    public static final double upperLimit = Math.PI;
+    public static final double threshold = .1;
   }
   public static class IntakeConstants{
     public static final int motorID = 10;
+    public static final double lowerLimit = .11;
+    public static final double upperLimit = Math.PI;
+    public static final double threshold = .1;
   }
   public static class ElevatorConstants{
     public static final int motorID = 11;
+    public static final double lowerLimit= 0.9;
+    public static final double upperLimit = 2;
+    public static final double threshold = .1;
+    public static final double[] stages = {0, .7, 1.3, 2};
+    public static final int topLimitSwitch = 0;
+    public static final int bottomLimitSwitch = 1;
   }
   public static class SwerveModuleConstants{
-    //TODO: set canIDS 
-    public static final int FlmotorTurn = 2;
-    public static final int FlmotorDrive = 1;
-    public static final int FrmotorTurn = 8;
-    public static final int FrmotorDrive = 7;
-    public static final int BlmotorTurn = 4;
-    public static final int BlmotorDrive= 3;
-    public static final int BrmotorTurn = 6;
-    public static final int BrmotorDrive = 5;
-    //TODO: get wheel measurements
+    public static final int FlmotorTurn = 1;
+    public static final int FlmotorDrive = 2;
+    public static final int FrmotorTurn = 7;
+    public static final int FrmotorDrive = 8;
+    public static final int BlmotorTurn = 3;
+    public static final int BlmotorDrive= 4;
+    public static final int BrmotorTurn = 5;
+    public static final int BrmotorDrive = 6;
     public static final double drivetrainWidth = 0.5969; //meters
     public static final double drivetrainLength = 0.7239; //meters
     public static final SwerveDriveKinematics driveKinematics = new SwerveDriveKinematics(
@@ -67,7 +77,8 @@ public final class Constants {
   public static class VisionConstants{
     public static final double limelightHeight = 0; //distance from center of the lense to the floor
     public static final double limelightAngle = 0; //degrees rotated from perfectly vertical
-    
+    public static final int coralCamera = 0;
+    public static final int hangerCamera = 1;
   }
 }
 

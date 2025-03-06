@@ -19,7 +19,6 @@ import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 
 import frc.robot.configs;
-import frc.robot.Constants.SwerveModuleConstants;
 
 /** Add your docs here. */
 public class SwerveModule {
@@ -40,13 +39,14 @@ public class SwerveModule {
     turnController = motorTurn.getClosedLoopController();
     motorDrive.configure(configs.drivingConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     motorTurn.configure(configs.turningConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    
 
     this.chassisAngularOffset = chassisAngularOffset ;
     drivingEncoder.setPosition(0);
   }
   
   public void run(SwerveModuleState state){
-    state.angle.plus(Rotation2d.fromRadians(chassisAngularOffset));
+    state.angle = state.angle.plus(Rotation2d.fromRadians(chassisAngularOffset));
     state.optimize(new Rotation2d(turningEncoder.getPosition()));
     driveController.setReference(state.speedMetersPerSecond, ControlType.kVelocity);
     turnController.setReference(state.angle.getRadians(), ControlType.kPosition);

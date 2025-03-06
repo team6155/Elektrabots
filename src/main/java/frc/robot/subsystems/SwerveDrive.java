@@ -4,9 +4,6 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
-
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -14,6 +11,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.SwerveModuleConstants;
 
@@ -46,6 +44,7 @@ public class SwerveDrive extends SubsystemBase {
         SwerveModuleConstants.BlmotorDrive,
         SwerveModuleConstants.kBackLeftChassisAngularOffset
     );
+    gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
     this.poseEstimator = poseEstimator;
     SwerveModulePosition[] positions = {
       frwheel.getModulePosition(),
@@ -64,10 +63,9 @@ public class SwerveDrive extends SubsystemBase {
   }
 
   public void Drive(double xSpeed, double ySpeed, double rotation){
-    // TODO: convert speeds from decimal to meters per second and radians per second
-    xSpeed*= SwerveModuleConstants.kMaxSpeedMetersPerSecond;
+    xSpeed*= -SwerveModuleConstants.kMaxSpeedMetersPerSecond;
     ySpeed*= SwerveModuleConstants.kMaxSpeedMetersPerSecond;
-    rotation*= SwerveModuleConstants.kMaxAngularSpeed;
+    rotation*= -SwerveModuleConstants.kMaxAngularSpeed;
     var states = SwerveModuleConstants.driveKinematics.toSwerveModuleStates(
       new ChassisSpeeds(ySpeed, xSpeed, rotation)
     );

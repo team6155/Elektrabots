@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
@@ -13,7 +14,8 @@ import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.configs;
 import frc.robot.Constants.ElevatorConstants;
@@ -21,10 +23,10 @@ import frc.robot.Constants.ElevatorConstants;
 public class Elevator extends SubsystemBase {
   private SparkMax motor;
   private RelativeEncoder encoder;
-  private SparkClosedLoopController PIDcontroller; 
-  private double lowerLimit= -1;
-  private double upperLimit = 1;
-  private double threshold = .1;
+  private SparkClosedLoopController PIDcontroller;
+  private int curStage = 0;
+  private DigitalInput topLimitSwitch;
+  private DigitalInput bottomLimitSwitch;
 
   /** Creates a new Elevator. */
   public Elevator() {
@@ -32,33 +34,46 @@ public class Elevator extends SubsystemBase {
     encoder = motor.getEncoder();
     PIDcontroller = motor.getClosedLoopController();
     motor.configure(configs.elevatorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    encoder.setPosition(0);
+    topLimitSwitch = new DigitalInput(ElevatorConstants.topLimitSwitch);
+    bottomLimitSwitch = new DigitalInput(ElevatorConstants.bottomLimitSwitch);
+    encoder.setPosition(.90);
   }
 
   public void run (double speed){
     if(speed > 0){
-      if (getHeight() > (upperLimit - ((upperLimit - lowerLimit)*threshold))){
-        speed*=(upperLimit-getHeight())/((upperLimit - lowerLimit)*threshold);
+      if (getHeight() > (ElevatorConstants.upperLimit - ((ElevatorConstants.upperLimit - ElevatorConstants.lowerLimit)*ElevatorConstants.threshold))){
+        speed*=(ElevatorConstants.upperLimit-getHeight())/((ElevatorConstants.upperLimit - ElevatorConstants.lowerLimit)*ElevatorConstants.threshold);
       }
     }
     if(speed<0){
-      if (getHeight() < (lowerLimit + ((upperLimit-lowerLimit)*threshold))){
-        speed*=(getHeight()-lowerLimit)/((upperLimit - lowerLimit)*threshold) ;
+      if (getHeight() < (ElevatorConstants.lowerLimit + ((ElevatorConstants.upperLimit-ElevatorConstants.lowerLimit)*ElevatorConstants.threshold))){
+        speed*=(getHeight()-ElevatorConstants.lowerLimit)/((ElevatorConstants.upperLimit - ElevatorConstants.lowerLimit)*ElevatorConstants.threshold) ;
       }
     }
     PIDcontroller.setReference(speed, ControlType.kVelocity);
   }
 
   public void set(double height){
-    height = MathUtil.clamp(height, lowerLimit, upperLimit);
+    height = MathUtil.clamp(height, ElevatorConstants.lowerLimit, ElevatorConstants.upperLimit);
     PIDcontroller.setReference(height, ControlType.kPosition);
   }
   public double getHeight(){
     return encoder.getPosition();
   }
 
+  public int changeStage(boolean increasing){
+    if (increasing){
+      curStage = Math.min(curStage + 1, 3);
+    }
+    else{
+      curStage = Math.max(curStage - 1, 0);
+    }
+    return curStage;
+  }
+
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("Elevator Height", encoder.getPosition());
     // This method will be called once per scheduler run
   }
 }

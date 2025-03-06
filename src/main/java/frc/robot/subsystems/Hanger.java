@@ -5,7 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.RelativeEncoder;
+import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -13,36 +13,32 @@ import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.HangerConstants;
 import frc.robot.configs;
 
 public class Hanger extends SubsystemBase {
   private SparkMax motor;
-  private RelativeEncoder encoder;
+  private AbsoluteEncoder encoder;
   private SparkClosedLoopController PIDcontroller;
-  private double lowerLimit= -1;
-  private double upperLimit = 1;
-  private double threshold = .1;
-
   
   public Hanger() {
     motor = new SparkMax(HangerConstants.motorID, MotorType.kBrushless);
-    encoder = motor.getEncoder();
+    encoder = motor.getAbsoluteEncoder();
     PIDcontroller = motor.getClosedLoopController();
     motor.configure(configs.hangerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    encoder.setPosition(0);
   }
 
   public void run(double speed){
     if(speed > 0){
-      if (encoder.getPosition() > (upperLimit - ((upperLimit - lowerLimit)*threshold))){
-        speed*=(upperLimit-encoder.getPosition())/((upperLimit - lowerLimit)*threshold);
+      if (encoder.getPosition() > (HangerConstants.upperLimit - ((HangerConstants.upperLimit - HangerConstants.lowerLimit)*HangerConstants.threshold))){
+        speed*=(HangerConstants.upperLimit-encoder.getPosition())/((HangerConstants.upperLimit - HangerConstants.lowerLimit)*HangerConstants.threshold);
       }
     }
     if(speed<0){
-      if (encoder.getPosition() < (lowerLimit + ((upperLimit-lowerLimit)*threshold))){
-        speed*=(encoder.getPosition()-lowerLimit)/((upperLimit - lowerLimit)*threshold) ;
+      if (encoder.getPosition() < (HangerConstants.lowerLimit + ((HangerConstants.upperLimit-HangerConstants.lowerLimit)*HangerConstants.threshold))){
+        speed*=(encoder.getPosition()-HangerConstants.lowerLimit)/((HangerConstants.upperLimit - HangerConstants.lowerLimit)*HangerConstants.threshold) ;
       }
     }
     PIDcontroller.setReference(speed, ControlType.kVelocity);
@@ -53,7 +49,7 @@ public class Hanger extends SubsystemBase {
   }
 
   public void set(double angle){
-    angle = MathUtil.clamp(angle, lowerLimit, upperLimit);
+    angle = MathUtil.clamp(angle, HangerConstants.lowerLimit, HangerConstants.upperLimit);
     PIDcontroller.setReference(angle, ControlType.kPosition);
   }
 
@@ -63,6 +59,7 @@ public class Hanger extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("Hanger Angle", encoder.getPosition());
     // This method will be called once per scheduler run
   }
 }

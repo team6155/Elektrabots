@@ -8,8 +8,6 @@ import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import frc.robot.Constants.SwerveModuleConstants;
-import frc.robot.subsystems.SwerveModule;
-
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 /** Add your docs here. */
@@ -25,9 +23,9 @@ public class configs {
         double turningFactor = 2 * Math.PI;
         double drivingVelocityFeedForward = 1 / SwerveModuleConstants.kDriveWheelFreeSpeedRps;
         //TODO: set factors
-        double elevatorFactor = 0; //meters
-        double intakeFactor = 0; //radians
-        double hangerFactor = 0; //radians
+        double elevatorFactor = .003666; //meters
+        double intakeFactor = 4.133675; //radians
+        double hangerFactor = 6.54498; //radians
 
         drivingConfig
             .idleMode(IdleMode.kBrake)
@@ -57,35 +55,44 @@ public class configs {
 
         elevatorConfig
             .idleMode(IdleMode.kBrake)
-            .smartCurrentLimit(50);//TODO; check limit
+            .smartCurrentLimit(50);
         elevatorConfig.encoder
             .positionConversionFactor(elevatorFactor)
             .velocityConversionFactor(elevatorFactor / 60.0);
         elevatorConfig.closedLoop
             .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-            .pid(0.04, 0, 0)
-            .outputRange(-1, 1);
+            .pid(0.75, 0, 0)
+            .velocityFF(drivingVelocityFeedForward)
+            .outputRange(-1, 1)
+            .positionWrappingEnabled(false)
+            .positionWrappingInputRange(0, turningFactor);
 
         intakeConfig
             .idleMode(IdleMode.kBrake)
             .smartCurrentLimit(50);
-        intakeConfig.encoder
+        intakeConfig.absoluteEncoder
             .positionConversionFactor(intakeFactor)
             .velocityConversionFactor(intakeFactor/ 60.0);
         intakeConfig.closedLoop
-            .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-            .pid(.04,0,0)
-            .outputRange(-1, 1);
+            .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
+            .pid(.4,0,0)
+            .velocityFF(drivingVelocityFeedForward)
+            .outputRange(-1, 1)
+            .positionWrappingEnabled(false)
+            .positionWrappingInputRange(0, turningFactor);
 
         hangerConfig
             .idleMode(IdleMode.kBrake)
             .smartCurrentLimit(50);
-        hangerConfig.encoder
+        hangerConfig.absoluteEncoder
             .positionConversionFactor(hangerFactor)
             .velocityConversionFactor(hangerFactor/ 60.0);
         hangerConfig.closedLoop
-            .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-            .pid(.04,0,0)
-            .outputRange(-1, 1);
+            .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
+            .pid(.4,0,0)
+            .velocityFF(drivingVelocityFeedForward)
+            .outputRange(-1, 1)
+            .positionWrappingEnabled(false)
+            .positionWrappingInputRange(0, turningFactor);
     }
 }

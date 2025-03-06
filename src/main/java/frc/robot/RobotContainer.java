@@ -6,8 +6,9 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.SwerveModuleConstants;
-import frc.robot.commands.Drivetarget;
 import frc.robot.commands.Seektarget;
+import frc.robot.commands.SetIntake;
+import frc.robot.commands.SetStage;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Hanger;
 import frc.robot.subsystems.Intake;
@@ -39,6 +40,10 @@ public class RobotContainer {
   private final Intake intake;
   private final Hanger hanger;
   private final Seektarget seekTarget;
+  private final SetStage increaseStage;
+  private final SetStage decreaseStage;
+  private final SetIntake goingUp;
+  private final SetIntake goingDown;
   private final Vision m_Limelight;
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort
@@ -72,6 +77,10 @@ public class RobotContainer {
 
     
     seekTarget = new Seektarget(m_Limelight, swerveDrive);
+    increaseStage = new SetStage(elevator, true);
+    decreaseStage = new SetStage(elevator, false);
+    goingUp = new SetIntake(intake, Rotation2d.fromDegrees(110).getRadians());
+    goingDown= new SetIntake(intake, Rotation2d.fromDegrees(70).getRadians());
 
     // Configure the trigger bindings
     configureBindings();
@@ -91,33 +100,37 @@ public class RobotContainer {
       new RunCommand(
         () -> swerveDrive.Drive(
           MathUtil.applyDeadband(m_driverController.getLeftX(), OperatorConstants.deadbandValue), 
-          MathUtil.applyDeadband(m_driverController.getLeftY(), OperatorConstants.deadbandValue), 
+          MathUtil.applyDeadband(-m_driverController.getLeftY(), OperatorConstants.deadbandValue), 
           MathUtil.applyDeadband(m_driverController.getRightX(), OperatorConstants.deadbandValue)
-        )
+        ), swerveDrive
       )
     );
     hanger.setDefaultCommand(
       new RunCommand(
         () -> hanger.run(
-          m_driverController.getLeftTriggerAxis(),
-          m_driverController.getRightTriggerAxis()
-        )
+          MathUtil.applyDeadband(m_driverController.getLeftTriggerAxis(), OperatorConstants.deadbandValue),
+          MathUtil.applyDeadband(m_driverController.getRightTriggerAxis(), OperatorConstants.deadbandValue)
+        ), hanger
       )
     );
     elevator.setDefaultCommand(
       new RunCommand(
         () ->  elevator.run(
-          m_operatorController.getLeftY()
-        )
+          MathUtil.applyDeadband(-m_operatorController.getLeftY(), OperatorConstants.deadbandValue)
+        ), elevator
       )
     );
     intake.setDefaultCommand(
       new RunCommand(
         () -> intake.run(
-          m_operatorController.getRightY()
-        )
+          MathUtil.applyDeadband(-m_operatorController.getRightY(), OperatorConstants.deadbandValue)
+        ) , intake
       )
     );
+    m_operatorController.povUp().onTrue(increaseStage);
+    m_operatorController.povDown().onTrue(decreaseStage);
+    m_operatorController.a().onTrue(goingDown);
+    m_operatorController.b().onTrue(goingUp);
   }
 
   /**

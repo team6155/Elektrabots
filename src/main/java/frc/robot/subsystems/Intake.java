@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.RelativeEncoder;
+import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -13,44 +13,40 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.configs;
 
 public class Intake extends SubsystemBase {
   private SparkMax motor;
-  private RelativeEncoder encoder;
+  private AbsoluteEncoder encoder;
   private SparkClosedLoopController PIDcontroller;
-  private double lowerLimit = -1;
-  private double upperLimit = 1;
-  private double threshold = .1;
 
 
   public Intake() {
     motor = new SparkMax(IntakeConstants.motorID, MotorType.kBrushless);
-    encoder = motor.getEncoder();
+    encoder = motor.getAbsoluteEncoder();
     PIDcontroller = motor.getClosedLoopController();
     motor.configure(configs.intakeConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    encoder.setPosition(0);
   }
 
   public void run(double speed){
     if(speed > 0){
-      if (encoder.getPosition() > (upperLimit - ((upperLimit - lowerLimit)*threshold))){
-        speed*=(upperLimit-encoder.getPosition())/((upperLimit - lowerLimit)*threshold);
+      if (encoder.getPosition() > (IntakeConstants.upperLimit - ((IntakeConstants.upperLimit - IntakeConstants.lowerLimit)*IntakeConstants.threshold))){
+        speed*=(IntakeConstants.upperLimit-encoder.getPosition())/((IntakeConstants.upperLimit - IntakeConstants.lowerLimit)*IntakeConstants.threshold);
       }
     }
     if(speed<0){
-      if (encoder.getPosition() < (lowerLimit + ((upperLimit-lowerLimit)*threshold))){
-        speed*=(encoder.getPosition()-lowerLimit)/((upperLimit - lowerLimit)*threshold) ;
+      if (encoder.getPosition() < (IntakeConstants.lowerLimit + ((IntakeConstants.upperLimit-IntakeConstants.lowerLimit)*IntakeConstants.threshold))){
+        speed*=(encoder.getPosition()-IntakeConstants.lowerLimit)/((IntakeConstants.upperLimit - IntakeConstants.lowerLimit)*IntakeConstants.threshold) ;
       }
     }
     PIDcontroller.setReference(speed, ControlType.kVelocity);
-    
   }
 
   public void set(double angle){
-    angle = MathUtil.clamp(angle, lowerLimit, upperLimit);
+    angle = MathUtil.clamp(angle, IntakeConstants.lowerLimit, IntakeConstants.upperLimit);
     PIDcontroller.setReference(angle, ControlType.kPosition);
   }
 
@@ -60,6 +56,7 @@ public class Intake extends SubsystemBase {
   
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("Intake Angle", encoder.getPosition());
     // This method will be called once per scheduler run
   }
 }
